@@ -314,8 +314,10 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     animation: gradient 15s ease infinite;
 }
 
-.hl_contact-details-new--wrap .hl_contact-details-right .hl_contact-details-right-tabs .tab-content .tab-pane {
-    margin-bottom: 100px !important;
+.form-footer.save.space-x-2 {
+    display: flex;
+    position: relative;
+    width: auto;
 }
 
 @keyframes gradient {
