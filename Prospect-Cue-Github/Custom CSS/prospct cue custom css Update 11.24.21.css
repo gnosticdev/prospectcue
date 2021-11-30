@@ -320,6 +320,15 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     width: auto;
 }
 
+/* Cancel Button on Footer Save */
+.hl_contact-details-left button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-gray-300.shadow-sm.text-sm.font-medium.rounded.text-gray-700.hover\:bg-gray-50.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-curious-blue-500, .hl_contact-details-right button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-gray-300.shadow-sm.text-sm.font-medium.rounded.text-gray-700.hover\:bg-gray-50.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-curious-blue-500 {
+    color: white;
+}
+
+.hl_contact-details-left button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-gray-300.shadow-sm.text-sm.font-medium.rounded.text-gray-700.hover\:bg-gray-50.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-curious-blue-500, .hl_contact-details-right button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-gray-300.shadow-sm.text-sm.font-medium.rounded.text-gray-700.hover\:bg-gray-50.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-curious-blue-500:hover{
+    color: gray;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
@@ -336,7 +345,7 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 
 .bg-apple-500 {
     --tw-bg-opacity: 1;
-    background: linear-gradient(90deg, #42e592, #56cda4);
+    background: linear-gradient(90deg, #53ef8f, #6ef1a0);
 }
 
 /* Send button */
