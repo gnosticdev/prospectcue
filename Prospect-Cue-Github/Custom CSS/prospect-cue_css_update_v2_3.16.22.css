@@ -540,8 +540,7 @@ body[data-theme=default-dark-v1] .btn.btn-yellow:hover, .btn.btn-green-dark:hove
 }
 
 .hl_contact-details-right-tabs>ul>li:last-child {
-    margin-right: 0px!important;
-    flex: 1 1 17% !important;
+    margin-right: 20px!important;
 }
 
 .hl_header i.fas.fa-phone:hover {
