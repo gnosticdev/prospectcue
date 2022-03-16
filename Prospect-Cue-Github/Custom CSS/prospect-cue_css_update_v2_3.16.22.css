@@ -526,14 +526,13 @@ body[data-theme=default-dark-v1] .btn.btn-yellow:hover, .btn.btn-green-dark:hove
 }
 
 /* ADD NEW Button for Contact Details Right Tabs */
-#contact-details > div > div.hl_contact-details-right > div > ul > li:nth-child(5) a{
-	border: solid 1px var(--custom-purple);
+	#contact-details > div > div.hl_contact-details-right > div > ul > li:nth-child(5) a{
 	font-size: var(--text-btn-sm);
 	padding: 2px 3px;
 	color: var(--custom-purple) !important;
 	border-radius: 5px;
 	background: #9150f714;
-	flex: 1 1 77px !important;
+
 }
 
 #contact-details > div > div.hl_contact-details-right > div > ul > li:nth-child(5) a > i.fa-plus{
