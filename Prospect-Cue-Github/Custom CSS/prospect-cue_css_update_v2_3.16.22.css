@@ -328,9 +328,14 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 }
 
 .call-dropDown .filter-option-inner-inner {
-    margin-top: -3px;
+    /* margin-top: -3px; */
     font-size: 13px;
 }
+
+.call-dropDown .dropdown button.btn.dropdown-toggle {
+	background: var(--custom-primary);
+}
+
 
 .hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light:hover {
     background: #fff !important;
