@@ -46,19 +46,14 @@
     --new-notification-circle-conversations-background: var(--custome-green);
     --new-notification-circle-conversations-border: 1px solid #67b891;
     --new-notification-circle-conversations-shadow: 0 0 0 0 rgba(62, 172, 119, 0.31);
-	--custom-pink: #f684e9;
+	--custom-pink: rgb(246 132 233);
 }
 
 /* Login Changes New */
+
 .hl_login--header {
 	display:none;
 }
-
-/* Change Login Screen OLD */
-/*
-.hl_login {
-    background: #252525 url(https://firebasestorage.googleapis.com/v0/b/highlevel-backend.appspot.com/o/location%2F5C7ICkOQEkLIEmbxb7v2%2Fimages%2Fe8ead89b-d8ea-4ccc-910a-8570f690b560.png?alt=media) repeat !important;
-} */
 
 .hl_login--body .card .card-body .btn.btn-blue.btn-block {
     background-color: var(--login-button-bg);
@@ -258,6 +253,7 @@ border: 1px solid rgb(0 0 0 / 20%) !im  portant;
 .messages-list--item.active:before {
     background: var(--custom-pink) !important;
     border: var(--custom-pink) !important;
+	box-shadow: 0 0 0 0 rgba(246,132,233,1);
     transform: scale(1);
     animation: pulse-notifications-convo 2s infinite;
     width: 10px !important;
@@ -267,17 +263,17 @@ border: 1px solid rgb(0 0 0 / 20%) !im  portant;
 @keyframes pulse-notifications-convo {
     0% {
         transform: scale(0.95);
-        box-shadow: var(--new-notification-circle-conversations-shadow);
+        box-shadow: rgba(246,132,233,0.7);
     }
 
     70% {
         transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
+        box-shadow: 0 0 0 10px rgba(246,132,233, 0);
     }
 
     100% {
         transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
+        box-shadow: 0 0 0 0 rgba(246,132,233, 0);
     }
 }
 
@@ -1125,7 +1121,7 @@ margin-bottom: 5px;
 
 /* Icons */
 
-i.icon.icon-trash {
+i.icon.icon-trash, .fa-trash-alt:before {
     color: #ef4d4da3;
 }
 
