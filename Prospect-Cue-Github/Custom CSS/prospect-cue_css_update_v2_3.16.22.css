@@ -36,16 +36,6 @@
 	--green-button-hover: linear-gradient(90deg, #53efd6, #6ef1e0);
 	--custom-green: #53ef8f;
 	--new-avatar: #8766ff;
-
-    /* Pulse New Notifications */;
-    --new-notification-circle-topnav-border: 1px solid var(--custom-green);
-    --new-notification-circle-topnav-shadow: 0 0 0 0 rgba(230, 230, 230, 0.7);
-    --new-notification-circle-recent-activities-background: var(--custom-green);
-    --new-notification-circle-recent-activities-border: 1px solid #67b891;
-    --new-notification-circle-recent-activities-shadow: 0 0 0 0 rgba(62, 172, 119, 0.31);
-    --new-notification-circle-conversations-background: var(--custome-green);
-    --new-notification-circle-conversations-border: 1px solid #67b891;
-    --new-notification-circle-conversations-shadow: 0 0 0 0 rgba(62, 172, 119, 0.31);
 	--custom-pink: rgb(246 132 233);
 }
 
