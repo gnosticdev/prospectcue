@@ -349,6 +349,23 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 	color: var(--tab-buttons-active) !important;
 }
 
+/* Calendar Settings */
+.hl_settings--body.calendar-settings button.btn.dropdown-toggle.btn-light:after {
+    color: black;
+}
+
+.hl_settings--body.calendar-settings .filter-option-inner-inner, .hl_settings--body.calendar-settings .filter-option:after {
+    color: black !important;
+}
+
+.hl_settings-body.calendar-settings button.btn.dropdown-toggle.btn-light {
+    border: none;
+}
+
+.hl_settings--body.calendar-settings .step-2 .form-group .bootstrap-select> button.btn.dropdown-toggle.btn-light {
+    border: none !important;
+}
+
 .hl_header .hl_header--picker>.btn.dropdown-toggle:after {
     color: #ffffff !important;
 }
