@@ -562,7 +562,14 @@ body[data-theme=default-dark-v1] .btn.btn-yellow:hover, .btn.btn-green-dark:hove
 }
 
 .hl_contact-details-right-tabs>ul>li:last-child {
-    margin-right: 20px!important;
+    margin-right: 0px !important;
+    white-space: nowrap;
+}
+
+.hl_contact-details-left-tabs>ul>li, .hl_contact-details-right-tabs>ul>li {
+    margin-right: 8px!important;
+    flex: 1;
+    text-align: center;
 }
 
 .hl_header i.fas.fa-phone:hover {
@@ -1099,6 +1106,11 @@ margin-bottom: 5px;
 .nav.nav-tabs .nav-item:not(:last-child) {
     margin-right: 10px;
     margin-bottom: 7px;
+}
+
+.hl_conversations--messages-list .nav-tabs .nav-item {
+    flex: 1;
+    text-align: center;
 }
 
 .topmenu-navtitle {
