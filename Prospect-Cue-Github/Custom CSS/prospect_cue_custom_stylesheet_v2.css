@@ -37,6 +37,7 @@
 	--custom-green: #53ef8f;
 	--new-avatar: #8766ff;
 	--custom-pink: rgb(246 132 233);
+    --btn-text-light: #fff
 }
 
 /* Login Changes New */
@@ -48,7 +49,7 @@
 .hl_login--body .card .card-body .btn.btn-blue.btn-block {
     background-color: var(--login-button-bg);
     font-family: var(--main-font) !important;
-    color: #ffffff !important;
+    color:  var(--btn-text-light) !important;
     font-size: 20px !important;
     text-transform: uppercase;
     background-color: #357DED !important;
@@ -179,17 +180,9 @@ body .hl_login--body * {
 
 /* Form Fields */
 
-.bootstrap-select>.btn.dropdown-toggle {
-border: 1px solid rgb(0 0 0 / 20%) !im  portant;
-}
-
 .form-control {
     font-family: Poppins;
     font-size: 14px;
-    /* background: #fafafa !important;
-    border: 1px solid rgb(0 0 0 / 20%) !important;
-    box-shadow: 0 0px 1px rgb(0 0 0 / 41%), 0 0 4px rgb(0 0 0 / 5%) inset !important;
-    border-radius: .3125rem !important; */
 }
 
 /* End Form Fields */
@@ -297,34 +290,28 @@ border-bottom: 0px solid #000 !important;
 
 /* Buttons */
 
-.btn-success {
-    background-color: #357DED !important;
-    border-color: #357DED !important;
-}
-
 .btn.btn-green-lt {
     border: 2px solid;
 }
 
 body[data-theme=default-dark-v1] .btn.btn-primary {
-    background-color: #357DED;
-    border-color: #357DED
-    color: var(--button-icon-color);
+    background-color: var(--custom-link-color);
+    border-color: var(--custom-link-color)
+    color: var(--btn-text-light);
 }
 
-/* .bootstrap-select>.btn.dropdown-toggle:after {
-    color: #ffffff;
-    padding-left: 0.5em;
-} */
-
-.bootstrap-select>.btn.dropdown-toggle {
-    background: var(--tab-buttons-background);
+.form-group .bootstrap-select>.btn.dropdown-toggle {
+    background: var(--custom-link-color);
     border: 1px solid rgb(0 0 0 / 20%) !important;
-    padding-right: 1.5em;
+    height: 38px
+}
+
+.btn .filter-option-inner-inner {
+    font-family: 'Poppins';
 }
 
 .bootstrap-select>.btn.dropdown-toggle.bs-placeholder .filter-option {
-    color: #ffffff;
+    color: var(--btn-text-light);
 }
 
 .call-dropDown .filter-option-inner-inner {
@@ -333,16 +320,16 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 }
 
 .call-dropDown .dropdown button.btn.dropdown-toggle {
-	background: var(--custom-primary);
+	background: var(--custom-link-color);
 }
 
 /* Calendar Settings */
 .hl_settings--body.calendar-settings button.btn.dropdown-toggle.btn-light:after {
-    color: var(--text-gray-800)
+    color: #fff;
 }
 
 .hl_settings--body.calendar-settings .filter-option-inner-inner, .hl_settings--body.calendar-settings .filter-option:after {
-    color: var(--text-gray-800) !important;
+    color: var(--btn-text-light) !important;
 }
 
 .hl_settings-body.calendar-settings button.btn.dropdown-toggle.btn-light {
@@ -354,11 +341,11 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 }
 
 .hl_header .hl_header--picker>.btn.dropdown-toggle:after {
-    color: #ffffff !important;
+    color: var(--btn-text-light) !important;
 }
 
 .hl_header--picker>.btn.dropdown-toggle .filter-option {
-	color: #ffffff !important;
+	color: var(--btn-text-light) !important;
     font-weight: 500;
 }
 
@@ -660,229 +647,6 @@ padding-right:5px;
     border-radius: 5px;
 }
 
-/* .hl_navbar--toggle {
-    width: 30px !important;
-    height: 40px !important;
-    top: 20px !important;
-    border-bottom-left-radius: 35px !important;
-    border-top-left-radius: 35px !important;
-    right: 0px;
-    box-shadow: inset 0px 0px 1px #00000054;
-    background: #000;
-    color: #E6E6FA !important;
-}
-
-.hl_navbar--toggle:hover {
- color: #fff !important;
-}
-
-.hl_navbar--links>li a .caret {
-    font-size: 12px !important;
-    top: 16px !important;
-    right: 0px !important;
-}
-
-.hl_navbar.shrink .hl_navbar--button {
-    font-size: 0!important;
-    min-width: auto!important;
-    height: 32px !IMPORTANT;
-    width: 32px !important;
-    padding-left: 0!important;
-    padding-right: 0!important;
-    position: relative;
-    background: #ffffff1c !important;
-    margin-top: 15px !important;
-}
-
-
-.hl_navbar--toggle.collapse {
-    width: 32px !important;
-    height: 40px !important;
-    margin: 8px 38px !important;
-    color: #ffffff !important;
-    box-shadow: inset 1px 1px 1px #00000054;
-    background: #dc46ffbd repeat !important;
-    padding-left: 3px !important;
-    transform: translateY(50px);
-}
-
-.hl_navbar--toggle.collapse:hover {
-    color: #000 !important;
-}
-
-.hl_navbar--links>li a i {
-    opacity: 1 !important;
-    -webkit-transform: translateY(2px) !important;
-    transform: translateY(2px) !important;
-    font-size: 16px !important;
-    width: 20px;
-}
-
-.hl_navbar--links>li a:hover {
-    color: #fff !important;
-    font-weight: bold !important;
-}
-
-.hl_navbar--links>li.active>a {
-    color: #ffffff !important;
-    background: linear-gradient(45deg, #7e35ed, #5d63ff)!important;
-    font-weight: bold !important;
-}
-
-.hl_navbar--links>li a {
-    color: #b5d9ff !important;
-    line-height: 120% !important;
-    height: 36px !important;
-}
-
-.hl_navbar--links>li .nav-marketing-links ul li a {
-    color: #000000 !important;
-}
-
-.hl_navbar--links>li .nav-dropdown-links ul, .hl_navbar--links>li .nav-marketing-links ul {
-    padding: 10px 30px !important;
-}
-
-.hl_navbar--links>li .nav-marketing-links ul {
-    background-color: #ffffff !important;
-}
-
-.hl_navbar--links>li a i {
-    margin-top: -6px;
-}
-
-/* Launchpad Align */
-/* .hl_launchpad-progress-container[data-v-0e2f542a] {
-    margin-left: 4px;
-} */
-
-/* Dashboard Link */
-/* #nav-links #nav-dashboard > a > span {
-    font-size:0;
-    margin-left: 0px;
-    margin-top: 7px !important;
-}
-#nav-links #nav-dashboard > a > span:after {
-    font-size:14px;
-    content:'Dashboard';
-}
-#nav-links #nav-dashboard i:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f2a1" !important;
-} */
-
-/* Opportunities -> Pipelines */
-/* #nav-links #nav-appointment-request > a > span {
-    font-size: 0 !important;
-    margin-left: 0px;
-    margin-top: 5px;
-}
-
-#nav-links #nav-appointment-request > a > span:after {
-    font-size:14px;
-    content:'Pipelines'!important;
-}
-
-#nav-links #nav-appointment-request i:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f00a" !important;
-} */
-
-/* Funnels and Websites */
-/* #nav-links #nav-funnels-websites > a > span{
-    font-size:0;
-    margin-left: 0px;
-    margin-top: 5px !important;
-}
-#nav-links #nav-funnels-websites > a > span:after {
-    font-size:14px;
-    content: 'Websites';
-}
-#nav-links > #nav-funnels-websites > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f5fc" !important;
-} */
-
-/* Conversations */
-/* #nav-links #nav-conversations > a > span {
-    font-size:0;
-    margin-top: 4px !important;
-}
-#nav-links #nav-conversations > a > span:after {
-    font-size:14px;
-    content:'Conversations';
-}
-#nav-links #nav-conversations i:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f653" !important;
-} */
-
-/* Marketing */
-/* #nav-links #nav-marketing > a > span{
-    font-size:0;
-    margin-top: 3px !important;
-}
-#nav-links #nav-marketing > a > span:after {
-    font-size:14px;
-    content:'Marketing';
-}
-#nav-links > #nav-marketing > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f674" !important;
-}
-
-/* Reporting */
-/*
-#nav-links #nav-reporting > a > span{
-    font-size:0;
-    margin-top: 3px !important;
-}
-#nav-links #nav-reporting > a > span:after {
-    font-size:14px;
-    content:'Reporting';
-    margin-left: 0px;
-}
-#nav-links > #nav-reporting > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f200" !important;
-} */
-
-/* Scheduling */
-/* #nav-links #nav-appointment > a > span{
-    font-size:0;
-    margin-top: 3px !important;
-}
-#nav-links #nav-appointment > a > span:after {
-    font-size:14px;
-    content:'Scheduling';
-}
-#nav-links > #nav-appointment > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f073" !important;
-} */
-
-/* Reputation */
-/* #nav-links #nav-reviews > a > span{
-    font-size:0;
-    margin-top: 3px !important;
-}
-#nav-links #nav-reviews > a > span:after {
-    font-size:14px;
-    content:'Reputation';
-}
-#nav-links > #nav-reviews > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f118" !important;
-} */
-
 .hl_reviews--filter .bootstrap-select>.btn.dropdown-toggle.bs-placeholder .filter-option {
     color: #fff;
 }
@@ -892,7 +656,7 @@ padding-right:5px;
     font-size: smaller;
 }
 
-.hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option .filter-option-inner .filter-option-inner-inner{
+.hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option .filter-option-inner .filter-option-inner-inner, .hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle:after{
 	color: var(--tab-buttons-active) !important;
 }
 
@@ -906,17 +670,17 @@ padding-right:5px;
 
 /* Dropdown Menu Buttons */
 
-.hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option {
+.hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option-inner-inner {
     color: var(--tab-buttons-active) !important;
     font-family: Poppins;
     text-transform: uppercase;
     font-size: 12px;
-    padding-right: 2em;
 }
 
 .hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle {
     background: var(--tab-buttons-background);
 	border: 1px solid var(--tab-buttons-active) !important;
+    height: 40px;
 }
 
 .hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle::after {
@@ -939,43 +703,6 @@ padding-right:5px;
 	color: var(--tab-buttons-active) !important;
 }
 
-/* Contacts */
-
-
-
-/* #nav-links #nav-customers > a > span{
-    font-size:0;
-    margin-top: 6px !important;
-}
-#nav-links #nav-customers > a > span:after {
-    font-size:14px;
-    content:'Contacts';
-}
-#nav-links > #nav-customers > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f0c0" !important;
-}
-#nav-links #nav-customers > a > span {
-    font-size: 0;
-    margin-left: 0px;
-} */
-
-
-/* Triggers */
-/* #nav-links #nav-triggers > a > span{
-    font-size:0;
-}
-#nav-links #nav-triggers > a > span:after {
-    font-size:14px;
-    content:'Triggers';
-}
-#nav-links > #nav-triggers > a > i:first-child:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900 !important;
-    content:"\f126" !important
-} */
-
 /* Chat Widget */
 #nav-links #nav-chat-widget > a > span{
 
@@ -985,8 +712,6 @@ padding-right:5px;
 .datepicker-container .datepicker-days .datepicker-day.between .datepicker-day-effect[data-v-7043ad7f] {
     background-color: #357ded !important;
 }
-
-
 
 /* Form & Surveys Column */
 .table-header[data-v-43c8a2fe] {
@@ -1002,7 +727,6 @@ padding-right:5px;
 }
 
 /* Reporting Filters */
-
 .hl_analytics--filters {
     background-color: #f2f2f2 !important;
 }
@@ -1175,24 +899,11 @@ i.icon.icon-trash, .fa-trash-alt:before {
 /* Styles From Custom CSS Section of Agency Dashboard */
 
 .hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option {
-    color: #ffffff !important;
+    color: var(--btn-text-light) !important;
     font-family: Poppins;
     text-transform: uppercase;
     font-size: 12px;
 	padding-right: 2em;
-}
-
-.hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle {
-    background-color: var(--tab-buttons-background);
-}
-
-.bootstrap-select>.btn.dropdown-toggle .filter-option {
-    color: #ffffff;
-    top: 2px;
-}
-
-.hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle:after {
-   color: #fff;
 }
 
 .bootstrap-select>.dropdown-menu .inner .dropdown-menu li.active a.active {
@@ -1221,6 +932,10 @@ body[data-theme=default-dark-v1] .btn.btn-yellow {
 
 .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light {
     background: var(--custom-link-color);
+}
+
+.form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light .filter-option-inner-inner, .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light:after {
+    color: var(--btn-text-light);
 }
 
 #add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light .filter-option .filter-option-inner .filter-option-inner-inner, #add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light:after {
