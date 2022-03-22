@@ -593,6 +593,10 @@ body[data-theme=default-dark-v1] .btn.btn-yellow:hover, .btn.btn-green-dark:hove
     padding-right: 1.5em;
 }
 
+#hl_smartlists-main .flex-page-bar{
+   background: #f2f7fa;
+}
+
 .more-select-left>.btn.dropdown-toggle:before{
     color: #868686;
 }
