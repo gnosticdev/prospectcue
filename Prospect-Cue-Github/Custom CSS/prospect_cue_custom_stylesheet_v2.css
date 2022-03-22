@@ -375,6 +375,20 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     font-weight: 500;
 }
 
+/* Integrations Settings */
+.card-integration button.btn.dropdown-toggle.btn-light {
+    height: 38px;
+    background: #fff;
+}
+
+.card-integration .bootstrap-select>button.btn.dropdown-toggle.btn-light::after {
+    color: var(--text-grey-800);
+}
+
+.card-integration .bootstrap-select>.btn.dropdown-toggle .filter-option {
+    top: 0;
+}
+
 .hl_header .filter-option-inner {
     font-family: Poppins !important;
     font-size: 16px !important;
