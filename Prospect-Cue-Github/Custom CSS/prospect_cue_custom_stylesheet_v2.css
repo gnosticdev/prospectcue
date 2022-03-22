@@ -186,10 +186,10 @@ border: 1px solid rgb(0 0 0 / 20%) !im  portant;
 .form-control {
     font-family: Poppins;
     font-size: 14px;
-    background: #fafafa !important;
+    /* background: #fafafa !important;
     border: 1px solid rgb(0 0 0 / 20%) !important;
     box-shadow: 0 0px 1px rgb(0 0 0 / 41%), 0 0 4px rgb(0 0 0 / 5%) inset !important;
-    border-radius: .3125rem !important;
+    border-radius: .3125rem !important; */
 }
 
 /* End Form Fields */
@@ -312,10 +312,10 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     color: var(--button-icon-color);
 }
 
-.bootstrap-select>.btn.dropdown-toggle:after {
+/* .bootstrap-select>.btn.dropdown-toggle:after {
     color: #ffffff;
     padding-left: 0.5em;
-}
+} */
 
 .bootstrap-select>.btn.dropdown-toggle {
     background: var(--tab-buttons-background);
@@ -631,12 +631,19 @@ padding-right:5px;
     border-radius: 0px !important;
     padding-top: 4px !important;
     padding-bottom: 4px !important;
-
 }
 
-.sidebar-v2-location #sidebar-v2 .default-bg-color, .sidebar-v2-location #sidebar-v2.default-bg-color span.text-gray-300.uppercase.pr-3.default-bg-color {
-	color: #e9deff !important;
-	letter-spacing: normal;
+#sidebar-v2 .overflow-hidden {
+    margin-bottom: 12% !important;
+}
+
+.sidebar-v2-location #sidebar-v2.default-bg-color .hl_nav-header-without-footer span.text-gray-300.uppercase.pr-3.default-bg-color {
+    color: white;
+    opacity: 1 !important;
+    letter-spacing: normal;
+    background: #357ded;
+    padding: 2px 0px 2px 5px;
+    border-radius: 2px;
 }
 
 /* Sidebar Nav & Settings Nav Links */
