@@ -947,6 +947,11 @@ body[data-theme=default-dark-v1] .btn.btn-yellow {
     color: #fff;
 }
 
+i.fas.fa-address-card, i.fas.fa-address-card:before {
+    font-size: 20px;
+    color: var(--custom-primary);
+}
+
 .card-integration .bootstrap-select>button.btn.dropdown-toggle.btn-light {
     height: 38px;
     background: var(--custom-link-color);
