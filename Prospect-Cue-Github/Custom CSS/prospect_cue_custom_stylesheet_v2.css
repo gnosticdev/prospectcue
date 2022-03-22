@@ -890,6 +890,11 @@ padding-right:5px;
     color: #fff;
 }
 
+.emulator-component .emulator .emulator__mobile .mobile-structure .mobile-structure__screen .screen-content .sms-content .body[data-v-769026a5] {
+    padding: 9px;
+    font-size: smaller;
+}
+
 .hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option .filter-option-inner .filter-option-inner-inner{
 	color: var(--tab-buttons-active) !important;
 }
