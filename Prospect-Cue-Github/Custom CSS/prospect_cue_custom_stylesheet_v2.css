@@ -651,6 +651,11 @@ padding-right:5px;
     color: #fff;
 }
 
+.sidebar-v2-location .hl_wrapper .hl_reputation {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
 .emulator-component .emulator .emulator__mobile .mobile-structure .mobile-structure__screen .screen-content .sms-content .body[data-v-769026a5] {
     padding: 9px;
     font-size: smaller;
