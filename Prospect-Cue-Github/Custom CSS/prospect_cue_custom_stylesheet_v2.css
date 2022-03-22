@@ -336,19 +336,6 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 	background: var(--custom-primary);
 }
 
-
-.hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light:hover {
-    background: #fff !important;
-}
-
-.hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light .filter-option-inner-inner {
-	color: var(--text-gray-800);
-}
-
-.hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light .filter-option-inner-inner:hover {
-	color: var(--tab-buttons-active) !important;
-}
-
 /* Calendar Settings */
 .hl_settings--body.calendar-settings button.btn.dropdown-toggle.btn-light:after {
     color: var(--text-gray-800)
@@ -376,17 +363,13 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 }
 
 .sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active.divider, .sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover.divider {
-    opacity: 0.9;
+    opacity: 1;
 }
 
 /* Integrations Settings */
 .card-integration button.btn.dropdown-toggle.btn-light {
     height: 38px;
     background: #fff;
-}
-
-.card-integration .bootstrap-select>button.btn.dropdown-toggle.btn-light::after {
-    color: var(--text-grey-800);
 }
 
 .card-integration .bootstrap-select>.btn.dropdown-toggle .filter-option {
@@ -641,14 +624,6 @@ padding-right:5px;
 
 .sidebar-v2-location .hl_settings--body {
     background: var(--bg-color-main) !important;
-}
-
-.sidebar-v2-location #sidebar-v2 .default-bg-color, .sidebar-v2-location #sidebar-v2.default-bg-color {
-    color: white !important;
-    box-shadow: none !important;
-    border-radius: 0px !important;
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
 }
 
 #sidebar-v2 .overflow-hidden {
@@ -1221,11 +1196,6 @@ i.icon.icon-trash, .fa-trash-alt:before {
     color: #fff !important;
 }
 
-#add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light .filter-option .filter-option-inner .filter-option-inner-inner, #add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light:after  {
-    color: var(--settings-btn-bg-active);
-}
-
-
 /* Icons in Upper Right */
 .btn.btn-green-dark {
     border: 2px solid #27ae60;
@@ -1243,4 +1213,30 @@ body[data-theme=default-dark-v1] .btn.btn-yellow {
 .hl_navbar--logo img {
     max-width: 50%;
     height: 80px
+}
+
+.form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light {
+    background: var(--custom-link-color);
+}
+
+#add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light .filter-option .filter-option-inner .filter-option-inner-inner, #add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light:after {
+    color: #fff;
+}
+
+.card-integration .bootstrap-select>button.btn.dropdown-toggle.btn-light {
+    height: 38px;
+    background: var(--custom-link-color);
+    padding: 8px 10px 0px 12px !important;
+}
+
+.card-integration .bootstrap-select>button.btn.dropdown-toggle.btn-light .filter-option .filter-option-inner .filter-option-inner-inner, .card-integration .bootstrap-select>button.btn.dropdown-toggle.btn-light::after{
+    color: #fff;
+}
+
+.modal-body .form-group .bootstrap-select>.dropdown-toggle.btn-light .filter-option-inner-inner, .modal-body .form-group .bootstrap-select>.dropdown-toggle.btn-light::after {
+    color: #fff;
+}
+
+.hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light .filter-option-inner-inner, .hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light::after {
+    color: #fff;
 }
