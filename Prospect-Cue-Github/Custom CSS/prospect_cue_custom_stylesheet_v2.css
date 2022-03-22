@@ -375,6 +375,10 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     font-weight: 500;
 }
 
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active.divider, .sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover.divider {
+    opacity: 0.9;
+}
+
 /* Integrations Settings */
 .card-integration button.btn.dropdown-toggle.btn-light {
     height: 38px;
