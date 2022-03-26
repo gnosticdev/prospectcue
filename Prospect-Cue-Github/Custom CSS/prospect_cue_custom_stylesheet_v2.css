@@ -429,8 +429,9 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
 }
 
 /* Send button */
-button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-transparent.text-sm.font-medium.rounded.shadow-sm.text-white.bg-apple-500.hover\:bg-apple-600.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-apple-500 {
+button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-transparent.text-sm.font-medium.rounded.shadow-sm.text-white.bg-apple-500.hover\:bg-apple-600.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-apple-500, button.hl-btn svg path {
     color: var(--green-button-text) !important;
+    fill: #4b94d3 !important;
 }
 
 /* Send button SVG Icon */
