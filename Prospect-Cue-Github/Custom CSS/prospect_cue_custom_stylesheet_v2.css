@@ -452,10 +452,6 @@ button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-transparent.text-
 	color: var(--custom-purple) !important;
 }
 
-.hl_conversations--message-body .message-box .use-template .icon {
-    font-size: 25px;
-}
-
 .icon-request {
     display: inline-block!important;
     width: 25px;
@@ -464,12 +460,21 @@ button.hl-btn.inline-flex.items-center.px-4.py-2.border.border-transparent.text-
     background-size: 25px 25px;
 }
 
-.hl_conversations--message-body .message-box .use-template {
-    display: inline-block;
-    font-weight: 500;
+#email.tab-pane i.fa.fa-paperclip {
+    font-size: 25px;
     color: var(--custom-link-color);
-    opacity: 0.6;
+}
+
+.hl_conversations--message-body .message-box .use-template, .hl_conversations--message-body #email.tab-pane .use-template {
+    display: inline-block;
+    font-weight: 400;
+    color: var(--custom-link-color);
+    opacity: 1;
     vertical-align: text-top;
+}
+
+.hl_conversations--message-body .message-box .use-template .icon,  .hl_conversations--message-body #email.tab-pane .use-template .icon{
+    font-size: 25px;
 }
 
 .button-holder {
