@@ -341,6 +341,22 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     border: none !important;
 }
 
+.hl_settings--body.calendar-settings button.btn.dropdown-toggle.btn-light, .hl_settings--body.calendar-settings .filter-option:after {
+    background: var(--custom-link-color);
+    border: 1px solid rgb(0 0 0 / 20%) !important;
+    height: 38px;
+}
+
+.hl_settings--body.calendar-settings .bootstrap-select>.btn.dropdown-toggle .filter-option {
+    top: 0;
+    padding: 8px 10px 0px 12px;
+}
+
+.hl_settings--body.calendar-settings .modal-content--service section.section-office-hours .day-of-week-name-box.selected {
+    background: var(--custom-link-color);
+    color: #fff;
+}
+
 .hl_header .hl_header--picker>.btn.dropdown-toggle:after {
     color: var(--btn-text-light) !important;
 }
