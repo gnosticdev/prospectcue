@@ -301,10 +301,10 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     color: var(--btn-text-light);
 }
 
-.form-group .bootstrap-select>.btn.dropdown-toggle {
+.form-group .bootstrap-select>.btn.dropdown-toggle, .hl_form-builder--sidebar .option-card-body .form-group .dropdown.bootstrap-select>.btn.dropdown-toggle.btn-light {
     background: var(--custom-link-color);
     border: 1px solid rgb(0 0 0 / 20%) !important;
-    height: 38px
+    height: 38px;
 }
 
 .btn .filter-option-inner-inner {
