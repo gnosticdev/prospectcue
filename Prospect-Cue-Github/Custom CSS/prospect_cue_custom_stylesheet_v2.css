@@ -357,6 +357,29 @@ body[data-theme=default-dark-v1] .btn.btn-primary {
     color: #fff;
 }
 
+.hl_settings--body.calendar-settings .zoomcontrol button.btn.dropdown-toggle.btn-light {
+    padding: 4px 0 12px 8px;
+    border: 1px solid #cfcfcf;
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.hl_settings--body.calendar-settings .option--member.mb-2.flex.items-center.selected {
+    background: transparent;
+}
+
+.hl_settings--body.calendar-settings .zoomcontrol .bootstrap-select>.btn.dropdown-toggle .filter-option {
+    top: 0px;
+}
+
+.hl_settings--body.calendar-settings .zoomcontrol .btn.dropdown-toggle .filter-option-inner-inner {
+    color: #000 !important;
+}
+
+.hl_settings--body.calendar-settings .section-team-members .location.mx-2 input {
+    border: 1px solid #CFCFD3;
+    border-radius: 5px;
+}
 .hl_header .hl_header--picker>.btn.dropdown-toggle:after {
     color: var(--btn-text-light) !important;
 }
@@ -992,3 +1015,5 @@ i.fas.fa-address-card, i.fas.fa-address-card:before {
 .hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light .filter-option-inner-inner, .hl_settings--main .card-body .form-group .bootstrap-select>.dropdown-toggle.btn-light::after {
     color: #fff;
 }
+
+/* Purge CDN after updates --> https://purge.jsdelivr.net/gh/nynxa/ProspectCue@b2755954e29c648062631d5e708edbb221cbc9c1/Prospect-Cue-Github/Custom%20CSS/prospect_cue_custom_stylesheet_v2.css */
