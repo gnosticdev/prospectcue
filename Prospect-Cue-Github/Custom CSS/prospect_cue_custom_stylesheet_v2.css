@@ -188,6 +188,27 @@ body .hl_login--body * {
 
 /* End Form Fields */
 
+/* Main Containers */
+
+.sidebar-v2-location .hl_wrapper.hl_topbar-tabs {
+    background: #fff;
+}
+
+.hl_settings--body .container-fluid {
+    background-color: #00000000 !important;
+    background: #00000000 !important;
+}
+
+.sidebar-v2-location .hl_settings--body {
+    background: var(--bg-color-main) !important;
+}
+
+.content-container {
+    margin-bottom: 50px;
+}
+
+/* End Main Containers */
+
 /* Dashboard */
 
 #dashboard .hl_tasks-list button.dropdown-toggle {
@@ -274,8 +295,12 @@ body .hl_login--body * {
 }
 
 /* GMB Messaging Preview */
-.gmb-setting .hl_sms-preview-body .sms-preview-body-block .message-wrap .msg-content .message-bubble p[data-v-28962692] {
-    color: #ffffff !important;
+.gmb-setting .hl_sms-preview-body .sms-preview-body-block .message-wrap .msg-content .message-bubble p {
+    color: #fff !important;
+}
+
+.gmb-save-btn.d-flex.justify-content-end.mt-5 {
+    padding: 0 10%;
 }
 
 /* Top header background */
@@ -654,13 +679,8 @@ padding-right:5px;
 	height: 75px !important;
 }
 
-.hl_settings--body .container-fluid {
-    background-color: #00000000 !important;
-    background: #00000000 !important;
-}
-
-.sidebar-v2-location .hl_settings--body {
-    background: var(--bg-color-main) !important;
+.sidebar-v2-location .hl_settings--body.hl_v2_stettings--body.hl_witoput-topbar {
+    padding-bottom: 4rem;
 }
 
 #sidebar-v2 .overflow-hidden {
@@ -764,18 +784,18 @@ padding-right:5px;
     background-color: #357ded !important;
 }
 
-/* Form & Surveys Column */
-.table-header[data-v-43c8a2fe] {
-    border-top: 3px solid #357ded !important;
+/* Form & Surveys  */
+.table-hl thead tr th {
+    background: #fff;
 }
 
-.table-header .text-grey[data-v-43c8a2fe], .table-header .text-grey[data-v-43c8a2fe] {
-    color: #357ded !important;
+#form-builder.hl_wrapper--inner .tabs .nav.nav-tabs li.nav-item .nav-link {
+    padding: 8px 22px !important;
+    background: var(--tab-buttons-background);
+    border: 1px solid var(--tab-buttons-background);
 }
 
-.table-header .text-primary[data-v-43c8a2fe] {
-    color: #357ded !important;
-}
+/* End Form & Surveys */
 
 /* Reporting Filters */
 .hl_analytics--filters {
@@ -941,10 +961,6 @@ i.icon.icon-trash, .fa-trash-alt:before {
 .icon-edit {
     cursor: pointer;
     color: var(--custom-link-color);
-}
-
-.content-container {
-    margin-bottom: 50px;
 }
 
 /* Styles From Custom CSS Section of Agency Dashboard */

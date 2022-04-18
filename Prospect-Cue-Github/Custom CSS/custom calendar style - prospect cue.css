@@ -1,21 +1,34 @@
+/* Replace #calender_ID with ID for specific calendar */
+
 .shadow-boxes {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 
-#calendar-MDI55XuCJ .appointment_widgets-sm .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .widgets--service-name, #calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .widgets--service-name {
+#calendar-4m9hfo1_D_ .appointment_widgets-sm .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .widgets--service-name, .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .widgets--service-name {
     color: #222;
     font-weight: 600;
     font-size: 1.2em;
 }
 
-#calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .provider-name {
-    display: none;
-}
-
-#calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--steps .widgets-date-block .vdpInnerWrap .vdpPeriodControl button {
+#calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--steps .widgets-date-block .vdpInnerWrap .vdpPeriodControl button {
     font-weight: 700;
     padding: 5px;
     letter-spacing: 0.5px;
+}
+
+#calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .provider-name {
+    display: none;
+}
+
+#calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--steps .widgets-date-block .vdpInnerWrap .vdpPeriodControl button {
+    font-weight: 700;
+    padding: 0.2em;
+    letter-spacing: 1.2px;
+}
+
+#calendar-4m9hfo1_D_ .appointment_widgets-sm .appointment_widgets--booking .appointment_widgets--steps .widgets-date-block .vdpInnerWrap .vdpPeriodControl button {
+    font-weight: 700;
+    padding: 0.2em;
 }
 
 :root {
@@ -48,7 +61,7 @@
     border-right-color: var(--primaryColor) !important;
 }
 
-#calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking-info label {
+#calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking-info label {
     color: #8c8d8d;
     display: -webkit-box;
     display: flex;
@@ -270,20 +283,20 @@
 
 /* Resizing Calendar */
 
-#calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--steps .widgets-slot-block {
+#calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--steps .widgets-slot-block {
     width: 100%;
     width: auto;
     margin-top: 0;
 }
 
 @media only screen and (min-device-height: 800px) {
-    #calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking {
+    #calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking {
         min-height: 700px!important;
     }
 }
 
 @media only screen and (min-device-height: 900px) {
-    #calendar-MDI55XuCJ .appointment_widgets-xl .appointment_widgets--booking {
+    #calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking {
         min-height: 700px!important;
     }
 }
@@ -298,4 +311,8 @@
         padding: 7px 0px !important;
         height: 100%;
     }
+}
+
+#calendar-4m9hfo1_D_ .appointment_widgets-sm .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .widgets--service-name, #calendar-4m9hfo1_D_ .appointment_widgets-xl .appointment_widgets--booking .appointment_widgets--info .appointment_widgets--service-info .widgets--service-name {
+    font-family: 'Lato';
 }
