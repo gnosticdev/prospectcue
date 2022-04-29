@@ -322,7 +322,7 @@ border-bottom: 0px solid #000 !important;
 
 body[data-theme=default-dark-v1] .btn.btn-primary {
     background-color: var(--custom-link-color);
-    border-color: var(--custom-link-color)
+    border-color: var(--custom-link-color);
     color: var(--btn-text-light);
 }
 
@@ -772,11 +772,6 @@ padding-right:5px;
 .hl_controls .hl_controls--right .bootstrap-select>.btn.dropdown-toggle .filter-option .hint-icon {
 	margin-right: 3px;
 	color: var(--tab-buttons-active) !important;
-}
-
-/* Chat Widget */
-#nav-links #nav-chat-widget > a > span{
-
 }
 
 /* Dropdowns and Datepicker */
