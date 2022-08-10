@@ -812,10 +812,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
 }
 
 .sidebar-v2-location #sidebar-v2 .hl_nav-header nav a.active,
-.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a:hover,
-.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active,
-.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover,
-#sb_settings:hover {
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active{
   background-image: linear-gradient(
     45deg,
     hsl(-101 88% 54%),
@@ -823,6 +820,15 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   );
   border-radius: 0 20px 20px 0;
   opacity: 1;
+}
+
+.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a:hover, .sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover,
+#sb_settings:hover {
+  background-image: linear-gradient(
+  45deg,
+  hsl(259deg 88% 54% / 60%),
+  hsl(271deg 91% 64% / 50%)
+);
 }
 
 .sidebar-v2-location #sidebar-v2 #backButtonv2 {
