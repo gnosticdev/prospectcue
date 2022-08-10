@@ -828,7 +828,9 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   45deg,
   hsl(259deg 88% 54% / 60%),
   hsl(271deg 91% 64% / 50%)
-);
+  );
+  border-radius: 0 20px 20px 0;
+
 }
 
 .sidebar-v2-location #sidebar-v2 #backButtonv2 {
