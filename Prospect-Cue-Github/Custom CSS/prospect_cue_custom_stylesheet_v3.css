@@ -877,6 +877,14 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   color: var(--tab-buttons-active) !important;
 }
 
+/* Call Reporting - Customers */
+
+#customers .hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle {
+  background: var(--custom-link-color);
+  border: 1px solid var(--tab-buttons-active) !important;
+  height: 40px;
+}
+
 #customers
   .hl_controls
   .hl_controls--right
