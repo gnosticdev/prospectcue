@@ -69,9 +69,7 @@ body .hl_login--body * {
   display: block;
   margin: 0 auto;
   padding: 50px 15px 50px 15px;
-  background: #252525
-    url("https://images.pexels.com/photos/6501751/pexels-photo-6501751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-    repeat !important;
+  background: #252525 url("https://images.pexels.com/photos/6501751/pexels-photo-6501751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") repeat !important;
   min-height: 100vh;
 }
 
@@ -257,7 +255,7 @@ span.btn.btn-light2.btn-xs.message-group-date-indicator.top-date-sticky {
 
 /* Message Bubble - Customer */
 .messages-single .message-bubble {
-  font-size: 14px !important;
+  font-size: 15px !important;
   padding: 15px;
   line-height: 155% !important;
   background-color: #e43a42 !important;
@@ -268,29 +266,34 @@ span.btn.btn-light2.btn-xs.message-group-date-indicator.top-date-sticky {
   border-color: transparent #e43a42 transparent transparent;
 }
 
-.messages-list--item.active:before {
-  background: var(--custom-pink) !important;
-  border: var(--custom-pink) !important;
-  box-shadow: 0 0 0 0 rgba(246, 132, 233, 1);
-  transform: scale(1);
-  animation: pulse-notifications-convo 2s infinite;
-  width: 10px !important;
-  height: 10px !important;
+#conversation-list > li > div > div:nth-child(2) > div > div > div p {
+  font-size: 15px;
+  font-family: Poppins;
+  font-weight: 400;
+  position: absolute;
+  white-space: nowrap;
 }
+
+#conversation-list > li > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) span {
+  animation: pulse-notifications-convo 2s infinite;
+  position: relative;
+  background-color: hsl(315deg 85% 61% / 1);
+  box-shadow: 0 0 0 0 hsl(315deg 85% 61% / .5)
+}
+
 
 @keyframes pulse-notifications-convo {
   0% {
-    transform: scale(0.95);
-    box-shadow: rgba(246, 132, 233, 0.7);
+    transform: scale(0.9);
   }
 
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(246, 132, 233, 0);
+    box-shadow: 0 0 0 10px hsl(315deg 85% 50% / 0)
   }
 
   100% {
-    transform: scale(0.95);
+    transform: scale(.9);
     box-shadow: 0 0 0 0 rgba(246, 132, 233, 0);
   }
 }
@@ -308,13 +311,7 @@ span.btn.btn-light2.btn-xs.message-group-date-indicator.top-date-sticky {
 }
 
 /* GMB Messaging Preview */
-.gmb-setting
-  .hl_sms-preview-body
-  .sms-preview-body-block
-  .message-wrap
-  .msg-content
-  .message-bubble
-  p {
+.gmb-setting .hl_sms-preview-body .sms-preview-body-block .message-wrap .msg-content .message-bubble p {
   color: #fff !important;
 }
 
@@ -328,9 +325,7 @@ span.btn.btn-light2.btn-xs.message-group-date-indicator.top-date-sticky {
   border-bottom: 0px solid #000 !important;
 }
 
-.hl_header
-  .dropdown.bootstrap-select.hl_header--picker.fit-width.show
-  > button {
+.hl_header .dropdown.bootstrap-select.hl_header--picker.fit-width.show > button {
   background: #fff0 !important;
   color: #fff !important;
 }
@@ -348,11 +343,7 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
 }
 
 .form-group .bootstrap-select > .btn.dropdown-toggle,
-.hl_form-builder--sidebar
-  .option-card-body
-  .form-group
-  .dropdown.bootstrap-select
-  > .btn.dropdown-toggle.btn-light {
+.hl_form-builder--sidebar .option-card-body .form-group .dropdown.bootstrap-select > .btn.dropdown-toggle.btn-light {
   background: var(--custom-link-color);
   border: 1px solid rgb(0 0 0 / 20%) !important;
   height: 38px;
@@ -376,8 +367,7 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
 }
 
 /* Calendar Settings */
-.hl_settings--body.calendar-settings
-  button.btn.dropdown-toggle.btn-light:after {
+.hl_settings--body.calendar-settings button.btn.dropdown-toggle.btn-light:after {
   color: #fff;
 }
 
@@ -390,11 +380,7 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   border: none;
 }
 
-.hl_settings--body.calendar-settings
-  .step-2
-  .form-group
-  .bootstrap-select
-  > button.btn.dropdown-toggle.btn-light {
+.hl_settings--body.calendar-settings .step-2 .form-group .bootstrap-select > button.btn.dropdown-toggle.btn-light {
   border: none !important;
 }
 
@@ -405,55 +391,36 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   height: 38px;
 }
 
-.hl_settings--body.calendar-settings
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option {
+.hl_settings--body.calendar-settings .bootstrap-select > .btn.dropdown-toggle .filter-option {
   top: 0;
   padding: 8px 10px 0px 12px;
 }
 
-.hl_settings--body.calendar-settings
-  .modal-content--service
-  section.section-office-hours
-  .day-of-week-name-box.selected {
+.hl_settings--body.calendar-settings .modal-content--service section.section-office-hours .day-of-week-name-box.selected {
   background: var(--custom-link-color);
   color: #fff;
 }
 
-.hl_settings--body.calendar-settings
-  .zoomcontrol
-  button.btn.dropdown-toggle.btn-light {
+.hl_settings--body.calendar-settings .zoomcontrol button.btn.dropdown-toggle.btn-light {
   padding: 4px 0 12px 8px;
   border: 1px solid #cfcfcf;
   background: transparent;
   margin-bottom: 0;
 }
 
-.hl_settings--body.calendar-settings
-  .option--member.mb-2.flex.items-center.selected {
+.hl_settings--body.calendar-settings .option--member.mb-2.flex.items-center.selected {
   background: transparent;
 }
 
-.hl_settings--body.calendar-settings
-  .zoomcontrol
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option {
+.hl_settings--body.calendar-settings .zoomcontrol .bootstrap-select > .btn.dropdown-toggle .filter-option {
   top: 0px;
 }
 
-.hl_settings--body.calendar-settings
-  .zoomcontrol
-  .btn.dropdown-toggle
-  .filter-option-inner-inner {
+.hl_settings--body.calendar-settings .zoomcontrol .btn.dropdown-toggle .filter-option-inner-inner {
   color: #000 !important;
 }
 
-.hl_settings--body.calendar-settings
-  .section-team-members
-  .location.mx-2
-  input {
+.hl_settings--body.calendar-settings .section-team-members .location.mx-2 input {
   border: 1px solid #cfcfd3;
   border-radius: 5px;
 }
@@ -467,16 +434,8 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   font-weight: 500;
 }
 
-.sidebar-v2-location
-  #sidebar-v2
-  .hl_nav-header-without-footer
-  nav
-  a.active.divider,
-.sidebar-v2-location
-  #sidebar-v2
-  .hl_nav-header-without-footer
-  nav
-  a:hover.divider {
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active.divider,
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover.divider {
   opacity: 1;
 }
 
@@ -589,8 +548,7 @@ a#sms-tab {
   display: inline-block !important;
   width: 25px;
   height: 25px;
-  background: url(https://static.leadconnectorhq.com/pmd/img/request_icon.svg)
-    no-repeat 100%;
+  background: url(https://static.leadconnectorhq.com/pmd/img/request_icon.svg) no-repeat 100%;
   background-size: 25px 25px;
 }
 
@@ -676,13 +634,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
 }
 
 /* ADD NEW Button for Contact Details Right Tabs */
-#contact-details
-  > div
-  > div.hl_contact-details-right
-  > div
-  > ul
-  > li:nth-child(5)
-  a {
+#contact-details > div > div.hl_contact-details-right > div > ul > li:nth-child(5) a {
   font-size: var(--text-btn-sm);
   padding: 2px 3px;
   color: var(--custom-purple) !important;
@@ -690,14 +642,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   background: #9150f714;
 }
 
-#contact-details
-  > div
-  > div.hl_contact-details-right
-  > div
-  > ul
-  > li:nth-child(5)
-  a
-  > i.fa-plus {
+#contact-details > div > div.hl_contact-details-right > div > ul > li:nth-child(5) a > i.fa-plus {
   font-size: var(--text-btn-sm) !important;
 }
 
@@ -717,30 +662,11 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   background: #00000000 !important;
 }
 
-.hl_header--phone
-  .dropdown-menu
-  .hl_header--phone-footer
-  .form-group
-  .fa-phone {
+.hl_header--phone .dropdown-menu .hl_header--phone-footer .form-group .fa-phone {
   color: #535353 !important;
 }
 
-#app
-  > div:nth-child(1)
-  > div:nth-child(2)
-  > header
-  > div
-  > div:nth-child(4)
-  > div.hl_header--dropdown.hl_header--phone.dropdown.--no-caret
-  > div
-  > div.caller-id
-  > div:nth-child(2)
-  > div
-  > button
-  > div
-  > div
-  > div
-  > span {
+#app > div:nth-child(1) > div:nth-child(2) > header > div > div:nth-child(4) > div.hl_header--dropdown.hl_header--phone.dropdown.--no-caret > div > div.caller-id > div:nth-child(2) > div > button > div > div > div > span {
   color: #535353 !important;
 }
 
@@ -783,8 +709,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   height: 75px !important;
 }
 
-.sidebar-v2-location
-  .hl_settings--body.hl_v2_stettings--body.hl_witoput-topbar {
+.sidebar-v2-location .hl_settings--body.hl_v2_stettings--body.hl_witoput-topbar {
   padding-bottom: 4rem;
 }
 
@@ -792,10 +717,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   margin-bottom: 12% !important;
 }
 
-.sidebar-v2-location
-  #sidebar-v2.default-bg-color
-  .hl_nav-header-without-footer
-  span.text-gray-300.uppercase.pr-3.default-bg-color {
+.sidebar-v2-location #sidebar-v2.default-bg-color .hl_nav-header-without-footer span.text-gray-300.uppercase.pr-3.default-bg-color {
   color: white;
   opacity: 1 !important;
   letter-spacing: normal;
@@ -812,23 +734,20 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
 }
 
 .sidebar-v2-location #sidebar-v2 .hl_nav-header nav a.active,
-.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active{
-  background-image: linear-gradient(
-    45deg,
-    hsl(-101 88% 54%),
-    hsl(271deg 91% 64%)
-  );
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a.active {
+  background-image: linear-gradient(45deg,
+      hsl(-101 88% 54%),
+      hsl(271deg 91% 64%));
   border-radius: 0 20px 20px 0;
   opacity: 1;
 }
 
-.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a:hover, .sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover,
+.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a:hover,
+.sidebar-v2-location #sidebar-v2 .hl_nav-header-without-footer nav a:hover,
 #sb_settings:hover {
-  background-image: linear-gradient(
-  45deg,
-  hsl(259deg 88% 54% / 60%),
-  hsl(271deg 91% 64% / 50%)
-  );
+  background-image: linear-gradient(45deg,
+      hsl(259deg 88% 54% / 60%),
+      hsl(271deg 91% 64% / 50%));
   border-radius: 0 20px 20px 0;
 
 }
@@ -839,10 +758,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   border-radius: 5px;
 }
 
-.hl_reviews--filter
-  .bootstrap-select
-  > .btn.dropdown-toggle.bs-placeholder
-  .filter-option {
+.hl_reviews--filter .bootstrap-select > .btn.dropdown-toggle.bs-placeholder .filter-option {
   color: #fff;
 }
 
@@ -851,29 +767,13 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   padding-bottom: 5rem;
 }
 
-.emulator-component
-  .emulator
-  .emulator__mobile
-  .mobile-structure
-  .mobile-structure__screen
-  .screen-content
-  .sms-content
-  .body[data-v-769026a5] {
+.emulator-component .emulator .emulator__mobile .mobile-structure .mobile-structure__screen .screen-content .sms-content .body[data-v-769026a5] {
   padding: 9px;
   font-size: smaller;
 }
 
-.hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option
-  .filter-option-inner
-  .filter-option-inner-inner,
-.hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle:after {
+.hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle .filter-option .filter-option-inner .filter-option-inner-inner,
+.hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle:after {
   color: var(--tab-buttons-active) !important;
 }
 
@@ -885,32 +785,17 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   height: 40px;
 }
 
-#customers
-  .hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option
-  .filter-option-inner
-  .filter-option-inner-inner {
+#customers .hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle .filter-option .filter-option-inner .filter-option-inner-inner {
   color: white !important;
 }
 
-#customers
-  .hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle::after {
+#customers .hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle::after {
   color: white !important;
 }
 
 /* Dropdown Menu Buttons */
 
-.hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option-inner-inner {
+.hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle .filter-option-inner-inner {
   color: var(--tab-buttons-active) !important;
   font-family: Poppins;
   text-transform: uppercase;
@@ -923,10 +808,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   height: 40px;
 }
 
-.hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle::after {
+.hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle::after {
   color: var(--tab-buttons-active) !important;
 }
 
@@ -936,30 +818,19 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   color: var(--tab-buttons-active);
 }
 
-#smartlists
-  > .hl_controls.hl_smartlists--controls
-  > .hl_controls--right
-  #hl_smartlists--filter-btn {
+#smartlists > .hl_controls.hl_smartlists--controls > .hl_controls--right #hl_smartlists--filter-btn {
   border: 1px solid var(--tab-buttons-active) !important;
   color: var(--tab-buttons-active) !important;
   background: var(--tab-buttons-background) !important;
 }
 
-.hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option
-  .hint-icon {
+.hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle .filter-option .hint-icon {
   margin-right: 3px;
   color: var(--tab-buttons-active) !important;
 }
 
 /* Dropdowns and Datepicker */
-.datepicker-container
-  .datepicker-days
-  .datepicker-day.between
-  .datepicker-day-effect[data-v-7043ad7f] {
+.datepicker-container .datepicker-days .datepicker-day.between .datepicker-day-effect[data-v-7043ad7f] {
   background-color: #357ded !important;
 }
 
@@ -1084,10 +955,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   color: #357deddb;
 }
 
-.hl_contact-details-new--wrap
-  .hl_contact-details-left
-  .hl_contact-details-left-tabs
-  .nav-tabs {
+.hl_contact-details-new--wrap .hl_contact-details-left .hl_contact-details-left-tabs .nav-tabs {
   padding-left: 10px;
   padding-right: 4px !important;
   margin-left: 2px !important;
@@ -1148,11 +1016,7 @@ i.icon.icon-trash,
 
 /* Styles From Custom CSS Section of Agency Dashboard */
 
-.hl_controls
-  .hl_controls--right
-  .bootstrap-select
-  > .btn.dropdown-toggle
-  .filter-option {
+.hl_controls .hl_controls--right .bootstrap-select > .btn.dropdown-toggle .filter-option {
   color: var(--btn-text-light) !important;
   font-family: Poppins;
   text-transform: uppercase;
@@ -1178,13 +1042,7 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow {
   background-color: transparent;
 }
 
-#sidebar-v2
-  > div.flex.flex-col.h-screen
-  > div
-  > div.flex.items-center.justify-center.flex-shrink-0.md\:px-1.mb-3.px-3
-  > img
-  .hl_navbar--logo
-  img {
+#sidebar-v2 > div.flex.flex-col.h-screen > div > div.flex.items-center.justify-center.flex-shrink-0.md\:px-1.mb-3.px-3 > img .hl_navbar--logo img {
   max-width: 50%;
   height: 80px;
 }
@@ -1193,27 +1051,13 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow {
   background: var(--custom-link-color);
 }
 
-.form-group
-  .dropdown.bootstrap-select
-  button.btn.dropdown-toggle.btn-light
-  .filter-option-inner-inner,
-.form-group
-  .dropdown.bootstrap-select
-  button.btn.dropdown-toggle.btn-light:after {
+.form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light .filter-option-inner-inner,
+.form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light:after {
   color: var(--btn-text-light);
 }
 
-#add-opportunities-modal
-  .form-group
-  .dropdown.bootstrap-select
-  button.btn.dropdown-toggle.btn-light
-  .filter-option
-  .filter-option-inner
-  .filter-option-inner-inner,
-#add-opportunities-modal
-  .form-group
-  .dropdown.bootstrap-select
-  button.btn.dropdown-toggle.btn-light:after {
+#add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light .filter-option .filter-option-inner .filter-option-inner-inner,
+#add-opportunities-modal .form-group .dropdown.bootstrap-select button.btn.dropdown-toggle.btn-light:after {
   color: #fff;
 }
 
@@ -1229,38 +1073,18 @@ i.fas.fa-address-card:before {
   padding: 8px 10px 0px 12px !important;
 }
 
-.card-integration
-  .bootstrap-select
-  > button.btn.dropdown-toggle.btn-light
-  .filter-option
-  .filter-option-inner
-  .filter-option-inner-inner,
-.card-integration
-  .bootstrap-select
-  > button.btn.dropdown-toggle.btn-light::after {
+.card-integration .bootstrap-select > button.btn.dropdown-toggle.btn-light .filter-option .filter-option-inner .filter-option-inner-inner,
+.card-integration .bootstrap-select > button.btn.dropdown-toggle.btn-light::after {
   color: #fff;
 }
 
-.modal-body
-  .form-group
-  .bootstrap-select
-  > .dropdown-toggle.btn-light
-  .filter-option-inner-inner,
+.modal-body .form-group .bootstrap-select > .dropdown-toggle.btn-light .filter-option-inner-inner,
 .modal-body .form-group .bootstrap-select > .dropdown-toggle.btn-light::after {
   color: #fff;
 }
 
-.hl_settings--main
-  .card-body
-  .form-group
-  .bootstrap-select
-  > .dropdown-toggle.btn-light
-  .filter-option-inner-inner,
-.hl_settings--main
-  .card-body
-  .form-group
-  .bootstrap-select
-  > .dropdown-toggle.btn-light::after {
+.hl_settings--main .card-body .form-group .bootstrap-select > .dropdown-toggle.btn-light .filter-option-inner-inner,
+.hl_settings--main .card-body .form-group .bootstrap-select > .dropdown-toggle.btn-light::after {
   color: #fff;
 }
 
