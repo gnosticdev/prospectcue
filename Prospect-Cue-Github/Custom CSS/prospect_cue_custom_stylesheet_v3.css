@@ -330,6 +330,37 @@ span.btn.btn-light2.btn-xs.message-group-date-indicator.top-date-sticky {
   color: #fff !important;
 }
 
+.hl_header > .topmenu-nav > a.topmenu-navitem > [aria-labelledby="user-menu-button"] {
+  margin-top: 2px !important;
+}
+
+.topmenu-navtitle {
+  padding: 6px 8px !important;
+}
+
+.sidebar-v2-location .hl_header .topmenu-nav .topmenu-navitem.active {
+  background: var(--settings-btn-bg) !important;
+  border: 1px solid #0000008c !important;
+  color: #2f2f2f !important;
+  border-radius: var(--tab-buttons-radius) !important;
+  font-weight: normal !important;
+  transition: 0.6s !important;
+  padding: 0 8px !important;
+  font-size: var(--text-btn-sm);
+}
+
+.sidebar-v2-location .hl_header .topmenu-nav .topmenu-navitem,
+button.btn.btn-light.btn-sm {
+  background: var(--settings-btn-bg) !important;
+  border: 1px solid transparent !important;
+  color: #2f2f2f !important;
+  border-radius: var(--tab-buttons-radius) !important;
+  font-weight: normal !important;
+  transition: 0.6s !important;
+  padding: 0 8px !important;
+  font-size: 0.9em;
+}
+
 /* Buttons */
 
 .btn.btn-green-lt {
@@ -971,33 +1002,6 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
 .hl_conversations--messages-list .nav-tabs .nav-item {
   flex: 1;
   text-align: center;
-}
-
-.topmenu-navtitle {
-  padding: 6px 8px !important;
-}
-
-.sidebar-v2-location .hl_header .topmenu-nav .topmenu-navitem.active {
-  background: var(--settings-btn-bg) !important;
-  border: 1px solid #0000008c !important;
-  color: #2f2f2f !important;
-  border-radius: var(--tab-buttons-radius) !important;
-  font-weight: normal !important;
-  transition: 0.6s !important;
-  padding: 0 8px !important;
-  font-size: var(--text-btn-sm);
-}
-
-.sidebar-v2-location .hl_header .topmenu-nav .topmenu-navitem,
-button.btn.btn-light.btn-sm {
-  background: var(--settings-btn-bg) !important;
-  border: none !important;
-  color: #2f2f2f !important;
-  border-radius: var(--tab-buttons-radius) !important;
-  font-weight: normal !important;
-  transition: 0.6s !important;
-  padding: 0 8px !important;
-  font-size: 0.9em;
 }
 
 /* End Opportunities */
