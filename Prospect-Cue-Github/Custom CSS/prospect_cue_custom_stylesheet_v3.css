@@ -908,6 +908,8 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
   font-size: 10px;
   text-transform: uppercase;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .hl_opportunities-item .card-body {
