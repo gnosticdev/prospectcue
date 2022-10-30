@@ -42,8 +42,8 @@ function insertMapButtons() {
   const zip = $_zg.genInfoForms[5].querySelector('input').value;
   const streetAddressZG = streetDiv.querySelector('input').value;
 
-  const googleButton = `<span class="zillowTitle">Search:</span><a href="https://www.google.com/search?q=${streetAddressZG},${city},${state}%20${zip}" target='_blank'><img src='https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282015-2020%29.svg' style='width: 23px;position: relative;top: 0px;left:3px' class='view-google-maps google-maps-link'></a>`;
-  const zillowButton = `<a href="https://www.zillow.com/homes/for_sale/${streetAddressZG},${city},${state},${zip}_rb" target='_blank' id='zillowLink'><img src='https://www.zillow.com/apple-touch-icon.png' style='width: 23px;border-radius: 3px;position: relative;top: 0px;left: 5px;' class='view-google-maps zillow-maps-link' title=''></a>`;
+  const googleButton = `<span class="zillowTitle">Search:</span><a href="https://www.google.com/search?q=${streetAddressZG},${city},${state}%20${zip}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282015-2020%29.svg" class="zg-map-btns"></a>`;
+  const zillowButton = `<a href="https://www.zillow.com/homes/for_sale/${streetAddressZG},${city},${state},${zip}_rb" target="_blank" id="zillowLink"><img src="https://www.zillow.com/apple-touch-icon.png" class="zg-map-btns"></a>`;
   newDiv.innerHTML = googleButton + zillowButton;
 
   streetLabel.style.display = 'inline-flex';

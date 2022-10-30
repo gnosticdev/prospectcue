@@ -907,9 +907,22 @@ body[data-theme="default-dark-v1"] .btn.btn-yellow:hover,
 .zillowTitle {
   font-size: 10px;
   text-transform: uppercase;
-  font-weight: bold;
   display: flex;
   align-items: center;
+}
+
+.zg-map-btns {
+  width: 23px;
+  border-radius: 3px;
+  position: relative;
+
+}
+
+.mapContainerZG {
+  justify-content: flex-end;
+  display: inline-flex;
+  gap: 5px;
+  width: 50%;
 }
 
 .hl_opportunities-item .card-body {
