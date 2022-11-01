@@ -1,14 +1,28 @@
 // Start of Zillow & Google Buttons
-/**
- * @type {HTMLDivElement}
- * @global
- */
-window.ZillowGoogleButtons = {};
-$_zg = window.ZillowGoogleButtons;
-
-console.log(`Starting Zillow & Google buttons...`);
 
 (function () {
+  if (window.location.pathname.includes('/contacts/detail/')) {
+    window.ZillowGoogleButtons = {};
+    $_zg = window.ZillowGoogleButtons;
+    console.log('window reloaded on contact page', window.location.pathname);
+    startAddButtons();
+  }
+  window.addEventListener(
+    'click',
+    (e) => {
+      if (e.target.href && e.target.href.includes('/contacts/detail/')) {
+        window.ZillowGoogleButtons = {};
+        $_zg = window.ZillowGoogleButtons;
+        console.log('contact details requested, running scripts...', e);
+        startAddButtons();
+      }
+    },
+    true
+  );
+})();
+
+function startAddButtons() {
+  console.log(`Starting Zillow & Google buttons...`);
   const myInterval = setInterval(checkExists, 3000);
 
   function checkExists() {
@@ -23,7 +37,7 @@ console.log(`Starting Zillow & Google buttons...`);
       insertMapButtons();
     }
   }
-})();
+}
 
 /**
  * Inserts the map buttons
@@ -49,6 +63,7 @@ function insertMapButtons() {
   newDiv.innerHTML = googleButton + zillowButton;
 
   streetLabel.style.display = 'inline-flex';
+  streetLabel.style.width = '50%';
   streetDiv.insertBefore(newDiv, streetLabel.nextSibling);
 }
 

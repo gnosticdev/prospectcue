@@ -5,7 +5,7 @@
   --custom-link-color: #357ded !important;
   --main-font: "Poppins", sans-serif;
   --main-body-bg: rgb(0, 0, 0);
-  --secondary-bg-tone: #357ded !important;
+  --secondary-bg-tone: hsl(217, 84%, 57%) !important;
   --custom-purple: #9150f7;
   --main-login-bg: #ffffff;
   --login-logo: url("https://firebasestorage.googleapis.com/v0/b/highlevel-backend.appspot.com/o/location%2FYnfX5FD1xiqzPp9m5Wxk%2Fimages%2F0fabccac-92a9-48b9-8dfd-e174d8e3a8c1.jpeg?alt=media");
@@ -70,6 +70,7 @@ body .hl_login--body * {
 
 .hl_login--header .container-fluid a img {
   display: none;
+  background: radial-gradient()
 }
 
 .hl_login--body {
@@ -514,7 +515,26 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   margin: auto;
   justify-content: space-between;
   background: linear-gradient(-45deg, #6a52ee, #6a5abf, #6058d3, #7541f3);
-  /* align-items: flex-end; */
+}
+
+.form-footer.save > div {
+  color: white;
+  font-family: 'Poppins';
+  padding-inline: 20px;
+}
+
+.form-footer.save button:nth-of-type(1) {
+  color: white;
+}
+
+.form-footer.save button:nth-of-type(1):hover {
+  color: var(--btn-text-dark)
+}
+
+.form-footer.save button {
+  width: 100px;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-footer.save.space-x-2 {

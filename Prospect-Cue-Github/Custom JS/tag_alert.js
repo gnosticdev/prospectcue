@@ -1,7 +1,24 @@
-console.log(`inserting tag link and tag alert...`);
-
 (function () {
+  if (window.location.pathname.includes('/contacts/detail/')) {
+    console.log('starting tag alert');
+    startTagAlert();
+  }
+  window.addEventListener(
+    'click',
+    (e) => {
+      if (e.target.href && e.target.href.includes('/contacts/detail/')) {
+        console.log('starting tag alert');
+        startTagAlert();
+      }
+    },
+    true
+  );
+})();
+
+function startTagAlert() {
+  console.log(`inserting tag link and tag alert...`);
   const myInterval = setInterval(checkExists, 3000);
+
   function checkExists() {
     const tagDiv = getSection('Tags', true);
     if (!tagDiv) {
@@ -14,7 +31,7 @@ console.log(`inserting tag link and tag alert...`);
       insertTagLink(tagDiv);
     }
   }
-})();
+}
 
 /**
  * Inserts an "Edit Tags" link next to Tags section in Contact Details.

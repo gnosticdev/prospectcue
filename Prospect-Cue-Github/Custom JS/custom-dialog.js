@@ -6,7 +6,7 @@
  * @author Mads Stoumann
  * @description Custom versions of `alert`, `confirm` and `prompt`, using `<dialog>`
  */
-class Dialog {
+export default class Dialog {
   constructor(settings = {}) {
     this.settings = Object.assign(
       {
