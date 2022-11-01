@@ -8,20 +8,22 @@ $_zg = window.ZillowGoogleButtons;
 
 console.log(`Starting Zillow & Google buttons...`);
 
-const myInterval = setInterval(checkExists, 3000);
+(function () {
+  const myInterval = setInterval(checkExists, 3000);
 
-function checkExists() {
-  const streetDiv = getStreetDiv();
-  if (!streetDiv) {
-    console.log(`no streetDiv found`);
-    console.log(streetDiv);
-    return null;
-  } else {
-    console.log(`streetDiv found`);
-    clearInterval(myInterval);
-    insertMapButtons();
+  function checkExists() {
+    const streetDiv = getStreetDiv();
+    if (!streetDiv) {
+      console.log(`no streetDiv found`);
+      console.log(streetDiv);
+      return null;
+    } else {
+      console.log(`streetDiv found`);
+      clearInterval(myInterval);
+      insertMapButtons();
+    }
   }
-}
+})();
 
 /**
  * Inserts the map buttons
