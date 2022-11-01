@@ -505,10 +505,11 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
 }
 
 .form-footer.save {
-  position: fixed;
+  position: absolute;
   bottom: 0px;
-  left: 14rem;
-  width: 25%;
+  left: 0;
+  box-shadow: 0px 0px 71px 11px var(--custom-pink);
+  width: 100%;
   display: flex;
   padding: 10px;
   z-index: 1000;
