@@ -1,36 +1,31 @@
-(function () {
-  if (window.location.pathname.includes('/contacts/detail/')) {
-    console.log('starting tag alert');
-    startTagAlert();
-  }
-  window.addEventListener(
-    'click',
-    (e) => {
-      if (e.target.href && e.target.href.includes('/contacts/detail/')) {
-        console.log('starting tag alert');
-        startTagAlert();
-      }
-    },
-    true
-  );
-})();
-
-function startTagAlert() {
+async function startAddTagDiv() {
   console.log(`inserting tag link and tag alert...`);
-  const myInterval = setInterval(checkExists, 3000);
-
-  function checkExists() {
-    const tagDiv = getSection('Tags', true);
-    if (!tagDiv) {
-      console.log(`no tag section found`);
-      console.log(tagDiv);
-      return null;
-    } else {
-      console.log(`tag section found`);
-      clearInterval(myInterval);
-      insertTagLink(tagDiv);
+  if (!window.prospectCue) {
+    window.prospectCue = {};
+  }
+  window.prospectCue.tagsAdded = [];
+  /** @type {NodeList} */
+  const actionsSection = await window.waitForManyElem(
+    '.hl_contact-details-left .h-full .bg-gray-100 [data-v-56639245]',
+    3,
+    false
+  );
+  /** @type {HTMLElement} */
+  let tagDiv;
+  for (let node of actionsSection) {
+    if (node.textContent.trim() === 'Tags') {
+      tagDiv = node.parentElement;
+      console.log(`original tagDiv found -> `, tagDiv);
+      break;
     }
   }
+  if (tagDiv.querySelector('.tags-edit-container')) {
+    return;
+  }
+  const newTagDiv = insertTagLink(tagDiv);
+  if (!newTagDiv) return;
+  console.log(`new tag div found -> ${newTagDiv}`);
+  checkAddNewTag(newTagDiv);
 }
 
 /**
@@ -38,11 +33,11 @@ function startTagAlert() {
  * @param {HTMLDivElement} tagDiv - the Tags section on contact info screen
  */
 function insertTagLink(tagDiv) {
+  // If the edit tag div is already present, don't add it again
+  if (tagDiv.querySelector('tags-edit')) return null;
+
   // Create the tagsAdded array on window object
-  window.prospectCue = {};
-  window.prospectCue.tagsAdded = [];
-  const tagTitle = tagDiv.firstChild;
-  const nodeAfter = tagTitle.lastElementChild;
+  const nodeAfter = tagDiv.lastElementChild;
 
   // Need container to hold the link so the link doesnt grow with flex-grow
   const tagContainer = document.createElement('div');
@@ -59,87 +54,84 @@ function insertTagLink(tagDiv) {
   </span>`;
 
   tagContainer.prepend(tagLink);
-  tagTitle.insertBefore(tagContainer, nodeAfter);
+  tagDiv.insertBefore(tagContainer, nodeAfter);
+  return tagDiv;
   // Call tagAlert now that section is loaded and link added
-  const addNew = document.getElementsByClassName('add-new');
-  if (!addNew || addNew.length === 0) {
-    tagDiv.addEventListener(
-      'click',
-      (e) => {
-        console.log(`tag div clicked to open up`, e);
-        const interval = setInterval(() => {
-          console.log(`checking for addNew section of tag div`, addNew);
-          if (addNew) {
-            console.log(`addNew found`, addNew);
-            tagAlert();
-            clearInterval(interval);
-          }
-        }, 100);
-      },
-      {
-        once: true,
-      }
-    );
-  } else {
-    tagAlert();
-  }
 }
 
 /**
- * Searches the contact info section and returns the street address div, to place the zillow and google buttons
- * @param {String} sectionName - the name of the contact info section heading
- * @param {Boolean} actions - True if the section is under ACTIONS in the contact info tab.
- * @param {String} formGroup - the name of the form element within the section
- * @returns {HTMLDivElement}
+ * Checks for the add new tag div on conversations, opportunities and contact details pages.
+ * @param {HTMLDivElement} tagDiv - the Tags div in contact details left panel
  */
-function getSection(section, actions = false, formGroup) {
-  infoDiv = document.querySelector('.hl_contact-details-left > div > div:nth-child(2)');
-  console.log(`infoDiv is currently -> `, infoDiv);
-  if (!infoDiv || !infoDiv.hasChildNodes) return null;
-  console.log(`infoDiv not null`);
-  let infoDivChildren = infoDiv.children;
-  let sectionDiv;
-  if (actions) {
-    const actionsSection = infoDiv.lastElementChild.previousElementSibling;
-    console.log(`actions section = `, actionsSection);
-    if (!actionsSection || !actionsSection.hasChildNodes) {
-      return null;
-    }
-    infoDivChildren = infoDiv.lastElementChild.previousElementSibling.children;
-    console.log(`infoDivChildren under Actions = `, infoDivChildren);
-  }
-  for (let div of infoDivChildren) {
-    if (!div.hasChildNodes || !div.firstChild.hasChildNodes) {
-      continue;
-    }
-    console.log(`infoDivChildren child 1 text = ${div.textContent.trim()}`);
-    if (div.textContent.trim() === section) {
-      sectionDiv = div;
-      break;
-    }
-  }
+async function checkAddNewTag(newTagDiv) {
+  if (!newTagDiv) {
+    console.log(
+      `no new tag div passed, must be on conversations or opportunities page, now waiting for add new section`
+    );
+    /** @type {HTMLElement} */
+    const addNewWait = await waitForElement('.add-new');
 
-  console.log(`requested div = `, sectionDiv);
-  if (!sectionDiv) return null;
-  if (!formGroup) return sectionDiv;
-
-  const formElements = genInfoDiv.querySelectorAll('.form-group');
-  for (let div of formElements) {
-    if (div.textContent.trim() === formGroup) {
-      return div;
-    }
+    return tagAlert(addNewWait);
+  }
+  const addNewSection = document.querySelector('.add-new');
+  if (addNewSection) {
+    console.log(`add new section found immediately, attaching tag alert`);
+    return tagAlert(addNewSection);
+  } else {
+    console.log(`no add new tag section present, attaching click listener on new tag div -> `, newTagDiv);
+    newTagDiv.addEventListener('click', async (e) => {
+      const addNew = document.querySelector('.add-new');
+      if (!addNew) {
+        console.log(`click occurred on tag div, but add new not present`, addNew);
+        return;
+      }
+      console.log(`click occured on tag div, addNew found`, addNew);
+      const addNewWait = await waitForElement('.add-new');
+      console.log(`add new section loaded -> `, addNewWait);
+      tagAlert(addNewWait);
+    });
   }
 }
 
-function tagAlert() {
-  const addNew = document.getElementsByClassName('add-new')[0];
-  console.log(`attaching tag alert...`);
-  if (!window.prospectCue || !window.prospectCue.tagsAdded) {
-    window.prospectCue.tagsAdded = [];
+function waitForElement(selector) {
+  console.log(`waiting for selector = ${selector} to be added to DOM.`);
+  return new Promise((resolve) => {
+    if (document.querySelector(selector)) {
+      return resolve(document.querySelector(selector));
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      if (document.querySelector(selector)) {
+        resolve(document.querySelector(selector));
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
+}
+
+/**
+ * Attaches click listener for adding new tags
+ * @param {HTMLElement} addNew
+ */
+function tagAlert(addNew) {
+  if (!window.prospectCue) {
+    window.prospectCue = {};
   }
+  window.prospectCue.tagsAdded = [];
+
+  console.log(`now attaching tag alert...`);
+  if (addNew.hasAttribute('listener')) return console.log('tag alert found, returning...');
+  addNew.setAttribute('listener', 'tagAlert');
+
   addNew.addEventListener(
     'click',
-    (e) => {
+    function ta(e) {
+      addNew.removeAttribute('listener');
       tagAddClick(e);
     },
     {
@@ -149,23 +141,6 @@ function tagAlert() {
   );
 }
 
-function simpleHandler(e) {
-  console.log(`captured event `, e);
-}
-
-async function confirmTagAdd(tag) {
-  // const confirm = window.confirm(`Are you sure you want to add "${tag}" as a new tag?`);
-  const dialog = new Dialog();
-  const confirm = await dialog.confirm(`Are you sure you want to add "${tag}" as a new tag?`);
-
-  if (confirm === true) {
-    console.log(
-      `user wants to add new tag ${e.target.textContent} -> adding to window.prospectCue.tagsAdded and submitting`
-    );
-  }
-  return confirm;
-}
-
 /**
  * @param {Event} e
  */
@@ -173,7 +148,7 @@ async function tagAddClick(e) {
   console.log(`add new tag click captured`, e);
   e.stopPropagation();
   const tag = e.target.textContent;
-  // const confirm = await confirmTagAdd(e.target.textContent);
+  // const confirm =  confirmTagAdd(e.target.textContent);
   const dialog = new Dialog();
   dialog.open({
     dialogClass: 'tag-confirm-dialog',
@@ -188,7 +163,7 @@ async function tagAddClick(e) {
     window.prospectCue.tagsAdded.push(e.target.textContent);
     e.target.click();
   }
-  setTimeout(tagAlert, 100);
+  setTimeout(checkAddNewTag, 100);
 }
 
 /**

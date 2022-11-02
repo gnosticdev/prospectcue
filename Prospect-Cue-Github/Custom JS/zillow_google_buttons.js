@@ -1,100 +1,161 @@
 // Start of Zillow & Google Buttons
 
-(function () {
+(async function () {
   if (window.location.pathname.includes('/contacts/detail/')) {
-    window.ZillowGoogleButtons = {};
-    $_zg = window.ZillowGoogleButtons;
+    window.prospectCue = {};
+    $_zg = window.prospectCue.ZillowGoogleButtons;
     console.log('window reloaded on contact page', window.location.pathname);
-    startAddButtons();
+    await startAddButtons();
+    await startAddTagDiv();
+  }
+  if (window.location.pathname.includes('conversations')) {
+    console.log('reloaded to conversations page, checking for add new tag');
+    await checkAddNewTag();
+  }
+  if (window.location.pathname.includes('/opportunities/list')) {
+    console.log('reloaded to opportunities list page, checking for add new tag');
+    await checkAddNewTag();
   }
   window.addEventListener(
     'click',
-    (e) => {
-      if (e.target.href && e.target.href.includes('/contacts/detail/')) {
-        window.ZillowGoogleButtons = {};
-        $_zg = window.ZillowGoogleButtons;
-        console.log('contact details requested, running scripts...', e);
-        startAddButtons();
-      }
+    function watchWindowClicks(e) {
+      const currentUrl = window.location.pathname;
+      console.log(`window click recorded`, e);
+      setTimeout(async () => {
+        console.log(`current URL -> pathname 500ms later... = ${currentUrl} -> ${window.location.pathname}`);
+
+        if (e.target.href && e.target.href.includes('/contacts/detail/')) {
+          await startAddButtons();
+          await startAddTagDiv();
+        } else if (
+          !currentUrl.includes('/contacts/detail/') &&
+          window.location.pathname.includes('/contacts/detail/')
+        ) {
+          await startAddButtons();
+          await startAddTagDiv();
+        } else if (window.location.pathname.includes('/conversations/conversations')) {
+          await checkAddNewTag();
+        } else if (
+          currentUrl.includes('/opportunities/list') &&
+          window.location.pathname.includes('/opportunities/list')
+        ) {
+          await checkAddNewTag();
+        }
+      }, 500);
     },
     true
   );
 })();
 
-function startAddButtons() {
-  console.log(`Starting Zillow & Google buttons...`);
-  const myInterval = setInterval(checkExists, 3000);
-
-  function checkExists() {
-    const streetDiv = getStreetDiv();
-    if (!streetDiv) {
-      console.log(`no streetDiv found`);
-      console.log(streetDiv);
-      return null;
-    } else {
-      console.log(`streetDiv found`);
-      clearInterval(myInterval);
-      insertMapButtons();
-    }
-  }
+async function startAddButtons() {
+  // Check if map buttons already present
+  const labels = await waitForManyElem('.hl_contact-details-left .form-group .label', 40, false);
+  const addressDivs = getAddressDivs(labels);
+  console.log('addressDivs = ', addressDivs);
+  insertMapButtons(addressDivs);
 }
 
 /**
  * Inserts the map buttons
- * @param {HTMLDivElement} streetDiv
+ * @param {{streetLabel: HTMLElement, streetDiv: HTMLElement, cityDiv: HTMLElement, stateDiv: HTMLElement, zipDiv: HTMLElement}} addressDivs
  */
-function insertMapButtons() {
-  console.log(`inserting zillow and google buttons`);
+function insertMapButtons(addressDivs) {
   // const prospectTab = $('#prospect > div:nth-child(2)');
+  if (document.querySelectorAll('.zg-map-btns').length > 0) {
+    console.log('map buttons already found, returning...');
+    return;
+  }
   const newDiv = document.createElement('div');
   newDiv.id = 'mapLinks';
   newDiv.className = 'mapContainerZG';
   newDiv.style.display = 'inline-flex';
 
-  const streetDiv = $_zg.genInfoForms[1];
-  const streetLabel = streetDiv.firstChild;
-  const city = $_zg.genInfoForms[2].querySelector('input').value;
-  const state = $_zg.genInfoForms[4].querySelector('input').value;
-  const zip = $_zg.genInfoForms[5].querySelector('input').value;
-  const streetAddressZG = streetDiv.querySelector('input').value;
-
-  const googleButton = `<span class="zillowTitle">Search:</span><a href="https://www.google.com/search?q=${streetAddressZG},${city},${state}%20${zip}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282015-2020%29.svg" class="zg-map-btns"></a>`;
-  const zillowButton = `<a href="https://www.zillow.com/homes/for_sale/${streetAddressZG},${city},${state},${zip}_rb" target="_blank" id="zillowLink"><img src="https://www.zillow.com/apple-touch-icon.png" class="zg-map-btns"></a>`;
-  newDiv.innerHTML = googleButton + zillowButton;
-
+  const streetLabel = addressDivs.streetLabel;
   streetLabel.style.display = 'inline-flex';
   streetLabel.style.width = '50%';
-  streetDiv.insertBefore(newDiv, streetLabel.nextSibling);
+
+  const street = addressDivs.streetDiv.querySelector('input').value;
+  const city = addressDivs.cityDiv.querySelector('input').value;
+  const state = addressDivs.stateDiv.querySelector('input').value;
+  const zip = addressDivs.stateDiv.querySelector('input').value;
+
+  const googleButton = `<span class="zillowTitle">Search:</span><a href="https://www.google.com/search?q=${street},${city},${state}%20${zip}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="zg-map-btns"></a>`;
+  const zillowButton = `<a href="https://www.zillow.com/homes/for_sale/${street},${city},${state},${zip}_rb" target="_blank" id="zillowLink"><img src="https://www.zillow.com/apple-touch-icon.png" class="zg-map-btns"></a>`;
+  newDiv.innerHTML = googleButton + zillowButton;
+
+  streetLabel.insertAdjacentElement('afterend', newDiv);
 }
 
-// New UI
+/**
+ *  Waits for Street Div to load, then uses it to get the street label div and the street address values
+ * @returns {{streetLabel: HTMLElement, streetDiv: HTMLElement, cityDiv: HTMLElement, stateDiv: HTMLElement, zipDiv: HTMLElement}}
+ */
+function getAddressDivs(labels) {
+  /** @type {NodeList} */
+  if (!window.prospectCue) {
+    window.prospectCue = {};
+  }
+  // Find the Street Address label, then find the containing Div, then use its siblings to find the other address fields.
+  let streetLabel, streetDiv, cityDiv, stateDiv, zipDiv, addressDivChildren;
+  for (let label of labels) {
+    if (label.textContent.trim() === 'Street Address') {
+      streetLabel = label;
+      /** @type {HTMLElement} */
+      addressDivChildren = label.closest('.pt-3 > div').children;
+      streetDiv = addressDivChildren[1];
+      cityDiv = addressDivChildren[2];
+      stateDiv = addressDivChildren[4];
+      zipDiv = addressDivChildren[5];
+
+      const addressDivs = {
+        streetLabel: label,
+        streetDiv: streetDiv,
+        cityDiv: cityDiv,
+        stateDiv: stateDiv,
+        zipDiv: zipDiv,
+        addressDivChildren: addressDivChildren,
+      };
+      window.prospectCue.addressDivs = addressDivs;
+      return addressDivs;
+    }
+  }
+}
 
 /**
- * Searches the contact info section and returns the street address div, to place the zillow and google buttons
- * @returns {HTMLElement}
+ * Waits for the parent element and for a specified number of children on that parent
+ * @param {*} pSelector - the CSS Selector for the parent node
+ * @param {Number} numChildren - the number of children to wait for
+ * @returns {Promise}
  */
-function getStreetDiv() {
-  const infoDiv = document.querySelector('.hl_contact-details-left > div > div:nth-child(2)');
-  console.log(`infoDiv is currently -> `, infoDiv);
-  if (!infoDiv || !infoDiv.hasChildNodes) return null;
-  console.log(`infoDiv not null`);
-  const infoDivChildren = infoDiv.children;
-  let genInfoDiv;
-  for (let div of infoDivChildren) {
-    if (div.firstChild.children[1] && div.firstChild.children[1].textContent === 'General Info') {
-      genInfoDiv = div;
-      break;
+function waitForManyElem(pSelector, numChildren = 1, rChildren = true) {
+  console.log(`starting to wait for children of parent selector = ${pSelector}`);
+  return new Promise((resolve) => {
+    const parent = document.querySelector(pSelector);
+    if (parent && parent.childElementCount >= numChildren) {
+      resolve(parent.children);
     }
-  }
-  console.log(`genInfoDiv = `, genInfoDiv);
-  if (!genInfoDiv) return null;
 
-  const genInfoForms = genInfoDiv.querySelectorAll('.form-group');
-  $_zg.genInfoForms = genInfoForms;
+    const pObserver = new MutationObserver((record) => {
+      /** @type {NodeList} */
+      const parentAll = document.querySelectorAll(pSelector);
+      if (rChildren) {
+        if (parent && parent.childElementCount >= numChildren) {
+          console.log(`parent now has at least ${numChildren} nodes, resolving promise`, parent);
+          resolve(parent);
+          pObserver.disconnect();
+        }
+      } else {
+        if (parentAll.length >= numChildren) {
+          console.log(`parentAll now has at least ${numChildren} nodes, resolving promise...`, parentAll);
+          resolve(parentAll);
+          pObserver.disconnect();
+        }
+      }
+    });
 
-  for (let div of genInfoForms) {
-    if (div.textContent.trim() === 'Street Address') {
-      return div;
-    }
-  }
+    pObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
 }
