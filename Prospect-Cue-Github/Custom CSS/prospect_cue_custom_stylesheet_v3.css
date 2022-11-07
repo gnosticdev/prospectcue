@@ -499,9 +499,19 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
 /* Contact Info Sticky Footer - Save & Cancel Buttons */
 
 .hl_contact-details-left .form-footer.save {
-  box-shadow: 0px 0px 25px 1px var(--custom-pink);
+  box-shadow: 5px -4px 30px 10px var(--custom-pink);
   background: linear-gradient(-45deg, #6a52ee, #6a5abf, #6058d3, #7541f3);
   padding: 10px !important;
+  border-radius: 5px;
+}
+
+.hl_contact-details-right .form-footer.save {
+  display: flex;
+  width: 100%;
+  left: auto;
+  background: linear-gradient(-45deg, #6a52ee, #6a5abf, #6058d3, #7541f3);
+  padding: 10px !important;
+  border-radius: 5px;
 }
 
 .form-footer.save > div {
@@ -509,6 +519,7 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   font-family: 'Poppins';
   padding-inline: 20px;
 }
+
 
 .form-footer.save button:nth-of-type(1) {
   color: white;
@@ -524,10 +535,9 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   align-items: center;
 }
 
-.hl_contact-details-right .form-footer.save {
+
+.form-footer.save > div {
   display: flex;
-  width: 100%;
-  left: auto;
 }
 
 /* Cancel Button on Footer Save */
