@@ -389,6 +389,10 @@ body[data-theme="default-dark-v1"] .btn.btn-primary {
   height: 38px;
 }
 
+.form-builder .fields-settings-text-html button {
+  background: var(--custom-primary);
+}
+
 .btn .filter-option-inner-inner {
   font-family: "Poppins";
 }
