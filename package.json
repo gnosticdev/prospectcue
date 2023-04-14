@@ -1,0 +1,23 @@
+{
+    "devDependencies": {
+        "esbuild": "^0.17.16"
+    },
+    "name": "propectcue-scripts",
+    "version": "1.0.0",
+    "main": "index.js",
+    "private": true,
+    "scripts": {
+        "build": "esbuild src/index.ts --bundle --minify --sourcemap --target=es2015 --outdir=dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nynxa/prospectCue.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nynxa/prospectCue/issues"
+    },
+    "homepage": "https://github.com/nynxa/prospectCue#readme",
+    "description": ""
+}
