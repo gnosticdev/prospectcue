@@ -94,15 +94,12 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     }
     const addNewSection = document.querySelector('.add-new') as HTMLElement;
     if (addNewSection) {
-        console.log(
-            `%c add new section found immediately, attaching tag alert`,
-            'font-size:15px; color:lime;'
-        );
+        colorConsole('Prospect Cue: add new section found', 'coral');
         return tagAlert(addNewSection);
     } else {
-        console.log(
-            `%c no add new tag section present, attaching click listener on new tag div -> `,
-            'font-size: 15px; color: lime',
+        colorConsole(
+            'Prospect Cue: add new section not found, waiting for click',
+            'coral',
             newTagDiv
         );
         newTagDiv.addEventListener('click', async (e) => {
@@ -161,20 +158,20 @@ async function tagAddClick(e: Event) {
     console.log(`add new tag click captured`, e);
     e.stopPropagation();
     const target = e.target as HTMLElement;
-    const tag = target.textContent;
+    const tagText = target.innerText?.trim();
     // const confirm =  confirmTagAdd(e.target.textContent);
     const dialog = new Dialog();
     dialog.open({
         dialogClass: 'tag-confirm-dialog',
         accept: 'Yes',
         cancel: 'No',
-        message: `Are you sure you want to add <span class="tag-add">${target.textContent}</span> as a new tag?</div>`,
+        message: `Are you sure you want to add <span class="tag-add">${tagText}</span> as a new tag?</div>`,
         target: target,
     });
     const confirm = await dialog.waitForUser();
     console.log(`user wanted to add new tag? --> ${confirm}`);
     if (confirm) {
-        window.prospectCue.tagsAdded.push(target.textContent as string);
+        window.prospectCue.tagsAdded.push(tagText);
         target.click();
     }
     setTimeout(checkAddNewTag, 100);
