@@ -8,8 +8,9 @@
     "private": true,
     "scripts": {
         "build": "esbuild src/typescript/index.ts --bundle --minify --sourcemap --target=es2015 --outdir=dist",
+        "copy": "cp -r src/css/ dist/",
         "push": "git add . && git commit -m \"update\" && git push",
-        "go": "npm run build && npm run push"
+        "go": "pnpm run build && pnpm run copy && pnpm run push"
     },
     "repository": {
         "type": "git",
