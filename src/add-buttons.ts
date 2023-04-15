@@ -15,7 +15,7 @@ export async function startAddButtons() {
         return;
     }
     colorConsole('address divs found... inserting map buttons', 'lime');
-    insertMapButtons(addressDivs);
+    await insertMapButtons(addressDivs);
 }
 
 /**
@@ -37,18 +37,10 @@ export async function insertMapButtons(addressDivs: AddressDivs) {
     streetLabel.style.width = '50%';
 
     const addressParams: { [key: string]: string | null } = {
-        street: addressDivs.streetDiv.querySelector('input')?.value as
-            | string
-            | null,
-        city: addressDivs.cityDiv.querySelector('input')?.value as
-            | string
-            | null,
-        state: addressDivs.stateDiv.querySelector('input')?.value as
-            | string
-            | null,
-        zip: addressDivs.stateDiv.querySelector('input')?.value as
-            | string
-            | null,
+        street: addressDivs.streetDiv.querySelector('input')?.value ?? null,
+        city: addressDivs.cityDiv.querySelector('input')?.value ?? null,
+        state: addressDivs.stateDiv.querySelector('input')?.value ?? null,
+        zip: addressDivs.stateDiv.querySelector('input')?.value ?? null,
     };
 
     // create string of address params separatted by a '-', also for each value if it has a space, only add if not null

@@ -103,5 +103,5 @@ export function colorConsole(
     color = 'lime',
     object?: object
 ) {
-    console.log(`%c ${logString}`, `font-size: 15px; color: ${color}`, object);
+    console.log(`%c ${logString}`, `font-size: 13px; color: ${color}`, object);
 }

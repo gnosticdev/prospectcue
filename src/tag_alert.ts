@@ -83,9 +83,9 @@ export async function insertTagLink(tagDiv: HTMLDivElement) {
  */
 export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
-        console.log(
-            `%c no new tag div passed, must be on conversations or opportunities page, now waiting for add new section`,
-            'font-size:15px; color:lime;'
+        colorConsole(
+            'Prospect Cue: new tag div not found, waiting for click',
+            'coral'
         );
         /** @type {HTMLElement} */
         const addNewWait = await waitForElement('.add-new');
@@ -169,7 +169,10 @@ async function tagAddClick(e: Event) {
         target: target,
     });
     const confirm = await dialog.waitForUser();
-    console.log(`user wanted to add new tag? --> ${confirm}`);
+    colorConsole(
+        `tag add confirmation: ${confirm} for tag ${tagText}`,
+        'rgb(232, 255, 177)'
+    );
     if (confirm) {
         window.prospectCue.tagsAdded.push(tagText);
         target.click();

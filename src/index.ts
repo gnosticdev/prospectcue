@@ -1,21 +1,27 @@
 import { startAddButtons } from './add-buttons';
 import { startAddTagDiv, checkAddNewTag } from './tag_alert';
+import { colorConsole } from './utils';
 
 (async function () {
     await startProspectCueCustomizations();
 })();
 
 async function startProspectCueCustomizations() {
-    console.group('%c Zillow & Google Buttons', 'font-size:20px; color:lime;');
+    colorConsole('starting prospect cue customizations', 'rgb(109, 236, 185)');
+    window.addEventListener('popstate', () => {
+        colorConsole(
+            'popstate event detected, reloading prospect cue customizations',
+            'rgb(109, 236, 185)'
+        );
+    });
     if (window.location.pathname.includes('/contacts/detail/')) {
         window.prospectCue = {
             addressDivs: {},
             tagsAdded: [],
         };
-        console.log(
-            '%c window reloaded on contact page',
-            window.location.pathname,
-            'font-size:15px; color:lime;'
+        colorConsole(
+            'reloaded to contacts detail page, starting add buttons',
+            'rgb(109, 236, 185)'
         );
         await startAddButtons();
         await startAddTagDiv();
@@ -34,7 +40,7 @@ async function startProspectCueCustomizations() {
         'click',
         function watchWindowClicks(e: MouseEvent) {
             const currentUrl = window.location.pathname;
-            console.log(`window click recorded`, e);
+            // console.log(`window click recorded`, e);
             setTimeout(async () => {
                 console.log(
                     `current URL -> pathname 500ms later... = ${currentUrl} -> ${window.location.pathname}`
