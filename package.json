@@ -7,7 +7,7 @@
     "main": "index.js",
     "private": true,
     "scripts": {
-        "build": "esbuild src/index.ts --bundle --minify --sourcemap --target=es2015 --outdir=dist",
+        "build": "esbuild src/typescript/index.ts --bundle --minify --sourcemap --target=es2015 --outdir=dist",
         "push": "git add . && git commit -m \"update\" && git push",
         "go": "npm run build && npm run push"
     },
