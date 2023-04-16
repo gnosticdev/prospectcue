@@ -175,7 +175,7 @@ out
 # SvelteKit build / generate output
 .svelte-kit
 
-# test directory
-test
+# Tests directory and all files in it
+tests
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos

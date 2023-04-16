@@ -27,7 +27,7 @@ export async function startAddTagDiv() {
     }
 
     if (tagDiv === null) {
-        colorConsole('Prospect Cue: tag div not found', 'red');
+        colorConsole('tag div not found', 'red');
         return;
     }
 
@@ -36,10 +36,10 @@ export async function startAddTagDiv() {
     }
     const newTagDiv = await insertTagLink(tagDiv);
     if (!newTagDiv) {
-        colorConsole('Prospect Cue: new tag div not found', 'red');
+        colorConsole('new tag div not found', 'red');
         return;
     }
-    colorConsole(`new tag div found -> ${newTagDiv}`);
+    colorConsole(`new tag div found -> `, 'green', newTagDiv);
     checkAddNewTag(newTagDiv);
 }
 
