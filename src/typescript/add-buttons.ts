@@ -14,7 +14,7 @@ export async function startAddButtons() {
         );
         return;
     }
-    colorConsole('address divs found... inserting map buttons', 'lime');
+    colorConsole('address divs found... inserting map buttons', 'green');
     await insertMapButtons(addressDivs);
 }
 

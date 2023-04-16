@@ -2,10 +2,7 @@ import Dialog from './dialog';
 import { colorConsole, waitForChildNodes, waitForElement } from './utils';
 
 export async function startAddTagDiv() {
-    console.log(
-        `%c inserting tag link and tag alert...`,
-        'font-size:15px; color:lime;'
-    );
+    colorConsole(`inserting tag link and tag alert...`, 'blue');
     if (!window.prospectCue) {
         window.prospectCue = {
             addressDivs: {},
@@ -24,13 +21,13 @@ export async function startAddTagDiv() {
         const node = actionsSection[i];
         if (node.textContent && node.textContent.trim() === 'Tags') {
             tagDiv = node.parentElement as HTMLDivElement;
-            console.log(`original tagDiv found -> `, tagDiv);
+            colorConsole(`original tagDiv found -> `, 'orange', tagDiv);
             break;
         }
     }
 
     if (tagDiv === null) {
-        colorConsole('Prospect Cue: tag div not found', 'pink');
+        colorConsole('Prospect Cue: tag div not found', 'red');
         return;
     }
 
@@ -39,10 +36,10 @@ export async function startAddTagDiv() {
     }
     const newTagDiv = await insertTagLink(tagDiv);
     if (!newTagDiv) {
-        console.error(`Prospect Cue: new tag div not found`);
+        colorConsole('Prospect Cue: new tag div not found', 'red');
         return;
     }
-    console.log(`new tag div found -> ${newTagDiv}`);
+    colorConsole(`new tag div found -> ${newTagDiv}`);
     checkAddNewTag(newTagDiv);
 }
 
@@ -85,7 +82,7 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
         colorConsole(
             'Prospect Cue: new tag div not found, waiting for click',
-            'coral'
+            'orange'
         );
         /** @type {HTMLElement} */
         const addNewWait = await waitForElement('.add-new');
@@ -94,26 +91,30 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     }
     const addNewSection = document.querySelector('.add-new') as HTMLElement;
     if (addNewSection) {
-        colorConsole('Prospect Cue: add new section found', 'coral');
+        colorConsole('Prospect Cue: add new section found', 'orange');
         return tagAlert(addNewSection);
     } else {
         colorConsole(
             'Prospect Cue: add new section not found, waiting for click',
-            'coral',
+            'orange',
             newTagDiv
         );
         newTagDiv.addEventListener('click', async (e) => {
             const addNew = document.querySelector('.add-new');
             if (!addNew) {
-                console.log(
+                colorConsole(
                     `click occurred on tag div, but add new not present`,
-                    addNew
+                    'red'
                 );
                 return;
             }
-            console.log(`click occured on tag div, addNew found`, addNew);
+            colorConsole(
+                `click occured on tag div, addNew found`,
+                'green',
+                addNew
+            );
             const addNewWait = await waitForElement('.add-new');
-            console.log(`add new section loaded -> `, addNewWait);
+            colorConsole(`add new section loaded -> `, 'green', addNewWait);
             tagAlert(addNewWait);
         });
     }
@@ -133,9 +134,9 @@ export function tagAlert(addNew: HTMLElement) {
 
     window.prospectCue.tagsAdded = [];
 
-    console.log(`now attaching tag alert...`);
+    colorConsole(`now attaching tag alert...`);
     if (addNew.hasAttribute('listener'))
-        return console.log('tag alert found, returning...');
+        return colorConsole('tag alert found, returning...');
     addNew.setAttribute('listener', 'tagAlert');
 
     addNew.addEventListener(
@@ -155,7 +156,7 @@ export function tagAlert(addNew: HTMLElement) {
  * @param {Event} e
  */
 async function tagAddClick(e: Event) {
-    console.log(`add new tag click captured`, e);
+    colorConsole(`add new tag click captured`, 'green', e);
     e.stopPropagation();
     const target = e.target as HTMLElement;
     const tagText = target.innerText?.trim();
@@ -171,7 +172,7 @@ async function tagAddClick(e: Event) {
     const confirm = await dialog.waitForUser();
     colorConsole(
         `tag add confirmation: ${confirm} for tag ${tagText}`,
-        'rgb(232, 255, 177)'
+        'green'
     );
     if (confirm) {
         window.prospectCue.tagsAdded.push(tagText);

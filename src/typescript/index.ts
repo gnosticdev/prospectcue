@@ -7,13 +7,8 @@ import { colorConsole } from './utils';
 })();
 
 async function startProspectCueCustomizations() {
-    colorConsole('starting prospect cue customizations', 'rgb(109, 236, 185)');
-    window.addEventListener('popstate', () => {
-        colorConsole(
-            'popstate event detected, reloading prospect cue customizations',
-            'rgb(109, 236, 185)'
-        );
-    });
+    colorConsole('starting prospect cue customizations', 'green');
+
     if (window.location.pathname.includes('/contacts/detail/')) {
         window.prospectCue = {
             addressDivs: {},
@@ -21,18 +16,22 @@ async function startProspectCueCustomizations() {
         };
         colorConsole(
             'reloaded to contacts detail page, starting add buttons',
-            'rgb(109, 236, 185)'
+            'yellow'
         );
         await startAddButtons();
         await startAddTagDiv();
     }
     if (window.location.pathname.includes('conversations')) {
-        console.log('reloaded to conversations page, checking for add new tag');
+        colorConsole(
+            'reloaded to conversations page, checking for add new tag',
+            'yellow'
+        );
         await checkAddNewTag();
     }
     if (window.location.pathname.includes('/opportunities/list')) {
-        console.log(
-            'reloaded to opportunities list page, checking for add new tag'
+        colorConsole(
+            'reloaded to opportunities list page, checking for add new tag',
+            'yellow'
         );
         await checkAddNewTag();
     }
@@ -40,10 +39,11 @@ async function startProspectCueCustomizations() {
         'click',
         function watchWindowClicks(e: MouseEvent) {
             const currentUrl = window.location.pathname;
-            // console.log(`window click recorded`, e);
+
             setTimeout(async () => {
-                console.log(
-                    `current URL -> pathname 500ms later... = ${currentUrl} -> ${window.location.pathname}`
+                colorConsole(
+                    `current URL -> pathname 500ms later... = ${currentUrl} -> ${window.location.pathname}`,
+                    'yellow'
                 );
                 const target = e.target as HTMLAnchorElement;
                 if (target.href && target.href.includes('/contacts/detail/')) {

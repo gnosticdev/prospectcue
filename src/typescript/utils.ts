@@ -39,9 +39,9 @@ export function waitForChildNodes(parentSelector: string, numChildren = 1) {
             const parentAll = document.querySelectorAll(parentSelector);
 
             if (parentAll.length >= numChildren) {
-                console.log(
-                    `%c parentAll now has at least ${numChildren} nodes...`,
-                    'color: lime',
+                colorConsole(
+                    `parentAll now has at least ${numChildren} nodes...`,
+                    'green',
                     parentAll
                 );
                 resolve(parentAll);
@@ -100,8 +100,22 @@ export function getAddressDivs(labels: NodeList) {
 
 export function colorConsole(
     logString: string,
-    color = 'lime',
+    color?: 'red' | 'green' | 'blue' | 'yellow' | 'orange',
     object?: object
 ) {
-    console.log(`%c ${logString}`, `font-size: 13px; color: ${color}`, object);
+    const colorMap = {
+        red: '#f1889a',
+        green: '#6DECB9',
+        blue: '#88FFF7',
+        yellow: '#FFF6BF',
+        orange: '#f19684',
+    };
+
+    color ??= 'blue';
+
+    console.log(
+        `%c 🪐 ${logString}`,
+        `font-size: 13px; color: ${colorMap[color]} `,
+        object
+    );
 }
