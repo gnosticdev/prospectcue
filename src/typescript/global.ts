@@ -2,6 +2,12 @@ interface Window {
     prospectCue: {
         addressDivs: AddressDivs | {};
         tagsAdded: string[];
+        contactLabels: HTMLElement[];
+        searchBox: HTMLInputElement | null;
+    };
+    arcBoost: {
+        contactLabels: HTMLElement[];
+        searchBox: HTMLInputElement | null;
     };
     waitForElem: (
         selector: string,

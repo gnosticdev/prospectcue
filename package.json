@@ -10,7 +10,7 @@
         "build": "esbuild src/typescript/index.ts --bundle --minify --sourcemap --target=es6 --outdir=docs",
         "copy": "cp -r src/css/ docs/",
         "push": "git add . && git commit -m \"update\" && git push",
-        "build:boost": "esbuild tests/* --bundle --target=es2015 --outdir=\"/Users/divinelight/Library/Application Support/Arc/boosts/037d233f-a32e-4cec-9dee-26dfe41720d8\"",
+        "build:boost": "esbuild tests/* --bundle --target=es6 --format=esm --outdir=\"/Users/divinelight/Library/Application Support/Arc/boosts/037d233f-a32e-4cec-9dee-26dfe41720d8\"",
         "go": "pnpm run build && pnpm run copy && pnpm run push"
     },
     "repository": {

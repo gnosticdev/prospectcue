@@ -1,16 +1,17 @@
 import Dialog from './dialog';
 import { colorConsole, waitForChildNodes, waitForElement } from './utils';
 
-export async function startAddTagDiv() {
+export async function addTagElements() {
     colorConsole(`inserting tag link and tag alert...`, 'blue');
     if (!window.prospectCue) {
         window.prospectCue = {
             addressDivs: {},
             tagsAdded: [],
+            contactLabels: [],
+            searchBox: null,
         };
     }
     window.prospectCue.tagsAdded = [];
-    /** @type {NodeList} */
     const actionsSection = (await waitForChildNodes(
         '.hl_contact-details-left .h-full .bg-gray-100 [data-v-56639245]',
         3
@@ -129,6 +130,8 @@ export function tagAlert(addNew: HTMLElement) {
         window.prospectCue = {
             tagsAdded: [],
             addressDivs: {},
+            contactLabels: [],
+            searchBox: null,
         };
     }
 

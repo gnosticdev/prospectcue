@@ -1,5 +1,5 @@
 import { startAddButtons } from './add-buttons';
-import { startAddTagDiv, checkAddNewTag } from './tag_alert';
+import { addTagElements, checkAddNewTag } from './tag_alert';
 import { colorConsole } from './utils';
 
 (async function () {
@@ -7,19 +7,21 @@ import { colorConsole } from './utils';
 })();
 
 async function startProspectCueCustomizations() {
-    colorConsole('starting prospect cue customizations', 'green');
+    colorConsole('Starting prospect cue customizations', 'green');
 
     if (window.location.pathname.includes('/contacts/detail/')) {
         window.prospectCue = {
             addressDivs: {},
             tagsAdded: [],
+            contactLabels: [],
+            searchBox: null,
         };
         colorConsole(
-            'reloaded to contacts detail page, starting add buttons',
+            'reloaded to contacts detail page, starting to add zillow/google buttons',
             'yellow'
         );
         await startAddButtons();
-        await startAddTagDiv();
+        await addTagElements();
     }
     if (window.location.pathname.includes('conversations')) {
         colorConsole(
@@ -48,13 +50,13 @@ async function startProspectCueCustomizations() {
                 const target = e.target as HTMLAnchorElement;
                 if (target.href && target.href.includes('/contacts/detail/')) {
                     await startAddButtons();
-                    await startAddTagDiv();
+                    await addTagElements();
                 } else if (
                     !currentUrl.includes('/contacts/detail/') &&
                     window.location.pathname.includes('/contacts/detail/')
                 ) {
                     await startAddButtons();
-                    await startAddTagDiv();
+                    await addTagElements();
                 } else if (
                     window.location.pathname.includes(
                         '/conversations/conversations'

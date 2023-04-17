@@ -26,8 +26,16 @@ export function waitForElement(selector: string) {
  * @param {number} numChildren - the number of children to wait for
  * @returns {Promise<NodeList | Element>} - the NodeList of the parent's children
  */
-export function waitForChildNodes(parentSelector: string, numChildren = 1) {
-    colorConsole(`waiting for ${numChildren} children on ${parentSelector}...`);
+export function waitForChildNodes(
+    parentSelector: string,
+    numChildren = 1,
+    textContent?: string
+) {
+    colorConsole(
+        `waiting for ${numChildren} children on ${parentSelector} ${
+            textContent ? `with textContent ${textContent}` : ''
+        }`
+    );
     return new Promise((resolve: (value: NodeList) => void) => {
         const parent = document.querySelector(parentSelector);
         if (parent && parent.childElementCount >= numChildren) {
@@ -35,7 +43,6 @@ export function waitForChildNodes(parentSelector: string, numChildren = 1) {
         }
 
         const pObserver = new MutationObserver((record) => {
-            /** @type {NodeList} */
             const parentAll = document.querySelectorAll(parentSelector);
 
             if (parentAll.length >= numChildren) {
@@ -47,6 +54,17 @@ export function waitForChildNodes(parentSelector: string, numChildren = 1) {
                 resolve(parentAll);
                 pObserver.disconnect();
             }
+
+            // If we don't find the nodes within 4 seconds, just resolve with what we have
+            setTimeout(() => {
+                colorConsole(
+                    `parentAll still has ${parentAll.length} nodes...`,
+                    'red',
+                    parentAll
+                );
+                resolve(parentAll);
+                pObserver.disconnect();
+            }, 4000);
         });
 
         pObserver.observe(document.body, {
@@ -60,11 +78,12 @@ export function waitForChildNodes(parentSelector: string, numChildren = 1) {
  * cycles through the labels on the page and finds the address fields
  */
 export function getAddressDivs(labels: NodeList) {
-    /** @type {NodeList} */
     if (!window.prospectCue) {
         window.prospectCue = {
             addressDivs: {},
             tagsAdded: [],
+            contactLabels: [],
+            searchBox: null,
         };
     }
     // Find the Street Address label, then find the containing Div, then use its siblings to find the other address fields.
