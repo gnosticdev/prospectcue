@@ -1,3 +1,4 @@
+import { ACTIONS_DIVS_SELECTOR } from './constants';
 import Dialog from './dialog';
 import { colorConsole } from './utils';
 import { waitForElement, waitForManyElements } from './wait-elements';
@@ -14,14 +15,15 @@ export async function addTagElements() {
     }
     window.prospectCue.tagsAdded = [];
     const actionsSection = (await waitForManyElements(
-        '.hl_contact-details-left .h-full .bg-gray-100 > div',
+        ACTIONS_DIVS_SELECTOR,
         3
     )) as NodeListOf<HTMLElement>;
     /** @type {HTMLElement} */
     let tagDiv: HTMLDivElement | null = null;
     for (let i = 0; i < actionsSection.length; i++) {
         const node = actionsSection[i];
-        if (node.textContent && node.textContent.trim() === 'Tags') {
+        const heading = node.querySelector('span.text-sm.font-medium');
+        if (heading?.textContent && heading.textContent.trim() === 'Tags') {
             tagDiv = node as HTMLDivElement;
             colorConsole(`original tagDiv found -> `, 'orange', tagDiv);
             break;
@@ -71,7 +73,7 @@ export async function insertTagLink(tagDiv: HTMLDivElement) {
   style=" fill:#000000;"><g transform=""><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><g><path d="M5.375,26.875h118.25v118.25h-118.25z" fill="#c2e8ff"></path><path d="M118.25,32.25v107.5h-107.5v-107.5h107.5M129,21.5h-129v129h129v-129z" fill="#357ded"></path><path d="M129,43v32.25h-21.5l0,-32.25z" fill="#c2e8ff"></path><path d="M118.25,21.5v21.5h-32.25v-21.5z" fill="#c2e8ff"></path><g fill="#357ded"><path d="M150.5,0h-64.5l21.5,21.5l-43,43l21.5,21.5l43,-43l21.5,21.5z"></path></g></g><path d="" fill="none"></path><path d="" fill="none"></path></g></g></svg>
   </span>`;
 
-    tagContainer.prepend(tagLink.toString(), { html: true });
+    tagContainer.appendChild(tagLink);
     tagDiv.insertBefore(tagContainer, nodeAfter);
     return tagDiv;
     // Call tagAlert now that section is loaded and link added

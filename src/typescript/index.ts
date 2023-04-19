@@ -1,8 +1,9 @@
 import { startAddButtons } from './add-buttons';
-import { addTagElements, checkAddNewTag } from './tag-alert';
+import { addTagElements, checkAddNewTag, insertTagLink } from './tag-alert';
 import { colorConsole } from './utils';
 import * as wait from './wait-elements';
 import * as utils from './utils';
+import * as constants from './constants';
 
 colorConsole('Starting prospectcue customizations', 'green');
 startProspectCueCustomizations();
@@ -79,9 +80,11 @@ async function startProspectCueCustomizations() {
 export {
     wait,
     addTagElements,
+    insertTagLink,
     checkAddNewTag,
     startAddButtons,
     colorConsole,
     startProspectCueCustomizations,
     utils,
+    constants,
 };

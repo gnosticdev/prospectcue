@@ -1,3 +1,4 @@
+import { CONTACT_DIVS_SELECTOR, ACTIONS_DIVS_SELECTOR } from './constants';
 import { waitForManyElements } from './wait-elements';
 
 /**
@@ -46,18 +47,15 @@ export function getAddressDivs(labels: NodeList) {
 export const sectionTriggers = [] as HTMLElement[];
 
 export async function openAllContactDivs() {
-    const contactDivsSelector =
-        '.hl_contact-details-left > div > .h-full.overflow-y-auto > .py-3.px-3';
-    const actionsSectionSelector =
-        '.hl_contact-details-left > div > .h-full.overflow-y-auto > .bg-gray-100 > .py-3.px-3';
     const contactDivs = (await waitForManyElements(
-        contactDivsSelector,
+        CONTACT_DIVS_SELECTOR,
         3
     )) as NodeListOf<HTMLElement>;
     const actionsSectionDivs = (await waitForManyElements(
-        actionsSectionSelector,
+        ACTIONS_DIVS_SELECTOR,
         3
     )) as NodeListOf<HTMLElement>;
+    const CLOSED_PATH = 'M9 5l7 7-7 7';
     // if the svg within the contactDivs or the actionsSection is not visible, then we need to open the div to see the contact info
     for (let contactDiv of contactDivs) {
         // path of d attibute when closed is d="M9 5l7 7-7 7"
@@ -66,7 +64,7 @@ export async function openAllContactDivs() {
         // add the div to the sectionTriggers array so we can open and close it later
         sectionTriggers.push(contactDiv);
 
-        if (path.getAttribute('d') === 'M9 5l7 7-7 7') {
+        if (path.getAttribute('d') === CLOSED_PATH) {
             colorConsole('opening contact div', 'green', contactDiv);
             (contactDiv.firstChild as HTMLElement).click();
             // wait 1 second for the div to open
@@ -82,7 +80,7 @@ export async function openAllContactDivs() {
         // path of d attibute when closed is d="M9 5l7 7-7 7"
         // select the 2nd svg element because the first is the not the chevron in actions
         const path = action.querySelectorAll('svg > path')[1] as SVGPathElement;
-        if (path.getAttribute('d') === 'M9 5l7 7-7 7') {
+        if (path.getAttribute('d') === CLOSED_PATH) {
             colorConsole('opening actions div', 'green', action);
             (action.firstChild as HTMLElement).click();
             // wait 1 second for the div to open
