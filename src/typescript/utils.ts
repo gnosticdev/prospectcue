@@ -43,6 +43,8 @@ export function getAddressDivs(labels: NodeList) {
     }
 }
 
+export const sectionTriggers = [];
+
 export async function openAllContactDivs() {
     const contactDivsSelector =
         '.hl_contact-details-left > div > .h-full.overflow-y-auto > .py-3.px-3';
@@ -60,6 +62,7 @@ export async function openAllContactDivs() {
     for (let contactDiv of contactDivs) {
         // path of d attibute when closed is d="M9 5l7 7-7 7"
         const path = contactDiv.querySelector('svg > path') as SVGPathElement;
+
         if (path.getAttribute('d') === 'M9 5l7 7-7 7') {
             colorConsole('opening contact div', 'green', contactDiv);
             (contactDiv.firstChild as HTMLElement).click();
@@ -71,7 +74,8 @@ export async function openAllContactDivs() {
             continue;
         }
         // path of d attibute when closed is d="M9 5l7 7-7 7"
-        const path = action.querySelector('svg > path') as SVGPathElement;
+        // select the 2nd svg element because the first is the not the chevron in actions
+        const path = action.querySelectorAll('svg > path')[1] as SVGPathElement;
         if (path.getAttribute('d') === 'M9 5l7 7-7 7') {
             colorConsole('opening actions div', 'green', action);
             (action.firstChild as HTMLElement).click();
