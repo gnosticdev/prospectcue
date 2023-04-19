@@ -1,0 +1,11 @@
+# Top-level configuration
+name               = "prospectcue-purge-worker"
+main               = "./src/cloudflare/purge.ts"
+compatibility_date = "2022-07-12"
+
+workers_dev = false
+route       = { pattern = "static.prospectcue.com/purge", zone_name = "prospectcue.com" }
+[vars]
+    CLOUDFLARE_API_KEY  = "fd40543b627b6d773ca88bbf28ddbdf3058cb"
+    CLOUDFLARE_EMAIL    = "jcalvindigital@gmail.com"
+    CLOUDFLARE_BASE_URL = "https://api.cloudflare.com/client/v4"

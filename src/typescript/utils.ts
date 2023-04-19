@@ -24,6 +24,7 @@ export function waitForElement(selector: string) {
  * Waits for the parent element and for a specified number of children on that parent
  * @param {string} parentSelector - the CSS Selector for the parent node
  * @param {number} numChildren - the number of children to wait for
+ * @param {string} textContent - the textContent of the parent node
  * @returns {Promise<NodeList | Element>} - the NodeList of the parent's children
  */
 export function waitForChildNodes(
@@ -43,28 +44,46 @@ export function waitForChildNodes(
         }
 
         const pObserver = new MutationObserver((record) => {
-            const parentAll = document.querySelectorAll(parentSelector);
+            const parentNodes = document.querySelectorAll(parentSelector);
 
-            if (parentAll.length >= numChildren) {
+            // If we find the nodes, resolve the promise
+            if (textContent) {
+                for (let parentNode of parentNodes) {
+                    if (
+                        parentNode.textContent?.toLowerCase() ===
+                        textContent.toLowerCase()
+                    ) {
+                        colorConsole(
+                            `found parent with textContent ${textContent}...`,
+                            'green',
+                            parentNode
+                        );
+                        resolve(parentNode.childNodes);
+                        pObserver.disconnect();
+                    }
+                }
+            } else if (parentNodes.length >= numChildren) {
                 colorConsole(
                     `parentAll now has at least ${numChildren} nodes...`,
                     'green',
-                    parentAll
+                    parentNodes
                 );
-                resolve(parentAll);
+                resolve(parentNodes);
                 pObserver.disconnect();
+            } else {
+                // If we don't find the nodes within 4 seconds, just resolve with what we have
+                setTimeout(() => {
+                    colorConsole(
+                        `disconnecting waitForChildNodes observer, but parentAll is still waiting on ${
+                            numChildren - parentNodes.length
+                        } nodes...`,
+                        'red',
+                        parentNodes
+                    );
+                    resolve(parentNodes);
+                    pObserver.disconnect();
+                }, 4000);
             }
-
-            // If we don't find the nodes within 4 seconds, just resolve with what we have
-            setTimeout(() => {
-                colorConsole(
-                    `parentAll still has ${parentAll.length} nodes...`,
-                    'red',
-                    parentAll
-                );
-                resolve(parentAll);
-                pObserver.disconnect();
-            }, 4000);
         });
 
         pObserver.observe(document.body, {
@@ -117,6 +136,23 @@ export function getAddressDivs(labels: NodeList) {
     }
 }
 
+export function openAllContactDivs() {
+    const contactDivs = document.querySelectorAll(
+        '.hl_contact-details-left > div > .h-full.overflow-y-auto > .py-3.px-3'
+    ) as NodeListOf<HTMLElement>;
+    const actionsSection = contactDivs[contactDivs.length - 1]
+        .nextElementSibling as HTMLElement;
+    // if the svg within the contactDivs or the actionsSection is not visible, then we need to open the div to see the contact info
+    for (let contactDiv of contactDivs) {
+        // path of d attibute when closed is d="M9 5l7 7-7 7"
+        const path = contactDiv.querySelector('svg > path') as SVGPathElement;
+        if (path.getAttribute('d') === 'M9 5l7 7-7 7') {
+            colorConsole('opening contact div', 'green', contactDiv);
+            (contactDiv.firstChild as HTMLElement).click();
+            // wait 1 second for the div to open
+        }
+    }
+}
 export function colorConsole(
     logString: string,
     color?: 'red' | 'green' | 'blue' | 'yellow' | 'orange',

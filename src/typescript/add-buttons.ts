@@ -1,6 +1,13 @@
-import { waitForChildNodes, getAddressDivs, colorConsole } from './utils';
+import {
+    waitForChildNodes,
+    getAddressDivs,
+    colorConsole,
+    openAllContactDivs,
+} from './utils';
 
 export async function startAddButtons() {
+    // open all of the contact divs
+    openAllContactDivs();
     // Check if map buttons already present
     const labels = await waitForChildNodes(
         '.hl_contact-details-left .form-group .label',
