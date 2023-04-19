@@ -67,7 +67,9 @@ export async function openAllContactDivs() {
         }
     }
     for (let action of actionsSectionDivs) {
-        if (!action.hasChildNodes()) continue;
+        if (!action.childElementCount) {
+            continue;
+        }
         // path of d attibute when closed is d="M9 5l7 7-7 7"
         const path = action.querySelector('svg > path') as SVGPathElement;
         if (path.getAttribute('d') === 'M9 5l7 7-7 7') {

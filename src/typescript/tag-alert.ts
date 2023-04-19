@@ -82,10 +82,7 @@ export async function insertTagLink(tagDiv: HTMLDivElement) {
  */
 export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
-        colorConsole(
-            'Prospect Cue: new tag div not found, waiting for click',
-            'orange'
-        );
+        colorConsole('new tag div not found, waiting for click', 'orange');
         /** @type {HTMLElement} */
         const addNewWait = await waitForElement({ selector: '.add-new' });
 
@@ -93,11 +90,11 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     }
     const addNewSection = document.querySelector('.add-new') as HTMLElement;
     if (addNewSection) {
-        colorConsole('Prospect Cue: add new section found', 'orange');
+        colorConsole('add new section found', 'orange');
         return tagAlert(addNewSection);
     } else {
         colorConsole(
-            'Prospect Cue: add new section not found, waiting for click',
+            'add new section not found, waiting for click',
             'orange',
             newTagDiv
         );
