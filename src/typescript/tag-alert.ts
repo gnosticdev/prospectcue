@@ -14,7 +14,7 @@ export async function addTagElements() {
     }
     window.prospectCue.tagsAdded = [];
     const actionsSection = (await waitForManyElements(
-        '.hl_contact-details-left .h-full .bg-gray-100',
+        '.hl_contact-details-left .h-full .bg-gray-100 > div',
         3
     )) as NodeListOf<HTMLElement>;
     /** @type {HTMLElement} */
@@ -22,7 +22,7 @@ export async function addTagElements() {
     for (let i = 0; i < actionsSection.length; i++) {
         const node = actionsSection[i];
         if (node.textContent && node.textContent.trim() === 'Tags') {
-            tagDiv = node.parentElement as HTMLDivElement;
+            tagDiv = node as HTMLDivElement;
             colorConsole(`original tagDiv found -> `, 'orange', tagDiv);
             break;
         }
@@ -33,6 +33,7 @@ export async function addTagElements() {
         return;
     }
 
+    // If the edit tag div is already present, don't add it again
     if (tagDiv.querySelector('.tags-edit-container')) {
         return;
     }

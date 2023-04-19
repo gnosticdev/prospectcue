@@ -1,11 +1,13 @@
 import { startAddButtons } from './add-buttons';
 import { addTagElements, checkAddNewTag } from './tag-alert';
 import { colorConsole } from './utils';
+import * as wait from './wait-elements';
+import * as utils from './utils';
 
 colorConsole('Starting prospectcue customizations', 'green');
 startProspectCueCustomizations();
 
-export async function startProspectCueCustomizations() {
+async function startProspectCueCustomizations() {
     colorConsole('Starting prospect cue customizations', 'green');
 
     if (window.location.pathname.includes('/contacts/detail/')) {
@@ -73,3 +75,13 @@ export async function startProspectCueCustomizations() {
         true
     );
 }
+
+export {
+    wait,
+    addTagElements,
+    checkAddNewTag,
+    startAddButtons,
+    colorConsole,
+    startProspectCueCustomizations,
+    utils,
+};

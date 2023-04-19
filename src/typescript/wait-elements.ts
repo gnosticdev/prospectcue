@@ -36,42 +36,43 @@ export function waitForElement(props: WaitForElementProps) {
 }
 
 /**
- * Waits for the parent element and for a specified number of children on that parent
+ * Waits for a specified number of elements to be present in the DOM
+ * * To wait for children, use the selector 'parent > *'
  * @param {string} selectorAll - the CSS Selector for the parent node
- * @param {number} numChildren - the number of children to wait for
+ * @param {number} numElements - the number of elements to wait for
  * @param {string} textContent - the textContent of the parent node
  * @returns {Promise<NodeList | Element>} - the NodeList of the parent's children
  */
 export function waitForManyElements(
     selectorAll: string,
-    numChildren = 1,
+    numElements = 1,
     textContent?: string
 ) {
     colorConsole(
-        `waiting for ${numChildren} children on ${selectorAll} ${
+        `waiting for ${numElements} children on ${selectorAll} ${
             textContent ? `with textContent ${textContent}` : ''
         }`
     );
     return new Promise((resolve: (value: NodeList) => void) => {
-        const parentNodes = document.querySelectorAll(selectorAll);
-        if (parentNodes.length >= numChildren) {
+        const elements = document.querySelectorAll(selectorAll);
+        if (elements.length >= numElements) {
             colorConsole(
-                `parentAll already has at least ${numChildren} nodes...`,
+                `${selectorAll} already has at least ${numElements} nodes...`,
                 'green',
-                parentNodes
+                elements
             );
-            resolve(parentNodes);
+            resolve(elements);
         }
 
         const pObserver = new MutationObserver((mutations) => {
-            const parentNodes = document.querySelectorAll(selectorAll);
-            if (parentNodes.length >= numChildren) {
+            const elements = document.querySelectorAll(selectorAll);
+            if (elements.length >= numElements) {
                 colorConsole(
-                    `parentAll now has at least ${numChildren} nodes...`,
+                    `${selectorAll} now has at least ${numElements} nodes...`,
                     'green',
-                    parentNodes
+                    elements
                 );
-                resolve(parentNodes);
+                resolve(elements);
                 pObserver.disconnect();
             }
         });
