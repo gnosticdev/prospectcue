@@ -43,7 +43,7 @@ export function getAddressDivs(labels: NodeList) {
     }
 }
 
-export const sectionTriggers = [];
+export const sectionTriggers = [] as HTMLElement[];
 
 export async function openAllContactDivs() {
     const contactDivsSelector =
@@ -62,6 +62,9 @@ export async function openAllContactDivs() {
     for (let contactDiv of contactDivs) {
         // path of d attibute when closed is d="M9 5l7 7-7 7"
         const path = contactDiv.querySelector('svg > path') as SVGPathElement;
+        if (!path) continue;
+        // add the div to the sectionTriggers array so we can open and close it later
+        sectionTriggers.push(contactDiv);
 
         if (path.getAttribute('d') === 'M9 5l7 7-7 7') {
             colorConsole('opening contact div', 'green', contactDiv);
@@ -73,6 +76,9 @@ export async function openAllContactDivs() {
         if (!action.childElementCount) {
             continue;
         }
+
+        sectionTriggers.push(action);
+
         // path of d attibute when closed is d="M9 5l7 7-7 7"
         // select the 2nd svg element because the first is the not the chevron in actions
         const path = action.querySelectorAll('svg > path')[1] as SVGPathElement;
@@ -81,6 +87,12 @@ export async function openAllContactDivs() {
             (action.firstChild as HTMLElement).click();
             // wait 1 second for the div to open
         }
+    }
+}
+
+export function toggleSectionTriggers() {
+    for (let trigger of sectionTriggers) {
+        (trigger.firstChild as HTMLElement).click();
     }
 }
 
