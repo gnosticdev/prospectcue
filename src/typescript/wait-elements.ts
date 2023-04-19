@@ -83,21 +83,46 @@ export function waitForManyElements(
     });
 }
 
-export function waitForTextContent(selector: string, textContent: string) {
+/**
+ * Searches a NodeList and waits for specified textContent before resolving
+ * @param {string} selectorAll - the CSS Selector for the parent node
+ * @param {string} textContent - the textContent of the parent node
+ * @returns {Promise<NodeList | Element>} - the NodeList of the parent's children
+ *  */
+export function waitForTextContent(selectorAll: string, textContent: string) {
     return new Promise((resolve: (value: HTMLElement) => void) => {
-        const element = document.querySelector(selector) as HTMLElement;
-        if (element && element.textContent === textContent) {
-            resolve(element);
+        const elements = document.querySelectorAll(
+            selectorAll
+        ) as NodeListOf<HTMLElement>;
+        for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
+            if (element.textContent === textContent) {
+                colorConsole(
+                    `found textContent immediately: ${textContent}...`,
+                    'green',
+                    element
+                );
+                resolve(element);
+            }
         }
 
         const observer = new MutationObserver((mutations) => {
-            const element = document.querySelector(selector) as HTMLElement;
-            if (element && element.textContent === textContent) {
-                resolve(element);
-                observer.disconnect();
+            const elements = document.querySelectorAll(
+                selectorAll
+            ) as NodeListOf<HTMLElement>;
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                if (element.textContent === textContent) {
+                    colorConsole(
+                        `found textContent: ${textContent}...`,
+                        'green',
+                        element
+                    );
+                    resolve(element);
+                    observer.disconnect();
+                }
             }
         });
-
         observer.observe(document.body, {
             childList: true,
             subtree: true,

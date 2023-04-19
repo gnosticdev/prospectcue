@@ -1,13 +1,11 @@
 import { startAddButtons } from './add-buttons';
-import { addTagElements, checkAddNewTag } from './tag_alert';
+import { addTagElements, checkAddNewTag } from './tag-alert';
 import { colorConsole } from './utils';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    colorConsole('DOM loaded, starting prospect cue customizations', 'green');
-    await startProspectCueCustomizations();
-});
+colorConsole('Starting prospectcue customizations', 'green');
+startProspectCueCustomizations();
 
-async function startProspectCueCustomizations() {
+export async function startProspectCueCustomizations() {
     colorConsole('Starting prospect cue customizations', 'green');
 
     if (window.location.pathname.includes('/contacts/detail/')) {
