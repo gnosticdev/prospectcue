@@ -2,7 +2,7 @@ import { startAddButtons } from './add-buttons';
 import { addTagElements, checkAddNewTag } from './tag_alert';
 import { colorConsole } from './utils';
 
-window.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     colorConsole('DOM loaded, starting prospect cue customizations', 'green');
     await startProspectCueCustomizations();
 });
