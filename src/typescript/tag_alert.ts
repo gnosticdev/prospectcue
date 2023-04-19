@@ -1,5 +1,6 @@
 import Dialog from './dialog';
-import { colorConsole, waitForChildNodes, waitForElement } from './utils';
+import { colorConsole } from './utils';
+import { waitForElement, waitForManyElements } from './wait-elements';
 
 export async function addTagElements() {
     colorConsole(`inserting tag link and tag alert...`, 'blue');
@@ -12,8 +13,8 @@ export async function addTagElements() {
         };
     }
     window.prospectCue.tagsAdded = [];
-    const actionsSection = (await waitForChildNodes(
-        '.hl_contact-details-left .h-full .bg-gray-100 [data-v-56639245]',
+    const actionsSection = (await waitForManyElements(
+        '.hl_contact-details-left .h-full .bg-gray-100',
         3
     )) as NodeListOf<HTMLElement>;
     /** @type {HTMLElement} */
@@ -86,7 +87,7 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
             'orange'
         );
         /** @type {HTMLElement} */
-        const addNewWait = await waitForElement('.add-new');
+        const addNewWait = await waitForElement({ selector: '.add-new' });
 
         return tagAlert(addNewWait);
     }
@@ -114,7 +115,7 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
                 'green',
                 addNew
             );
-            const addNewWait = await waitForElement('.add-new');
+            const addNewWait = await waitForElement({ selector: '.add-new' });
             colorConsole(`add new section loaded -> `, 'green', addNewWait);
             tagAlert(addNewWait);
         });

@@ -12,7 +12,7 @@
     "main": "index.js",
     "private": true,
     "scripts": {
-        "build": "esbuild src/typescript/index.ts --bundle --minify --sourcemap --target=es6 --outdir=docs",
+        "build": "esbuild src/typescript/index.ts --bundle --minify --format=esm --sourcemap --target=es6 --outdir=docs",
         "build:dev": "esbuild src/typescript/index.ts --bundle --sourcemap --target=es6 --outdir=docs",
         "copy": "cp -r src/css/ docs/",
         "push": "git add . && git commit -m \"update\" && git push",
