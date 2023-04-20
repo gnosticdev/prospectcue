@@ -1,25 +1,11 @@
-interface Window {
-    prospectCue: {
-        addressDivs: AddressDivs | {};
-        tagsAdded: string[];
-        contactLabels: HTMLElement[];
-        searchBox: HTMLInputElement | null;
-    };
-    arcBoost: {
-        contactLabels: HTMLElement[];
-        searchBox: HTMLInputElement | null;
-    };
-    waitForElem: (
-        selector: string,
-        numChildren?: number,
-        rChildren?: boolean
-    ) => Promise<HTMLElement>;
-    waitForManyElem: (
-        pSelector: string,
-        numChildren?: number,
-        rChildren?: boolean
-    ) => Promise<HTMLElement>;
+interface ProspectCue {
+    addressDivs: AddressDivs | {};
+    tagsAdded: string[];
+    contactDivs: HTMLElement[];
+    contactDivTriggers: HTMLElement[];
+    searchBox: HTMLInputElement | null;
 }
+
 type DialogSettings = {
     target: string;
     accept: string;

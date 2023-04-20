@@ -1,45 +1,41 @@
 import { ACTIONS_DIVS_SELECTOR } from './constants';
 import Dialog from './dialog';
+import { appended } from './index';
 import { colorConsole } from './utils';
 import { waitForElement, waitForManyElements } from './wait-elements';
 
 export async function addTagElements() {
     colorConsole(`inserting tag link and tag alert...`, 'blue');
-    if (!window.prospectCue) {
-        window.prospectCue = {
-            addressDivs: {},
-            tagsAdded: [],
-            contactLabels: [],
-            searchBox: null,
-        };
+
+    appended.tagsAdded = [];
+    // If the edit tag div is already present, don't add it again
+    if (document.getElementById('tags-edit-container')) {
+        colorConsole('tags edit div already present', 'red');
+        return;
     }
-    window.prospectCue.tagsAdded = [];
+
     const actionsSection = (await waitForManyElements(
         ACTIONS_DIVS_SELECTOR,
         3
     )) as NodeListOf<HTMLElement>;
-    /** @type {HTMLElement} */
-    let tagDiv: HTMLDivElement | null = null;
+    // Tags section is the first child of the actions container with a heading of "Tags"
+    let tagsSection: HTMLDivElement | null = null;
     for (let i = 0; i < actionsSection.length; i++) {
         const node = actionsSection[i];
         const heading = node.querySelector('span.text-sm.font-medium');
         if (heading?.textContent && heading.textContent.trim() === 'Tags') {
-            tagDiv = node as HTMLDivElement;
-            colorConsole(`original tagDiv found -> `, 'orange', tagDiv);
+            tagsSection = node.firstElementChild as HTMLDivElement;
+            colorConsole(`Tags heading found-> `, 'orange', tagsSection);
             break;
         }
     }
 
-    if (tagDiv === null) {
-        colorConsole('tag div not found', 'red');
+    if (tagsSection === null) {
+        colorConsole('tags section not found', 'red');
         return;
     }
 
-    // If the edit tag div is already present, don't add it again
-    if (tagDiv.querySelector('.tags-edit-container')) {
-        return;
-    }
-    const newTagDiv = await insertTagLink(tagDiv);
+    const newTagDiv = await appendTagLink(tagsSection);
     if (!newTagDiv) {
         colorConsole('new tag div not found', 'red');
         return;
@@ -50,32 +46,33 @@ export async function addTagElements() {
 
 /**
  * Inserts an "Edit Tags" link next to Tags section in Contact Details.
- * @param {HTMLDivElement} tagDiv - the Tags section on contact info screen
+ * @param {HTMLDivElement} tagsSection - the Tags section on contact info screen
  */
-export async function insertTagLink(tagDiv: HTMLDivElement) {
+export async function appendTagLink(tagsSection: HTMLDivElement) {
     // If the edit tag div is already present, don't add it again
-    if (tagDiv.querySelector('tags-edit')) return null;
+    if (document.getElementById('tags-edit')) return undefined;
 
-    // Create the tagsAdded array on window object
-    const nodeAfter = tagDiv.lastElementChild;
+    // neeed to insert the edit tags link just before the last child of the tags section
+    const lastChild = tagsSection.lastElementChild;
 
     // Need container to hold the link so the link doesnt grow with flex-grow
     const tagContainer = document.createElement('div');
-    tagContainer.classList.add('tags-edit-container');
+    tagContainer.id = 'tags-edit-container';
 
     const tagLink = document.createElement('a');
-    const currentUrl = window.location.href;
-    tagLink.href = currentUrl.replace(/contacts.*/, 'settings/tags');
+    // stop the link from propogating up the DOM
+    tagLink.addEventListener('click', (e) => e.stopPropagation());
+    tagLink.href = window.location.href.replace(/contacts.*/, 'settings/tags');
     tagLink.target = '_blank';
-    tagLink.innerHTML = `<span class="tags-edit">Edit Tags  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+    tagLink.innerHTML = `<span id="tags-edit" class="tags-edit">Edit Tags  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
   width="12" height="12"
   viewBox="0 0 172 172"
   style=" fill:#000000;"><g transform=""><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><g><path d="M5.375,26.875h118.25v118.25h-118.25z" fill="#c2e8ff"></path><path d="M118.25,32.25v107.5h-107.5v-107.5h107.5M129,21.5h-129v129h129v-129z" fill="#357ded"></path><path d="M129,43v32.25h-21.5l0,-32.25z" fill="#c2e8ff"></path><path d="M118.25,21.5v21.5h-32.25v-21.5z" fill="#c2e8ff"></path><g fill="#357ded"><path d="M150.5,0h-64.5l21.5,21.5l-43,43l21.5,21.5l43,-43l21.5,21.5z"></path></g></g><path d="" fill="none"></path><path d="" fill="none"></path></g></g></svg>
   </span>`;
 
-    tagContainer.appendChild(tagLink);
-    tagDiv.insertBefore(tagContainer, nodeAfter);
-    return tagDiv;
+    tagContainer.prepend(tagLink);
+    tagsSection.insertBefore(tagContainer, lastChild);
+    return tagsSection;
     // Call tagAlert now that section is loaded and link added
 }
 
@@ -87,9 +84,9 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
         colorConsole('new tag div not found, waiting for click', 'orange');
         /** @type {HTMLElement} */
-        const addNewWait = await waitForElement({ selector: '.add-new' });
+        const addNewTagSection = await waitForElement({ selector: '.add-new' });
 
-        return tagAlert(addNewWait);
+        return tagAlert(addNewTagSection);
     }
     const addNewSection = document.querySelector('.add-new') as HTMLElement;
     if (addNewSection) {
@@ -115,9 +112,9 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
                 'green',
                 addNew
             );
-            const addNewWait = await waitForElement({ selector: '.add-new' });
-            colorConsole(`add new section loaded -> `, 'green', addNewWait);
-            tagAlert(addNewWait);
+            const addNewTagDiv = await waitForElement({ selector: '.add-new' });
+            colorConsole(`add new section loaded -> `, 'green', addNewTagDiv);
+            tagAlert(addNewTagDiv);
         });
     }
 }
@@ -127,17 +124,7 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
  * @param {HTMLElement} addNew
  */
 export function tagAlert(addNew: HTMLElement) {
-    if (!window.prospectCue) {
-        window.prospectCue = {
-            tagsAdded: [],
-            addressDivs: {},
-            contactLabels: [],
-            searchBox: null,
-        };
-    }
-
-    window.prospectCue.tagsAdded = [];
-
+    appended.tagsAdded = [];
     colorConsole(`now attaching tag alert...`);
     if (addNew.hasAttribute('listener'))
         return colorConsole('tag alert found, returning...');
@@ -179,7 +166,7 @@ async function tagAddClick(e: Event) {
         'green'
     );
     if (confirm) {
-        window.prospectCue.tagsAdded.push(tagText);
+        appended.tagsAdded.push(tagText);
         target.click();
     }
     setTimeout(checkAddNewTag, 100);

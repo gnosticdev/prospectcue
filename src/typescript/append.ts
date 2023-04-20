@@ -1,13 +1,12 @@
-import { getAddressDivs, colorConsole, openAllContactDivs } from './utils';
-import { waitForManyElements } from './wait-elements';
+import { appended } from './index';
+import { getAddressDivs, colorConsole } from './utils';
+import { waitForElement, waitForManyElements } from './wait-elements';
 
-export async function startAddButtons() {
-    // open all of the contact divs
-    await openAllContactDivs();
+export async function addAddressButtons() {
     // Check if map buttons already present
     const labels = await waitForManyElements(
         '.hl_contact-details-left .form-group .label',
-        40
+        20
     );
     const addressDivs = getAddressDivs(labels);
     if (!addressDivs) {
@@ -63,4 +62,42 @@ export async function insertMapButtons(addressDivs: AddressDivs) {
     newDiv.innerHTML = googleButton + zillowButton;
 
     streetLabel.insertAdjacentElement('afterend', newDiv);
+}
+
+export async function addSectionToggle() {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'section-toggle';
+    checkbox.className =
+        'focus:ring-curious-blue-500 h-5 w-5 text-curious-blue-600 border-gray-300 rounded mr-2 disabled:opacity-50';
+    const label = document.createElement('label');
+    label.htmlFor = 'section-toggle';
+    label.innerText = 'Toggle Sections';
+    label.style.color = 'var(--gray-600)';
+    label.className = 'mb-0 mr-4';
+
+    checkbox.addEventListener('change', () => {
+        // close all sections when checked
+        if (checkbox.checked) {
+            for (let trigger of appended.contactDivTriggers) {
+                if (trigger.getAttribute('data-open') === 'true') {
+                    trigger.click();
+                }
+            }
+        }
+    });
+
+    const toggleDiv = document.createElement('div');
+    toggleDiv.appendChild(checkbox);
+    toggleDiv.appendChild(label);
+    toggleDiv.style.display = 'inline-flex';
+    const { firstElementChild: parentNode } = await waitForElement({
+        selector: '.hl_contact-details-left .h-full.overflow-y-auto',
+    });
+    if (!parentNode) {
+        colorConsole('parent node not found', 'red');
+        return;
+    }
+    parentNode.className += ' text-xs !text-gray-600';
+    parentNode.insertBefore(toggleDiv, parentNode.firstChild);
 }

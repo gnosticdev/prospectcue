@@ -1,29 +1,35 @@
-import { startAddButtons } from './add-buttons';
-import { addTagElements, checkAddNewTag, insertTagLink } from './tag-alert';
-import { colorConsole } from './utils';
+import { addAddressButtons, addSectionToggle } from './append';
+import { addTagElements, checkAddNewTag, appendTagLink } from './tag-alert';
+import { colorConsole, getAddressDivs } from './utils';
+import { processContactDivs } from './contact-divs';
 import * as wait from './wait-elements';
-import * as utils from './utils';
 import * as constants from './constants';
+import { addContactSearchBox } from './search-box';
 
-colorConsole('Starting prospectcue customizations', 'green');
 startProspectCueCustomizations();
+
+export const appended: ProspectCue = {
+    addressDivs: {},
+    tagsAdded: [],
+    contactDivs: [],
+    contactDivTriggers: [],
+    searchBox: null,
+};
+
+export async function runContactPageCustomizations() {
+    colorConsole('running contact page customizations', 'green');
+    await processContactDivs();
+    // await addContactSearchBox();
+    await addSectionToggle();
+    await addAddressButtons();
+    await addTagElements();
+}
 
 async function startProspectCueCustomizations() {
     colorConsole('Starting prospect cue customizations', 'green');
 
     if (window.location.pathname.includes('/contacts/detail/')) {
-        window.prospectCue = {
-            addressDivs: {},
-            tagsAdded: [],
-            contactLabels: [],
-            searchBox: null,
-        };
-        colorConsole(
-            'reloaded to contacts detail page, starting to add zillow/google buttons',
-            'yellow'
-        );
-        await startAddButtons();
-        await addTagElements();
+        await runContactPageCustomizations();
     }
     if (window.location.pathname.includes('conversations')) {
         colorConsole(
@@ -51,14 +57,12 @@ async function startProspectCueCustomizations() {
                 );
                 const target = e.target as HTMLAnchorElement;
                 if (target.href && target.href.includes('/contacts/detail/')) {
-                    await startAddButtons();
-                    await addTagElements();
+                    await runContactPageCustomizations();
                 } else if (
                     !currentUrl.includes('/contacts/detail/') &&
                     window.location.pathname.includes('/contacts/detail/')
                 ) {
-                    await startAddButtons();
-                    await addTagElements();
+                    await runContactPageCustomizations();
                 } else if (
                     window.location.pathname.includes(
                         '/conversations/conversations'
@@ -80,11 +84,13 @@ async function startProspectCueCustomizations() {
 export {
     wait,
     addTagElements,
-    insertTagLink,
+    appendTagLink,
     checkAddNewTag,
-    startAddButtons,
     colorConsole,
     startProspectCueCustomizations,
-    utils,
+    getAddressDivs,
+    addAddressButtons,
+    processContactDivs,
     constants,
+    addContactSearchBox,
 };

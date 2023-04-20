@@ -1,0 +1,8 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src/cloudflare",
+        "typeRoots": ["./node_modules/@types", "./src/cloudflare/@types"]
+    }
+}

@@ -16,7 +16,7 @@
         "build:dev": "esbuild src/typescript/index.ts --bundle --sourcemap --target=es6 --global-name=prospectcue --outdir=docs",
         "copy": "cp -r src/css/ docs/",
         "push": "git add . && git commit -m \"update\" && git push",
-        "build:boost": "esbuild tests/* --bundle --target=es6 --format=esm --outdir=\"/Users/divinelight/Library/Application Support/Arc/boosts/037d233f-a32e-4cec-9dee-26dfe41720d8\"",
+        "build:boost": "esbuild src/typescript/index.js --bundle --target=es6 --format=iife --outfile=\"/Users/divinelight/Library/Application Support/Arc/boosts/037d233f-a32e-4cec-9dee-26dfe41720d8/content.js\" --global-name=prospectcue",
         "purge": "wrangler publish index.js",
         "go": "pnpm run build && pnpm run copy && pnpm run push "
     },
