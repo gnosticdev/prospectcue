@@ -49,19 +49,25 @@ async function startProspectCueCustomizations() {
         'click',
         function watchWindowClicks(e: MouseEvent) {
             const currentUrl = window.location.pathname;
-
+            if (!e.target) return;
             setTimeout(async () => {
-                colorConsole(
-                    `current URL -> pathname 500ms later... = ${currentUrl} -> ${window.location.pathname}`,
-                    'yellow'
-                );
                 const target = e.target as HTMLAnchorElement;
-                if (target.href && target.href.includes('/contacts/detail/')) {
+                // Contact Details Page
+                if (target.href.includes('/contacts/detail/')) {
                     await runContactPageCustomizations();
+                    colorConsole(
+                        `click on contact page, checking for add new tag`,
+                        'yellow'
+                    );
                 } else if (
                     !currentUrl.includes('/contacts/detail/') &&
                     window.location.pathname.includes('/contacts/detail/')
                 ) {
+                    // Contact Details Page - click on a within the page.
+                    colorConsole(
+                        `click on contact page, checking for add new tag`,
+                        'yellow'
+                    );
                     await runContactPageCustomizations();
                 } else if (
                     window.location.pathname.includes(

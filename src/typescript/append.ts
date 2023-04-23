@@ -65,6 +65,10 @@ export async function insertMapButtons(addressDivs: AddressDivs) {
 }
 
 export async function addSectionToggle() {
+    if (document.getElementById('section-toggle')) {
+        colorConsole('section toggle already present, returning', 'yellow');
+        return;
+    }
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = 'section-toggle';
@@ -76,16 +80,7 @@ export async function addSectionToggle() {
     label.style.color = 'var(--gray-600)';
     label.className = 'mb-0 mr-4';
 
-    checkbox.addEventListener('change', () => {
-        // close all sections when checked
-        if (checkbox.checked) {
-            for (let trigger of appended.contactDivTriggers) {
-                if (trigger.getAttribute('data-open') === 'true') {
-                    trigger.click();
-                }
-            }
-        }
-    });
+    checkbox.addEventListener('change', toggleSections);
 
     const toggleDiv = document.createElement('div');
     toggleDiv.appendChild(checkbox);
@@ -100,4 +95,22 @@ export async function addSectionToggle() {
     }
     parentNode.className += ' text-xs !text-gray-600';
     parentNode.insertBefore(toggleDiv, parentNode.firstChild);
+}
+
+export function toggleSections(e: Event) {
+    const checkbox = e.target as HTMLInputElement;
+    if (checkbox.checked) {
+        for (let trigger of appended.contactDivTriggers) {
+            if (trigger.parentElement?.getAttribute('data-open') === 'true') {
+                trigger.click();
+            }
+        }
+    } else {
+        // open all sections when unchecked
+        for (let trigger of appended.contactDivTriggers) {
+            if (trigger.parentElement?.getAttribute('data-open') === 'false') {
+                trigger.click();
+            }
+        }
+    }
 }
