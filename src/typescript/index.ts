@@ -45,11 +45,23 @@ async function startProspectCueCustomizations() {
         );
         await checkAddNewTag();
     }
+    function isAnchorElement(
+        target: EventTarget | null
+    ): target is HTMLAnchorElement {
+        return target instanceof HTMLAnchorElement;
+    }
     window.addEventListener(
         'click',
-        function watchWindowClicks(e: MouseEvent) {
-            const currentUrl = window.location.pathname;
-            if (!e.target) return;
+        function watchWindowClicks(e: Event) {
+            if (!isAnchorElement(e.target)) {
+                return;
+            }
+            colorConsole(
+                `click was on an anchor element: ${e.target.href}`,
+                'yellow'
+            );
+            // set the current url at the time of the click
+            const currentPath = window.location.pathname;
             setTimeout(async () => {
                 const target = e.target as HTMLAnchorElement;
                 // Contact Details Page
@@ -60,7 +72,7 @@ async function startProspectCueCustomizations() {
                         'yellow'
                     );
                 } else if (
-                    !currentUrl.includes('/contacts/detail/') &&
+                    !currentPath.includes('/contacts/detail/') &&
                     window.location.pathname.includes('/contacts/detail/')
                 ) {
                     // Contact Details Page - click on a within the page.
@@ -76,7 +88,7 @@ async function startProspectCueCustomizations() {
                 ) {
                     await checkAddNewTag();
                 } else if (
-                    currentUrl.includes('/opportunities/list') &&
+                    currentPath.includes('/opportunities/list') &&
                     window.location.pathname.includes('/opportunities/list')
                 ) {
                     await checkAddNewTag();
