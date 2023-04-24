@@ -3,22 +3,21 @@
 :root {
     --custom-primary: #5d63ff !important;
     --custom-link-color: #357ded !important;
-    --main-font: 'Poppins', sans-serif;
+    --main-font: 'Poppins', 'Inter', sans-serif;
     --main-body-bg: rgb(0, 0, 0);
     --secondary-bg-tone: hsl(217, 84%, 57%) !important;
     --custom-purple: #9150f7;
     --main-login-bg: #ffffff;
-    --login-logo: url('https://firebasestorage.googleapis.com/v0/b/highlevel-backend.appspot.com/o/location%2FYnfX5FD1xiqzPp9m5Wxk%2Fimages%2F0fabccac-92a9-48b9-8dfd-e174d8e3a8c1.jpeg?alt=media');
-    --login-heading-color: #357ded !important;
-    --login-input-color: #333333 !important;
+    --login-logo: url('https://static.prospectcue.com/prospectcue-logo-dark-tp-500px.png');
+    --login-heading-color: #ffffff !important;
+    --login-input-color: #fafafa !important;
     --login-input-border: #dbdbdb;
-    --login-error-color: #357ded !important;
-    --login-forgot-pass-color: #357ded !important;
-    --login-button-bg: #357ded !important;
+    --login-error-color: #deed35 !important;
+    --login-forgot-pass-color: var(--custom-link-color) !important;
+    --login-button-bg: hsl(217, 84%, 57%) !important;
     --login-button-color: #ffffff;
-    --login-button-hover-bg: #2f2f2f;
-    --login-button-hover-color: #ffffff;
-    --login-foot-note-color: #333333;
+    --login-button-hover-bg: hsla(217, 84%, 57%, 0.7);
+    --login-foot-note-color: hsl(0deg 0% 48.12%);
     --login-foot-note-link-color: #357ded;
     --tab-buttons-active: #357ded;
     --tab-buttons-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%),
@@ -44,44 +43,19 @@
 
 /* Login Changes New */
 
-.hl_login--header {
-    display: none;
-}
-
-[class*='text']:not(i),
-.btn.btn-light,
-.btn.btn-dark,
-.btn.btn-small {
-    font-family: var(--main-font);
-}
-
-.hl_login--body .card .card-body .btn.btn-blue.btn-block {
-    background-color: var(--login-button-bg);
-    font-family: var(--main-font) !important;
-    color: var(--btn-text-light) !important;
-    font-size: 20px !important;
-    text-transform: uppercase;
-    background-color: #357ded !important;
-}
-
 body .hl_login--body * {
-    font-family: var(--main-font);
+    font-family: var(--main-font) !important;
 }
 
-.hl_login--header .container-fluid a img {
-    display: none;
-    background: radial-gradient();
+.hl_login--header {
+    display: none !important;
 }
-
 .hl_login--body {
-    position: relative;
-    display: block;
-    margin: 0 auto;
-    padding: 50px 15px 50px 15px;
-    background: #252525
-        url('https://images.pexels.com/photos/6501751/pexels-photo-6501751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
-        repeat !important;
+    display: flex;
     min-height: 100vh;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .hl_login button.hl-btn {
@@ -116,31 +90,25 @@ body .hl_login--body * {
 .hl_login--body .heading2 {
     font-size: 20px !important;
     font-weight: normal !important;
+    color: white;
 }
 
+/* Remove input labels */
 .hl_login--body .card .card-body label {
     display: none;
 }
 
 .hl_login--body .card .card-body input {
-    border: 1px solid var(--login-input-border) !important;
-    border-radius: 3px !important;
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--login-input-color) !important;
+    background-color: black;
+    border: 2px solid gray;
+    border-radius: 0.5rem !important;
+    color: white;
 }
 
-.hl_login--body .card .card-body input::placeholder {
-    color: var(--login-input-color) !important;
-    opacity: 0.4;
-}
-
+.hl_login--body .card .card-body input::placeholder,
 .hl_login--body .card .card-body input:-ms-input-placeholder {
     color: var(--login-input-color) !important;
-}
-
-.hl_login--body .card .card-body input::-ms-input-placeholder {
-    color: var(--login-input-color) !important;
+    opacity: 0.4;
 }
 
 .hl_login--body .card .card-body .error {
@@ -153,22 +121,24 @@ body .hl_login--body * {
     line-height: 20px;
 }
 
-.hl_login--body .card .card-body .btn.btn-blue.btn-block {
-    background-color: var(--login-button-bg);
-    font-family: var(--main-font) !important;
-    color: var(--login-button-color);
-    font-size: 16px;
-    text-transform: uppercase;
+.hl_login--body .card {
+    background-color: hsl(260.5deg 4.9% 18.57%);
+    border-radius: 2rem;
+    border: 2px solid var(--gray-700);
 }
 
-.hl_login--body .card .card-body .btn.btn-blue.btn-block:hover {
+.hl_login--body .card .card-body button {
+    background-color: var(--login-button-bg) !important;
+    font-family: var(--main-font) !important;
+    color: var(--login-button-color) !important;
+    font-size: 16px !important;
+    text-transform: uppercase !important;
+}
+
+.hl_login--body .card .card-body button:hover {
     background-color: var(--login-button-hover-bg) !important;
-    color: var(--login-button-hover-color) !important;
-    -webkit-transform: translateY(-10px);
-    transform: translateY(-10px);
-    box-shadow: 0 8px 5px -5px rgba(0, 0, 0, 0.25);
     -webkit-transition: 0.2s;
-    transition: 0.2s;
+    transition: all 0.2s;
 }
 
 .hl_login--body .card .card-body .foot-note {
@@ -178,24 +148,6 @@ body .hl_login--body * {
 
 .hl_login--body .card .card-body .foot-note a {
     color: var(--login-foot-note-link-color);
-}
-
-.hl_login--body .card::before {
-    width: 180px;
-    height: 160px;
-    top: -130px;
-}
-
-.bg-gray-50 {
-    background-color: transparent;
-}
-
-.px-5 {
-    background-color: #0000 !important;
-}
-
-.bg-gray-50 {
-    background-color: #0000 !important;
 }
 
 /* End Login */

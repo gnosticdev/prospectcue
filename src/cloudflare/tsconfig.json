@@ -3,6 +3,9 @@
     "compilerOptions": {
         "outDir": "./dist",
         "rootDir": "./src/cloudflare",
-        "typeRoots": ["./node_modules/@types", "./src/cloudflare/@types"]
+        "typeRoots": [
+            "../../node_modules/@cloudflare",
+            "../../node_modules/@types"
+        ]
     }
 }
