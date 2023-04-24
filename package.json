@@ -1,11 +1,12 @@
 {
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20230404.0",
+        "@sprout2000/esbuild-copy-plugin": "^1.1.5",
         "@types/node": "^18.15.11",
         "dotenv": "^16.0.3",
         "esbuild": "^0.17.16",
         "tsx": "^3.12.6",
-        "wrangler": "^2.15.1"
+        "wrangler": "^2.17.0"
     },
     "name": "propectcue-scripts",
     "version": "1.0.0",
@@ -13,6 +14,7 @@
     "private": true,
     "scripts": {
         "build": "esbuild src/typescript/index.ts --bundle --minify --format=iife --sourcemap --target=es6 --outdir=docs/ --global-name=prospectcue",
+        "build:test": "tsc --build && esbuild src/* --bundle --minify --format=iife --sourcemap --target=es6 --outbase=out --global-name=prospectcue",
         "build:css": "esbuild src/css/* --minify --outdir=docs/",
         "build:dev": "esbuild src/typescript/index.ts --bundle --sourcemap --target=es6 --global-name=prospectcue --outdir=docs",
         "copy": "rsync src/public/* docs/ -r",
@@ -21,6 +23,7 @@
         "purge": "wrangler publish index.js",
         "go": "pnpm run build && pnpm run build:css && pnpm run copy && pnpm run push "
     },
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nynxa/prospectCue.git"

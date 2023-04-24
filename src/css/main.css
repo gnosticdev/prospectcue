@@ -8,7 +8,7 @@
     --secondary-bg-tone: hsl(217, 84%, 57%) !important;
     --custom-purple: #9150f7;
     --main-login-bg: #ffffff;
-    --login-logo: url('https://static.prospectcue.com/prospectcue-logo-dark-tp-500px.png');
+    --login-logo: url('../assets/prospectcue-logo-dark-tp-500px.png');
     --login-heading-color: #ffffff !important;
     --login-input-color: #fafafa !important;
     --login-input-border: #dbdbdb;
@@ -29,13 +29,13 @@
     --purple-btn-bg: #9150f714;
     --text-btn-sm: 0.9em;
     --card-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    --bg-color-main: white;
+    --settings-bg-main: white;
     --green-button: linear-gradient(90deg, #53ef8f, #6ef1a0);
     --green-button-text: #0a3458;
     --green-button-hover: linear-gradient(90deg, #53efd6, #6ef1e0);
     --custom-green: #53ef8f;
     --new-avatar: #8766ff;
-    --custom-pink: rgb(246 132 233);
+    --custom-pink: hsl(315, 54%, 56%);
     --btn-text-light: #fff;
     --btn-text-dark: #374151;
     --tag-lightblue-bg: rgba(24, 139, 246, 0.1);
@@ -45,6 +45,23 @@
 
 body .hl_login--body * {
     font-family: var(--main-font) !important;
+}
+
+.sidebar-v2-agency #sidebar-v2 .default-bg-color,
+.sidebar-v2-agency #sidebar-v2.default-bg-color,
+.sidebar-v2-location #sidebar-v2 .default-bg-color,
+.sidebar-v2-location #sidebar-v2.default-bg-color {
+    background-color: var(--main-body-bg) !important;
+    background-image: url('../assets/prospectcue-space-background-sidebar.jpg');
+}
+
+.hl_login {
+    background: #2d3748;
+    background-image: url('../assets/prospectcue-space-background-login.jpg');
+}
+
+.hl_header .container-fluid {
+    background-image: url('../assets/prospectcue-space-background-header.jpg');
 }
 
 .hl_login--header {
@@ -94,7 +111,7 @@ body .hl_login--body * {
 }
 
 /* Remove input labels */
-.hl_login--body .card .card-body label {
+.hl_login--body .card .card-body .hl-text-input-label {
     display: none;
 }
 
@@ -111,7 +128,7 @@ body .hl_login--body * {
     opacity: 0.4;
 }
 
-.hl_login--body .card .card-body .error {
+.hl_login--body .card .card-body .hl-input-error {
     color: var(--login-error-color);
 }
 
@@ -167,15 +184,9 @@ body .hl_login--body * {
     background: #fff;
 }
 
-.hl_settings--body .container-fluid {
-    background-color: #00000000 !important;
-    background: #00000000 !important;
-}
-
 .sidebar-v2-location .hl_settings--body {
-    background: var(--bg-color-main) !important;
+    background: var(--settings-bg-main) !important;
 }
-
 .content-container {
     margin-bottom: 50px;
 }
@@ -1480,4 +1491,21 @@ dialog.tag-confirm-dialog legend {
     text-align: center;
 }
 
-/* Purge CDN after updates --> https://purge.jsdelivr.net/gh/nynxa/ProspectCue@b2755954e29c648062631d5e708edbb221cbc9c1/Prospect-Cue-Github/Custom%20CSS/prospect_cue_custom_stylesheet_v2.css */
+/* Scrollbars */
+.hl_settings--body::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: black;
+}
+
+.hl_settings--body::-webkit-scrollbar-thumb {
+    background-color: var(--custom-primary);
+}
+
+.flex.flex-col.overflow-y-auto.overflow-x-hidden.w-full.hl_nav-header-without-footer::-webkit-scrollbar {
+    width: 0.5rem;
+    background: #2a3135;
+}
+
+.flex.flex-col.overflow-y-auto.overflow-x-hidden.w-full.hl_nav-header-without-footer::-webkit-scrollbar-thumb {
+    background: var(--custom-primary);
+}
