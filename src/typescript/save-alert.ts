@@ -10,11 +10,13 @@ export async function saveAlert() {
     const saveButton = document.querySelector(
         '.form-footer.save > div > button ~ div > button'
     );
-    const notSaveButton = document.querySelectorAll('a[href], a.back');
-    notSaveButton.forEach((ahref) => {
+    const notSaveButton = document.querySelectorAll(
+        'a[href], a.back'
+    ) as NodeListOf<HTMLAnchorElement>;
+    notSaveButton.forEach((ahref: HTMLAnchorElement) => {
         ahref.addEventListener(
             'click',
-            async () => {
+            async (e: MouseEvent) => {
                 console.log('trying to exit without saving');
                 if (numChanges > 0) {
                     const dialog = new Dialog({

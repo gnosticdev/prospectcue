@@ -1,8 +1,4 @@
-import {
-    CONTACT_DIVS_SELECTOR,
-    CONTACT_SECTION_LABELS_SELECTOR,
-} from './constants';
-import { appended } from './index';
+import { CONTACT_DIVS_SELECTOR } from './constants';
 import { waitForElement, waitForManyElements } from './wait-elements';
 
 export async function addContactSearchBox() {

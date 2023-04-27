@@ -109,7 +109,7 @@ export default class Dialog {
     }
 
     open(settings: DialogSettings) {
-        const dialog = Object.assign({}, this.settings, settings);
+        const dialog = { ...this.settings, ...settings };
         this.dialog.className = dialog.dialogClass || '';
         this.elements.accept.innerText = dialog.accept;
         this.elements.cancel.innerText = dialog.cancel;
@@ -181,10 +181,7 @@ export default class Dialog {
         );
     }
 
-    alert(
-        message: string,
-        config: { target: HTMLElement } = { target: e.target }
-    ) {
+    alert(message: string) {
         const settings: Pick<
             DialogSettings,
             'target' | 'message' | 'cancel' | 'template'
@@ -199,10 +196,7 @@ export default class Dialog {
         return this.waitForUser();
     }
 
-    confirm(
-        message: string,
-        config: { target: HTMLElement } = { target: e.target }
-    ) {
+    confirm(message: string) {
         const settings: Pick<
             DialogSettings,
             'target' | 'message' | 'template'
@@ -215,11 +209,7 @@ export default class Dialog {
         return this.waitForUser();
     }
 
-    prompt(
-        message: string,
-        value: boolean | FormData,
-        config: { target: HTMLElement } = { target: e.target }
-    ) {
+    prompt(message: string, value: boolean | FormData) {
         const template = `<label aria-label="${message}"><input type="text" name="prompt" value="${value}"></label>`;
         const settings: Pick<
             DialogSettings,

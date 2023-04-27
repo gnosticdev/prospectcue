@@ -95,6 +95,9 @@ export async function addSectionToggle() {
     }
     parentNode.className += ' text-xs !text-gray-600';
     parentNode.insertBefore(toggleDiv, parentNode.firstChild);
+    // make other checkbox same style
+    (parentNode.lastElementChild as HTMLDivElement).style.color =
+        'var(--gray-600)';
 }
 
 export function toggleSections(e: Event) {
