@@ -13,11 +13,10 @@
     "main": "index.js",
     "private": true,
     "scripts": {
-        "build": "esbuild src/typescript/index.ts --bundle --minify --format=iife --sourcemap --target=es6 --outdir=docs/ --global-name=prospectcue",
+        "build": "node esbuild.config.mjs",
         "build:test": "tsc --build && esbuild src/* --bundle --minify --format=iife --sourcemap --target=es6 --outbase=out --global-name=prospectcue",
         "build:css": "esbuild src/css/* --minify --outdir=docs/",
-        "build:dev": "esbuild src/typescript/index.ts --bundle --sourcemap --target=es6 --global-name=prospectcue --outdir=docs",
-        "copy": "rsync src/public/* docs/ -r",
+        "copy": "rsync src/assets/* docs/ -r",
         "push": "git add . && git commit -m \"update\" && git push",
         "build:boost": "esbuild src/typescript/index.js --bundle --target=es6 --format=iife --outfile=\"/Users/divinelight/Library/Application Support/Arc/boosts/037d233f-a32e-4cec-9dee-26dfe41720d8/content.js\" --global-name=prospectcue",
         "purge": "wrangler publish index.js",

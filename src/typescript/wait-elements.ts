@@ -3,6 +3,7 @@ import { colorConsole } from './utils';
 type WaitForElementProps = {
     selector?: string;
     element?: HTMLElement;
+    logMessage?: string;
 };
 
 const isSelector = (
@@ -10,6 +11,7 @@ const isSelector = (
 ): props is { selector: string } => props.selector !== undefined;
 
 export function waitForElement(props: WaitForElementProps) {
+    props.logMessage && colorConsole(props.logMessage);
     return new Promise((resolve: (value: HTMLElement) => void) => {
         const element = isSelector(props)
             ? (document.querySelector(props.selector) as HTMLElement)

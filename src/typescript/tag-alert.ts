@@ -126,6 +126,7 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
 export function tagAlert(addNew: HTMLElement) {
     appended.tagsAdded = [];
     colorConsole(`now attaching tag alert...`);
+
     if (addNew.hasAttribute('listener'))
         return colorConsole('tag alert found, returning...');
     addNew.setAttribute('listener', 'tagAlert');
@@ -152,7 +153,13 @@ async function tagAddClick(e: Event) {
     const target = e.target as HTMLElement;
     const tagText = target.innerText?.trim();
     // const confirm =  confirmTagAdd(e.target.textContent);
-    const dialog = new Dialog();
+    const dialog = new Dialog({
+        dialogClass: 'tag-confirm-dialog',
+        accept: 'Yes',
+        cancel: 'No',
+        message: `Are you sure you want to add <span class="tag-add">${tagText}</span> as a new tag?</div>`,
+        target: target,
+    });
     dialog.open({
         dialogClass: 'tag-confirm-dialog',
         accept: 'Yes',

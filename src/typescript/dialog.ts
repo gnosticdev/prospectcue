@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 /**
  * Dialog module.
  * @module dialog.js
@@ -15,25 +16,18 @@ export default class Dialog {
     focusable?: never[];
     hasFormData?: boolean;
 
-    constructor(settings = {}) {
-        this.settings = Object.assign(
-            {
-                accept: 'OK',
-                bodyClass: 'dialog-open',
-                cancel: 'Cancel',
-                dialogClass: '',
-                message: '',
-                soundAccept: '',
-                soundOpen: '',
-                template: '',
-            },
-            settings
-        );
+    constructor(settings: DialogSettings) {
+        this.settings = {
+            accept: settings.accept || 'OK',
+            bodyClass: settings.bodyClass || 'dialog-open',
+            cancel: settings.cancel || 'Cancel',
+            ...settings,
+        };
         this.init();
     }
 
     collectFormData(formData: FormData) {
-        const object: { [key: string]: string | string[] } = {};
+        const object: FormDataObject = {};
         formData.forEach((value, key) => {
             if (typeof value === 'string') {
                 if (object.hasOwnProperty(key)) {
@@ -46,6 +40,7 @@ export default class Dialog {
                 }
             }
         });
+        return object;
     }
 
     getFocusable() {
@@ -113,7 +108,7 @@ export default class Dialog {
         this.toggle();
     }
 
-    open(settings = {}) {
+    open(settings: DialogSettings) {
         const dialog = Object.assign({}, this.settings, settings);
         this.dialog.className = dialog.dialogClass || '';
         this.elements.accept.innerText = dialog.accept;
@@ -154,52 +149,86 @@ export default class Dialog {
     }
 
     waitForUser() {
-        return new Promise((resolve) => {
-            this.dialog.addEventListener(
-                'cancel',
-                () => {
-                    this.toggle();
-                    resolve(false);
-                },
-                { once: true }
-            );
-            this.elements.accept.addEventListener(
-                'click',
-                () => {
-                    let value = this.hasFormData
-                        ? this.collectFormData(new FormData(this.elements.form))
-                        : true;
-                    if (
-                        this.elements.soundAccept.getAttribute('src').length > 0
-                    )
-                        this.elements.soundAccept.play();
-                    this.toggle();
-                    resolve(value);
-                },
-                { once: true }
-            );
-        });
+        return new Promise(
+            (resolve: (value: boolean | FormDataObject) => void) => {
+                this.dialog.addEventListener(
+                    'cancel',
+                    () => {
+                        this.toggle();
+                        resolve(false);
+                    },
+                    { once: true }
+                );
+                this.elements.accept.addEventListener(
+                    'click',
+                    () => {
+                        let value = this.hasFormData
+                            ? this.collectFormData(
+                                  new FormData(this.elements.form)
+                              )
+                            : true;
+                        if (
+                            this.elements.soundAccept.getAttribute('src')
+                                .length > 0
+                        )
+                            this.elements.soundAccept.play();
+                        this.toggle();
+                        resolve(value);
+                    },
+                    { once: true }
+                );
+            }
+        );
     }
 
-    alert(message, config = { target: e.target }) {
-        const settings = Object.assign({}, config, {
-            cancel: '',
+    alert(
+        message: string,
+        config: { target: HTMLElement } = { target: e.target }
+    ) {
+        const settings: Pick<
+            DialogSettings,
+            'target' | 'message' | 'cancel' | 'template'
+        > = {
+            target: config.target,
+            cancel,
             message,
-            template: '',
-        });
+            template,
+        };
+
         this.open(settings);
         return this.waitForUser();
     }
 
-    confirm(message, config = { target: e.target }) {
-        const settings = Object.assign({}, config, { message, template: '' });
+    confirm(
+        message: string,
+        config: { target: HTMLElement } = { target: e.target }
+    ) {
+        const settings: Pick<
+            DialogSettings,
+            'target' | 'message' | 'template'
+        > = {
+            target: config.target,
+            message,
+            template,
+        };
         this.open(settings);
         return this.waitForUser();
     }
 
-    prompt(message, value, config = { target: e.target }) {
+    prompt(
+        message: string,
+        value: boolean | FormData,
+        config: { target: HTMLElement } = { target: e.target }
+    ) {
         const template = `<label aria-label="${message}"><input type="text" name="prompt" value="${value}"></label>`;
-        const settings = Object.assign({}, config, { message, template });
+        const settings: Pick<
+            DialogSettings,
+            'target' | 'message' | 'template'
+        > = {
+            target: config.target,
+            message,
+            template,
+        };
         this.open(settings);
         return this.waitForUser();
     }

@@ -3,7 +3,8 @@
 :root {
     --custom-primary: #5d63ff !important;
     --custom-link-color: #357ded !important;
-    --main-font: 'Poppins', 'Inter', sans-serif;
+    --main-font: 'Poppins', sans-serif;
+    --secondary-font: 'Inter', sans-serif;
     --main-body-bg: rgb(0, 0, 0);
     --secondary-bg-tone: hsl(217, 84%, 57%) !important;
     --custom-purple: #9150f7;
@@ -43,6 +44,7 @@
 
 /* Login Changes New */
 
+body *,
 body .hl_login--body * {
     font-family: var(--main-font) !important;
 }

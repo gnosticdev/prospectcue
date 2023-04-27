@@ -5,6 +5,7 @@ import { processContactDivs } from './contact-divs';
 import * as wait from './wait-elements';
 import * as constants from './constants';
 import { addContactSearchBox } from './search-box';
+import { saveAlert } from './save-alert';
 
 startProspectCueCustomizations();
 
@@ -23,6 +24,7 @@ export async function runContactPageCustomizations() {
     await addSectionToggle();
     await addAddressButtons();
     await addTagElements();
+    await saveAlert();
 }
 
 async function startProspectCueCustomizations() {

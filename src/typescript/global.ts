@@ -6,18 +6,6 @@ interface ProspectCue {
     searchBox: HTMLInputElement | null;
 }
 
-type DialogSettings = {
-    target: string;
-    accept: string;
-    bodyClass: string;
-    cancel: string;
-    dialogClass: string;
-    message: string;
-    soundAccept: string;
-    soundOpen: string;
-    template: string;
-};
-
 type AddressDivs = {
     streetLabel: HTMLElement;
     streetDiv: HTMLElement;
@@ -26,3 +14,17 @@ type AddressDivs = {
     zipDiv: HTMLElement;
     addressDivChildren: HTMLCollection;
 };
+
+type DialogSettings = {
+    target?: HTMLElement;
+    accept?: string;
+    bodyClass?: string;
+    cancel?: string;
+    dialogClass?: string;
+    message?: string;
+    soundAccept?: string;
+    soundOpen?: string;
+    template?: string;
+};
+
+type FormDataObject = { [key: string]: string | string[] };
