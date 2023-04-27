@@ -186,7 +186,6 @@ export default class Dialog {
             DialogSettings,
             'target' | 'message' | 'cancel' | 'template'
         > = {
-            target: config.target,
             cancel,
             message,
             template,
@@ -201,7 +200,6 @@ export default class Dialog {
             DialogSettings,
             'target' | 'message' | 'template'
         > = {
-            target: config.target,
             message,
             template,
         };
@@ -215,7 +213,6 @@ export default class Dialog {
             DialogSettings,
             'target' | 'message' | 'template'
         > = {
-            target: config.target,
             message,
             template,
         };
