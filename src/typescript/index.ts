@@ -28,7 +28,7 @@ export async function runContactPageCustomizations() {
 }
 
 async function startProspectCueCustomizations() {
-    colorConsole('Starting prospect cue customizations', 'green');
+    colorConsole('Starting prospectcue customizations', 'green');
 
     if (window.location.pathname.includes('/contacts/detail/')) {
         await runContactPageCustomizations();
@@ -47,58 +47,66 @@ async function startProspectCueCustomizations() {
         );
         await checkAddNewTag();
     }
-    function isAnchorElement(
-        target: EventTarget | null
-    ): target is HTMLAnchorElement {
-        return target instanceof HTMLAnchorElement;
+
+    // watch for clicks on the window
+
+    window.addEventListener('click', handleWindowClicks, true);
+}
+
+function findAncestorWithHref(
+    element: EventTarget | null
+): HTMLAnchorElement | null {
+    while (element) {
+        if (
+            element instanceof HTMLAnchorElement &&
+            element.hasAttribute('href')
+        ) {
+            return element;
+        }
+        element = (element as HTMLElement).parentElement;
     }
-    window.addEventListener(
-        'click',
-        function watchWindowClicks(e: Event) {
-            if (!isAnchorElement(e.target)) {
-                return;
-            }
+    return null;
+}
+
+function handleWindowClicks(e: MouseEvent) {
+    const anchor = findAncestorWithHref(e.target);
+
+    if (!anchor) {
+        return;
+    }
+
+    colorConsole(`click was on an anchor element: ${anchor.href}`, 'yellow');
+    // set the current url at the time of the click
+    const currentPath = window.location.pathname;
+    setTimeout(async () => {
+        // Contact Details Page
+        if (anchor.href.includes('/contacts/detail/')) {
+            await runContactPageCustomizations();
             colorConsole(
-                `click was on an anchor element: ${e.target.href}`,
+                `click on contact page, checking for add new tag`,
                 'yellow'
             );
-            // set the current url at the time of the click
-            const currentPath = window.location.pathname;
-            setTimeout(async () => {
-                const target = e.target as HTMLAnchorElement;
-                // Contact Details Page
-                if (target.href.includes('/contacts/detail/')) {
-                    await runContactPageCustomizations();
-                    colorConsole(
-                        `click on contact page, checking for add new tag`,
-                        'yellow'
-                    );
-                } else if (
-                    !currentPath.includes('/contacts/detail/') &&
-                    window.location.pathname.includes('/contacts/detail/')
-                ) {
-                    // Contact Details Page - click on a within the page.
-                    colorConsole(
-                        `click on contact page, checking for add new tag`,
-                        'yellow'
-                    );
-                    await runContactPageCustomizations();
-                } else if (
-                    window.location.pathname.includes(
-                        '/conversations/conversations'
-                    )
-                ) {
-                    await checkAddNewTag();
-                } else if (
-                    currentPath.includes('/opportunities/list') &&
-                    window.location.pathname.includes('/opportunities/list')
-                ) {
-                    await checkAddNewTag();
-                }
-            }, 500);
-        },
-        true
-    );
+        } else if (
+            !currentPath.includes('/contacts/detail/') &&
+            window.location.pathname.includes('/contacts/detail/')
+        ) {
+            // Contact Details Page - click on a within the page.
+            colorConsole(
+                `click on contact page, checking for add new tag`,
+                'yellow'
+            );
+            await runContactPageCustomizations();
+        } else if (
+            window.location.pathname.includes('/conversations/conversations')
+        ) {
+            await checkAddNewTag();
+        } else if (
+            currentPath.includes('/opportunities/list') &&
+            window.location.pathname.includes('/opportunities/list')
+        ) {
+            await checkAddNewTag();
+        }
+    }, 500);
 }
 
 export {
