@@ -1,7 +1,6 @@
 {
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20230404.0",
-        "@sprout2000/esbuild-copy-plugin": "^1.1.5",
         "@types/node": "^18.15.11",
         "dotenv": "^16.0.3",
         "esbuild": "^0.17.16",

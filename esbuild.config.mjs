@@ -1,7 +1,4 @@
 import * as esbuild from 'esbuild';
-import pkg from '@sprout2000/esbuild-copy-plugin';
-
-const { copyPlugin } = pkg;
 
 await esbuild.build({
     entryPoints: [
@@ -17,6 +14,7 @@ await esbuild.build({
             out: 'calendar',
             in: 'src/css/calendar.css',
         },
+        'CNAME',
     ],
     bundle: true,
     minify: true,
@@ -28,16 +26,6 @@ await esbuild.build({
     loader: {
         '.png': 'file',
         '.jpg': 'file',
+        '': 'copy',
     },
-
-    plugins: [
-        copyPlugin({
-            src: 'CNAME',
-            dest: 'docs/CNAME',
-            filter: (src, dest) => {
-                !src && console.log(`copy: ${src} -> ${dest}`);
-                return true;
-            },
-        }),
-    ],
 });

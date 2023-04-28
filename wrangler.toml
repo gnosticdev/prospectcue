@@ -5,7 +5,7 @@ compatibility_date = "2023-04-19"
 
 workers_dev = false
 route       = { pattern = "static.prospectcue.com/purge", zone_name = "prospectcue.com" }
-outdir      = "dist"
+outdir      = "cdn"
 [vars]
     CLOUDFLARE_API_KEY  = "fd40543b627b6d773ca88bbf28ddbdf3058cb"
     CLOUDFLARE_EMAIL    = "jcalvindigital@gmail.com"

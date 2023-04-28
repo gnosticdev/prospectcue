@@ -56,6 +56,11 @@ async function startProspectCueCustomizations() {
 function findAncestorWithHref(
     element: EventTarget | null
 ): HTMLAnchorElement | null {
+    colorConsole(
+        `finding ancestor with href`,
+        'yellow',
+        element as EventTarget
+    );
     while (element) {
         if (
             element instanceof HTMLAnchorElement &&
@@ -69,7 +74,8 @@ function findAncestorWithHref(
 }
 
 function handleWindowClicks(e: MouseEvent) {
-    const anchor = findAncestorWithHref(e.target);
+    const target = e.target as HTMLElement;
+    const anchor = findAncestorWithHref(target);
 
     if (!anchor) {
         return;

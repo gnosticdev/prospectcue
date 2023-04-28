@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@cloudflare/workers-types': ^4.20230404.0
-  '@sprout2000/esbuild-copy-plugin': ^1.1.5
   '@types/node': ^18.15.11
   dotenv: ^16.0.3
   esbuild: ^0.17.16
@@ -11,7 +10,6 @@ specifiers:
 
 devDependencies:
   '@cloudflare/workers-types': 4.20230404.0
-  '@sprout2000/esbuild-copy-plugin': 1.1.5
   '@types/node': 18.15.11
   dotenv: 16.0.3
   esbuild: 0.17.16
@@ -638,11 +636,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: true
-
-  /@sprout2000/esbuild-copy-plugin/1.1.5:
-    resolution: {integrity: sha512-Rx0CYucKZMNHNeRKtaWWcXzqAN/h57SuPmZ7VqT9T0CkVviOZpMIO0zgnJEzDwe95BsI9tFs6kWG8/YKGxuqZw==}
-    engines: {node: '>=16.7'}
     dev: true
 
   /@types/better-sqlite3/7.6.4:

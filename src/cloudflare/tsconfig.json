@@ -1,11 +1,13 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "./src/cloudflare",
+        "outDir": "cdn",
+        "rootDir": "./",
         "typeRoots": [
-            "../../node_modules/@cloudflare",
+            "../../node_modules/@cloudflare/workers-types",
             "../../node_modules/@types"
         ]
-    }
+    },
+    "include": ["../cloudflare/*.ts"],
+    "exclude": ["../../node_modules"]
 }
