@@ -87,7 +87,7 @@ export async function addSectionToggle() {
     toggleDiv.appendChild(label);
     toggleDiv.style.display = 'inline-flex';
     const { firstElementChild: parentNode } = await waitForElement({
-        selector: '.hl_contact-details-left .h-full.overflow-y-auto',
+        selectorElement: '.hl_contact-details-left .h-full.overflow-y-auto',
     });
     if (!parentNode) {
         colorConsole('parent node not found', 'red');

@@ -1,33 +1,33 @@
 import { colorConsole } from './utils';
 
-type WaitForElementProps = {
-    selector?: string;
-    element?: HTMLElement;
+type Props = {
+    selector: string;
     logMessage?: string;
 };
 
-const isSelector = (
-    props: WaitForElementProps
-): props is { selector: string } => props.selector !== undefined;
+export function waitForElement(props: Props) {
+    const { logMessage } = props;
 
-export function waitForElement(props: WaitForElementProps) {
-    props.logMessage && colorConsole(props.logMessage);
+    logMessage && colorConsole(logMessage);
     return new Promise((resolve: (value: HTMLElement) => void) => {
-        const element = isSelector(props)
-            ? (document.querySelector(props.selector) as HTMLElement)
-            : props.element;
+        const element = document.querySelector(props.selector) as HTMLElement;
         if (element) {
             resolve(element);
+            return;
         }
-
+        // if element is not found, wait for it to be added to the DOM
         const observer = new MutationObserver((mutations) => {
-            const element = isSelector(props)
-                ? (document.querySelector(props.selector) as HTMLElement)
-                : props.element;
-            if (element) {
-                resolve(element);
-                observer.disconnect();
-            }
+            mutations.forEach((mutation) => {
+                const nodes = Array.from(mutation.addedNodes);
+                nodes.forEach((node) => {
+                    if (node instanceof HTMLElement) {
+                        if (node.matches(props.selector)) {
+                            observer.disconnect();
+                            resolve(node);
+                        }
+                    }
+                });
+            });
         });
 
         observer.observe(document.body, {
@@ -39,7 +39,8 @@ export function waitForElement(props: WaitForElementProps) {
 
 /**
  * Waits for a specified number of elements to be present in the DOM
- * * To wait for children, use the selector 'parent > *'
+ * * To wait for children, use the selector:
+ * @example waitForManyELements(selectorAll: '.parent > *')
  * @param {string} selectorAll - the CSS Selector for the parent node
  * @param {number} numElements - the number of elements to wait for
  * @param {string} textContent - the textContent of the parent node

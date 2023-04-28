@@ -2,14 +2,11 @@ import { CONTACT_DIVS_SELECTOR } from './constants';
 import { waitForElement, waitForManyElements } from './wait-elements';
 
 export async function addContactSearchBox() {
-    let parentNode = document.querySelector(
-        '.hl_contact-details-left .contact-detail-nav'
-    ) as HTMLElement;
-    if (!parentNode) {
-        parentNode = await waitForElement({
-            element: parentNode,
-        });
-    }
+    const parentSelector = '.hl_contact-details-left .contact-detail-nav';
+    const parentNode = (await waitForElement({
+        selector: parentSelector,
+        logMessage: 'waiting for searchBox parent node',
+    })) as HTMLElement;
     const searchBox = document.createElement('input');
     searchBox.setAttribute('type', 'text');
     searchBox.setAttribute('placeholder', 'search sections');

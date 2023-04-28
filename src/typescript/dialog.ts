@@ -17,6 +17,7 @@ export default class Dialog {
     hasFormData?: boolean;
 
     constructor(settings: DialogSettings) {
+        // Set default settings
         this.settings = {
             accept: settings.accept || 'OK',
             bodyClass: settings.bodyClass || 'dialog-open',
@@ -107,36 +108,46 @@ export default class Dialog {
         });
         this.toggle();
     }
-
-    open(settings: DialogSettings) {
-        const dialog = { ...this.settings, ...settings };
+    // Opens the dialog and customizes settings
+    open(settings?: DialogSettings) {
+        const dialog = {
+            ...this.settings,
+            ...settings,
+        };
         this.dialog.className = dialog.dialogClass || '';
+
+        /* set innerText of the elements */
         this.elements.accept.innerText = dialog.accept;
         this.elements.cancel.innerText = dialog.cancel;
         this.elements.cancel.hidden = dialog.cancel === '';
-        this.elements.message.innerHTML = dialog.message;
+        this.elements.message.innerText = dialog.message;
+
+        /* If sounds exists, update `src` */
         this.elements.soundAccept.src = dialog.soundAccept || '';
         this.elements.soundOpen.src = dialog.soundOpen || '';
+
+        /* A target can be added (from the element invoking the dialog */
         this.elements.target = dialog.target || '';
+
+        /* Optional HTML for custom dialogs */
         this.elements.template.innerHTML = dialog.template || '';
 
+        /* Grab focusable elements */
         this.focusable = this.getFocusable();
         this.hasFormData = this.elements.fieldset.elements.length > 0;
-
         if (dialog.soundOpen) {
             this.elements.soundOpen.play();
         }
-
         this.toggle(true);
-
         if (this.hasFormData) {
+            /* If form elements exist, focus on that first */
             this.focusable[0].focus();
             this.focusable[0].select();
         } else {
             this.elements.accept.focus();
         }
     }
-
+    // Toggles the dialog open and closed
     toggle(open = false) {
         if (this.dialogSupported && open) this.dialog.showModal();
         if (!this.dialogSupported) {
@@ -147,7 +158,7 @@ export default class Dialog {
             this.elements.target.focus();
         }
     }
-
+    // Wait for user to click accept or cancel
     waitForUser() {
         return new Promise(
             (resolve: (value: boolean | FormDataObject) => void) => {
@@ -181,38 +192,30 @@ export default class Dialog {
         );
     }
 
+    // Alert box - set cancel and template to empty string
     alert(message: string) {
-        const settings: Pick<
-            DialogSettings,
-            'target' | 'message' | 'cancel' | 'template'
-        > = {
-            cancel,
+        const settings: DialogSettings = {
             message,
-            template,
+            cancel: '',
+            template: '',
         };
 
         this.open(settings);
         return this.waitForUser();
     }
-
+    // Confirm box - set template to empty string
     confirm(message: string) {
-        const settings: Pick<
-            DialogSettings,
-            'target' | 'message' | 'template'
-        > = {
+        const settings: DialogSettings = {
             message,
-            template,
+            template: '',
         };
         this.open(settings);
         return this.waitForUser();
     }
-
+    // Prompt box - set cancel to empty string
     prompt(message: string, value: boolean | FormData) {
         const template = `<label aria-label="${message}"><input type="text" name="prompt" value="${value}"></label>`;
-        const settings: Pick<
-            DialogSettings,
-            'target' | 'message' | 'template'
-        > = {
+        const settings: DialogSettings = {
             message,
             template,
         };

@@ -2,14 +2,17 @@ import Dialog from './dialog';
 import { waitForElement } from './wait-elements';
 
 export async function saveAlert() {
-    const formFooter = await waitForElement({ selector: '.form-footer.save' });
+    const formFooter = await waitForElement({
+        selector: '.form-footer.save',
+        logMessage: 'waiting for form footer',
+    });
     const changes = document.querySelector(
         '.form-footer.save > div'
     )?.textContent;
     const numChanges = Number(changes?.match(/^\d+/)?.[0]);
-    const saveButton = document.querySelector(
-        '.form-footer.save > div > button ~ div > button'
-    );
+
+    console.log(`form footer found, there are ${numChanges} changes`);
+
     const notSaveButton = document.querySelectorAll(
         'a[href], a.back'
     ) as NodeListOf<HTMLAnchorElement>;

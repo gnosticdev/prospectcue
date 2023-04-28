@@ -84,7 +84,9 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
         colorConsole('new tag div not found, waiting for click', 'orange');
         /** @type {HTMLElement} */
-        const addNewTagSection = await waitForElement({ selector: '.add-new' });
+        const addNewTagSection = await waitForElement({
+            selector: '.add-new',
+        });
 
         return tagAlert(addNewTagSection);
     }
@@ -112,7 +114,9 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
                 'green',
                 addNew
             );
-            const addNewTagDiv = await waitForElement({ selector: '.add-new' });
+            const addNewTagDiv = await waitForElement({
+                selector: '.add-new',
+            });
             colorConsole(`add new section loaded -> `, 'green', addNewTagDiv);
             tagAlert(addNewTagDiv);
         });
@@ -160,18 +164,13 @@ async function tagAddClick(e: Event) {
         message: `Are you sure you want to add <span class="tag-add">${tagText}</span> as a new tag?</div>`,
         target: target,
     });
-    dialog.open({
-        dialogClass: 'tag-confirm-dialog',
-        accept: 'Yes',
-        cancel: 'No',
-        message: `Are you sure you want to add <span class="tag-add">${tagText}</span> as a new tag?</div>`,
-        target: target,
-    });
+    dialog.open();
     const confirm = await dialog.waitForUser();
     colorConsole(
         `tag add confirmation: ${confirm} for tag ${tagText}`,
         'green'
     );
+    // If confirmed, click the 'add' button and continue with adding the tag
     if (confirm) {
         appended.tagsAdded.push(tagText);
         target.click();
