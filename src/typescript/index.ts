@@ -1,11 +1,11 @@
 import { addAddressButtons, addSectionToggle } from './append';
-import { addTagElements, checkAddNewTag, appendTagLink } from './tag-alert';
+import { addTagElements, checkNewTagAlert, appendTagLink } from './tag-alert';
 import { colorConsole, getAddressDivs } from './utils';
 import { processContactDivs } from './contact-divs';
 import * as wait from './wait-elements';
 import * as constants from './constants';
 import { addContactSearchBox } from './search-box';
-import { saveAlert } from './save-alert';
+import { attachSaveAlert } from './save-alert';
 
 startProspectCueCustomizations();
 
@@ -24,12 +24,11 @@ export async function runContactPageCustomizations() {
     await addSectionToggle();
     await addAddressButtons();
     await addTagElements();
-    await saveAlert();
+    await attachSaveAlert();
 }
 
 async function startProspectCueCustomizations() {
     colorConsole('Starting prospectcue customizations', 'green');
-
     if (window.location.pathname.includes('/contacts/detail/')) {
         await runContactPageCustomizations();
     }
@@ -38,19 +37,19 @@ async function startProspectCueCustomizations() {
             'reloaded to conversations page, checking for add new tag',
             'yellow'
         );
-        await checkAddNewTag();
+        await checkNewTagAlert();
     }
     if (window.location.pathname.includes('/opportunities/list')) {
         colorConsole(
             'reloaded to opportunities list page, checking for add new tag',
             'yellow'
         );
-        await checkAddNewTag();
+        await checkNewTagAlert();
     }
 
     // watch for clicks on the window
 
-    window.addEventListener('click', handleWindowClicks, true);
+    window.addEventListener('click', handleWindowClicks, { once: true });
 }
 
 function findAncestorWithHref(
@@ -77,24 +76,40 @@ function handleWindowClicks(e: MouseEvent) {
     const target = e.target as HTMLElement;
     const anchor = findAncestorWithHref(target);
 
-    if (!anchor) {
+    if (
+        anchor === null &&
+        !(target instanceof HTMLButtonElement) &&
+        !target.matches('i')
+    ) {
         return;
     }
 
-    colorConsole(`click was on an anchor element: ${anchor.href}`, 'yellow');
+    const CONTACTS_PATH = '/contacts/detail/';
+    const CONVERSATIONS_PATH = '/conversations/conversations';
+    const OPPORTUNITIES_PATH = '/opportunities/list';
+    colorConsole(`click was on an anchor element: ${anchor?.href}`, 'yellow');
     // set the current url at the time of the click
     const currentPath = window.location.pathname;
     setTimeout(async () => {
+        const newPath = window.location.pathname;
+        // dont run if link is an id selector on same page
+        if (
+            currentPath.includes(CONTACTS_PATH) &&
+            newPath.includes(CONTACTS_PATH) &&
+            window.location.hash
+        ) {
+            return;
+        }
         // Contact Details Page
-        if (anchor.href.includes('/contacts/detail/')) {
+        if (anchor?.href.includes(CONTACTS_PATH)) {
             await runContactPageCustomizations();
             colorConsole(
                 `click on contact page, checking for add new tag`,
                 'yellow'
             );
         } else if (
-            !currentPath.includes('/contacts/detail/') &&
-            window.location.pathname.includes('/contacts/detail/')
+            !currentPath.includes(CONTACTS_PATH) &&
+            newPath.includes(CONTACTS_PATH)
         ) {
             // Contact Details Page - click on a within the page.
             colorConsole(
@@ -102,15 +117,13 @@ function handleWindowClicks(e: MouseEvent) {
                 'yellow'
             );
             await runContactPageCustomizations();
+        } else if (window.location.pathname.includes(CONVERSATIONS_PATH)) {
+            await checkNewTagAlert();
         } else if (
-            window.location.pathname.includes('/conversations/conversations')
+            currentPath.includes(OPPORTUNITIES_PATH) &&
+            window.location.pathname.includes(OPPORTUNITIES_PATH)
         ) {
-            await checkAddNewTag();
-        } else if (
-            currentPath.includes('/opportunities/list') &&
-            window.location.pathname.includes('/opportunities/list')
-        ) {
-            await checkAddNewTag();
+            await checkNewTagAlert();
         }
     }, 500);
 }
@@ -119,7 +132,7 @@ export {
     wait,
     addTagElements,
     appendTagLink,
-    checkAddNewTag,
+    checkNewTagAlert as checkAddNewTag,
     colorConsole,
     startProspectCueCustomizations,
     getAddressDivs,

@@ -4,8 +4,10 @@ import { appended } from './index';
 import { colorConsole } from './utils';
 import { waitForElement, waitForManyElements } from './wait-elements';
 
+const ADD_NEW_TAG_SELECTOR = '.tag-group .add-new';
+
 export async function addTagElements() {
-    colorConsole(`inserting tag link and tag alert...`, 'blue');
+    colorConsole(`inserting tag link and tag alert....`, 'blue');
 
     appended.tagsAdded = [];
     // If the edit tag div is already present, don't add it again
@@ -16,7 +18,10 @@ export async function addTagElements() {
 
     const actionsSection = (await waitForManyElements(
         ACTIONS_DIVS_SELECTOR,
-        3
+        3,
+        undefined,
+        'addTagElements',
+        'Actions section'
     )) as NodeListOf<HTMLElement>;
     // Tags section is the first child of the actions container with a heading of "Tags"
     let tagsSection: HTMLDivElement | null = null;
@@ -41,7 +46,9 @@ export async function addTagElements() {
         return;
     }
     colorConsole(`new tag div found -> `, 'green', newTagDiv);
-    checkAddNewTag(newTagDiv);
+
+    // Add the new tag alert
+    checkNewTagAlert(newTagDiv);
 }
 
 /**
@@ -80,7 +87,7 @@ export async function appendTagLink(tagsSection: HTMLDivElement) {
  * Checks for the add new tag div on conversations, opportunities and contact details pages.
  * @param {HTMLDivElement} newTagDiv - the Tags div in contact details left panel
  */
-export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
+export async function checkNewTagAlert(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
         colorConsole('new tag div not found, waiting for click', 'orange');
         /** @type {HTMLElement} */
@@ -88,12 +95,12 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
             selector: '.add-new',
         });
 
-        return tagAlert(addNewTagSection);
+        return attachTagAlert(addNewTagSection);
     }
     const addNewSection = document.querySelector('.add-new') as HTMLElement;
     if (addNewSection) {
         colorConsole('add new section found', 'orange');
-        return tagAlert(addNewSection);
+        return attachTagAlert(addNewSection);
     } else {
         colorConsole(
             'add new section not found, waiting for click',
@@ -117,8 +124,12 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
             const addNewTagDiv = await waitForElement({
                 selector: '.add-new',
             });
-            colorConsole(`add new section loaded -> `, 'green', addNewTagDiv);
-            tagAlert(addNewTagDiv);
+            colorConsole(
+                `add new tag section loaded -> `,
+                'green',
+                addNewTagDiv
+            );
+            attachTagAlert(addNewTagDiv);
         });
     }
 }
@@ -127,7 +138,7 @@ export async function checkAddNewTag(newTagDiv?: HTMLDivElement) {
  * Attaches click listener for adding new tags
  * @param {HTMLElement} addNew
  */
-export function tagAlert(addNew: HTMLElement) {
+export function attachTagAlert(addNew: HTMLElement) {
     appended.tagsAdded = [];
     colorConsole(`now attaching tag alert...`);
 
@@ -137,7 +148,7 @@ export function tagAlert(addNew: HTMLElement) {
 
     addNew.addEventListener(
         'click',
-        function ta(e) {
+        (e) => {
             addNew.removeAttribute('listener');
             tagAddClick(e);
         },
@@ -161,7 +172,7 @@ async function tagAddClick(e: Event) {
         dialogClass: 'tag-confirm-dialog',
         accept: 'Yes',
         cancel: 'No',
-        message: `Are you sure you want to add <span class="tag-add">${tagText}</span> as a new tag?</div>`,
+        message: `Are you sure you want to add <span class="tag-add">${tagText}</span> as a new tag?`,
         target: target,
     });
     dialog.open();
@@ -175,5 +186,5 @@ async function tagAddClick(e: Event) {
         appended.tagsAdded.push(tagText);
         target.click();
     }
-    setTimeout(checkAddNewTag, 100);
+    setTimeout(checkNewTagAlert, 100);
 }

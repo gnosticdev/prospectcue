@@ -2,15 +2,15 @@ import { colorConsole } from './utils';
 
 type Props = {
     selector: string;
-    logMessage?: string;
+    elementName?: string;
 };
 
 export function waitForElement(props: Props) {
-    const { logMessage } = props;
+    const { elementName, selector } = props;
 
-    logMessage && colorConsole(logMessage);
+    elementName && colorConsole(`${elementName}...waiting for ${props.selector}`);
     return new Promise((resolve: (value: HTMLElement) => void) => {
-        const element = document.querySelector(props.selector) as HTMLElement;
+        const element = document.querySelector(selector) as HTMLElement;
         if (element) {
             resolve(element);
             return;
@@ -21,7 +21,17 @@ export function waitForElement(props: Props) {
                 const nodes = Array.from(mutation.addedNodes);
                 nodes.forEach((node) => {
                     if (node instanceof HTMLElement) {
-                        if (node.matches(props.selector)) {
+                        // TEST
+                        if (selector.includes('form-footer')) {
+                            console.log('looking for form footer', node);
+                        }
+                        const element = node.querySelector(selector);
+                        if (node.matches(selector)) {
+                            colorConsole(
+                                `${elementName}...found -> ${selector} in`,
+                                'green',
+                                node
+                            );
                             observer.disconnect();
                             resolve(node);
                         }
@@ -49,10 +59,12 @@ export function waitForElement(props: Props) {
 export function waitForManyElements(
     selectorAll: string,
     numElements = 1,
-    textContent?: string
+    textContent?: string,
+    elementName?: string,
 ) {
+
     colorConsole(
-        `waiting for ${numElements} children on ${selectorAll} ${
+        `${elementName}: waiting for ${numElements} children on ${elementName} ${
             textContent ? `with textContent ${textContent}` : ''
         }`
     );
@@ -60,7 +72,7 @@ export function waitForManyElements(
         const elements = document.querySelectorAll(selectorAll);
         if (elements.length >= numElements) {
             colorConsole(
-                `${selectorAll} already has at least ${numElements} nodes...`,
+                `${elementName} already has at least ${numElements} nodes...`,
                 'green',
                 elements
             );
@@ -68,17 +80,19 @@ export function waitForManyElements(
         }
 
         const pObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
             const elements = document.querySelectorAll(selectorAll);
             if (elements.length >= numElements) {
                 colorConsole(
-                    `${selectorAll} now has at least ${numElements} nodes...`,
+                    `${elementName}: ${elementName} now has at least ${numElements} nodes...`,
                     'green',
                     elements
                 );
                 resolve(elements);
                 pObserver.disconnect();
             }
-        });
+            });
+    });
 
         pObserver.observe(document.body, {
             childList: true,
@@ -93,8 +107,9 @@ export function waitForManyElements(
  * @param {string} textContent - the textContent of the parent node
  * @returns {Promise<NodeList | Element>} - the NodeList of the parent's children
  *  */
-export function waitForTextContent(selectorAll: string, textContent: string) {
+export function waitForTextContent(selectorAll: string, textContent: string, elementName?: string) {
     return new Promise((resolve: (value: HTMLElement) => void) => {
+
         const elements = document.querySelectorAll(
             selectorAll
         ) as NodeListOf<HTMLElement>;
@@ -102,7 +117,7 @@ export function waitForTextContent(selectorAll: string, textContent: string) {
             const element = elements[i];
             if (element.textContent === textContent) {
                 colorConsole(
-                    `found textContent immediately: ${textContent}...`,
+                    `${element}: found textContent immediately: ${textContent}...`,
                     'green',
                     element
                 );
@@ -118,7 +133,7 @@ export function waitForTextContent(selectorAll: string, textContent: string) {
                 const element = elements[i];
                 if (element.textContent === textContent) {
                     colorConsole(
-                        `found textContent: ${textContent}...`,
+                        `${elementName}: found textContent: ${textContent}...`,
                         'green',
                         element
                     );

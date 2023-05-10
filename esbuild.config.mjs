@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild';
 
-await esbuild.build({
+/** @type {esbuild.BuildOptions} */
+const build = {
     entryPoints: [
         {
             out: 'index',
@@ -28,4 +29,27 @@ await esbuild.build({
         '.jpg': 'file',
         '': 'copy',
     },
-});
+};
+
+/** @type {esbuild.BuildOptions} */
+const copyBuild = {
+    entryPoints: ['docs/index.js', 'docs/main.css'],
+    bundle: false,
+    outdir: './static.prospectcue.com',
+    loader: {
+        '.js': 'copy',
+        '.css': 'copy',
+    },
+};
+
+await esbuild.build(build);
+await esbuild.build(copyBuild);
+
+const isWatch = process.argv.includes('--watch');
+
+if (isWatch) {
+    let ctx = await esbuild.context(build);
+    let ctx2 = await esbuild.context(copyBuild);
+    await ctx.watch();
+    await ctx2.watch();
+}

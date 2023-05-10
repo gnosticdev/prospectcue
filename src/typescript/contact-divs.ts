@@ -12,11 +12,15 @@ import { waitForManyElements } from './wait-elements';
 export async function processContactDivs() {
     const contactDivs = (await waitForManyElements(
         CONTACT_DIVS_SELECTOR,
-        3
+        3,
+        undefined,
+        'processContactDivs: waiting for Contact divs'
     )) as NodeListOf<HTMLElement>;
     const actionsSectionDivs = (await waitForManyElements(
         ACTIONS_DIVS_SELECTOR,
-        3
+        3,
+        undefined,
+        'processContactDivs: waiting for Acions section'
     )) as NodeListOf<HTMLElement>;
     // path of d attribute when closed is d="M9 5l7 7-7 7"
     const CLOSED_PATH = 'M9 5l7 7-7 7';
@@ -25,6 +29,7 @@ export async function processContactDivs() {
         const contactDivTrigger = contactDiv.querySelector(
             '.cursor-pointer'
         ) as HTMLElement;
+
         // path of d attibute when closed is d="M9 5l7 7-7 7"
         const path = contactDiv.querySelector('svg > path') as SVGPathElement;
         if (!path) continue;

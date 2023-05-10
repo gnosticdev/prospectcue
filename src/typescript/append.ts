@@ -6,7 +6,9 @@ export async function addAddressButtons() {
     // Check if map buttons already present
     const labels = await waitForManyElements(
         '.hl_contact-details-left .form-group .label',
-        20
+        20,
+        undefined,
+        'waiting for address labels'
     );
     const addressDivs = getAddressDivs(labels);
     if (!addressDivs) {
@@ -87,7 +89,7 @@ export async function addSectionToggle() {
     toggleDiv.appendChild(label);
     toggleDiv.style.display = 'inline-flex';
     const { firstElementChild: parentNode } = await waitForElement({
-        selectorElement: '.hl_contact-details-left .h-full.overflow-y-auto',
+        selector: '.hl_contact-details-left .h-full.overflow-y-auto', 
     });
     if (!parentNode) {
         colorConsole('parent node not found', 'red');

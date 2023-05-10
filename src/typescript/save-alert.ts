@@ -1,45 +1,59 @@
 import Dialog from './dialog';
+import { colorConsole } from './utils';
 import { waitForElement } from './wait-elements';
 
-export async function saveAlert() {
+export async function attachSaveAlert() {
     const formFooter = await waitForElement({
         selector: '.form-footer.save',
-        logMessage: 'waiting for form footer',
+        elementName: 'waiting for form footer',
     });
-    const changes = document.querySelector(
-        '.form-footer.save > div'
-    )?.textContent;
-    const numChanges = Number(changes?.match(/^\d+/)?.[0]);
-
-    console.log(`form footer found, there are ${numChanges} changes`);
-
-    const notSaveButton = document.querySelectorAll(
+    if (formFooter.hasAttribute('listener')) return;
+    formFooter.setAttribute('listener', 'saveAlert');
+    const pageLinks = document.querySelectorAll(
         'a[href], a.back'
     ) as NodeListOf<HTMLAnchorElement>;
-    notSaveButton.forEach((ahref: HTMLAnchorElement) => {
-        ahref.addEventListener(
-            'click',
-            async (e: MouseEvent) => {
-                console.log('trying to exit without saving');
-                if (numChanges > 0) {
-                    const dialog = new Dialog({
-                        message: `You have ${numChanges} unsaved changes. Are you sure you want to discard them?`,
-                        accept: 'Discard',
-                        cancel: 'Cancel',
-                        soundAccept:
-                            'https://freesound.org/data/previews/48/48701_4483-lq.mp3',
-                        soundOpen:
-                            'https://freesound.org/data/previews/48/48701_4483-lq.mp3',
-                    });
-                    const result = await dialog.alert(
-                        `You have ${numChanges} unsaved changes. Are you sure you want to discard them?`
-                    );
-                    if (typeof result === 'boolean' && result) {
-                        dialog.toggle();
-                    }
-                }
-            },
-            { once: true }
-        );
+    pageLinks.forEach((ahref: HTMLAnchorElement) => {
+        ahref.addEventListener('click', handleSaveAlert, {
+            once: true,
+            capture: true,
+        });
     });
+}
+
+function getNumChanges() {
+    const targetDiv = document.querySelector('.form-footer.save > div');
+    const changesText = targetDiv?.textContent;
+    const match = changesText?.match(/^\d+/);
+    return match ? Number(match[0]) : null;
+}
+
+async function handleSaveAlert(e: MouseEvent) {
+    e.preventDefault();
+    console.log('trying to exit without saving');
+    const numChanges = getNumChanges();
+
+    const target = e.target as HTMLElement;
+    const dialog = new Dialog({
+        dialogClass: 'confirm-dialog',
+        accept: 'Save Changes',
+        cancel: 'Discard Changes',
+        message:
+            'You have ' +
+            `${numChanges ? numChanges + ' ' : ''}` +
+            'unsaved changes.',
+        target: target,
+    });
+
+    dialog.open();
+
+    const confirm = await dialog.waitForUser();
+    colorConsole(`save alert confirmation: ${confirm}`, 'green');
+    if (confirm) {
+        colorConsole('saving changes...', 'green');
+        (
+            document.querySelector(
+                '.form-footer.save div:nth-child(2) > div > button'
+            ) as HTMLButtonElement
+        ).click();
+    }
 }

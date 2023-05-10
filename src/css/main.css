@@ -1308,18 +1308,20 @@ i.fas.fa-address-card:before {
     outline-color: var(--dlg-outline-c, hsl(218, 79.19%, 35%));
 }
 
-.tag-confirm-dialog {
+dialog.confirm-dialog,
+dialog.save-alert-dialog {
     --dlg-w: 500px;
     --dlg-p: 0px;
     --dlg-ff: 'Poppins';
     overflow: hidden;
 }
 
-dialog.tag-confirm-dialog::backdrop {
+dialog.confirm-dialog::backdrop,
+dialog.save-alert-dialog::backdrop {
     background-color: rgb(21 36 87 / 66%);
 }
 
-dialog.tag-confirm-dialogspan.tag-add {
+dialog.confirm-dialog span.tag-add {
     white-space: pre;
     padding: 3px 15px;
     background-color: var(--tag-lightblue-bg);
@@ -1411,7 +1413,8 @@ dialog.tag-confirm-dialogspan.tag-add {
     width: 100%;
 }
 
-dialog.tag-confirm-dialog input {
+dialog.confirm-dialog input,
+dialog.save-alert-dialog input {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 0.25em;
     border: 0;
@@ -1421,12 +1424,14 @@ dialog.tag-confirm-dialog input {
     width: 100%;
 }
 
-dialog.tag-confirm-dialog label {
+dialog.confirm-dialog label,
+dialog.save-alert-dialog label {
     display: block;
     font-size: small;
 }
 
-dialog.tag-confirm-dialog button[data-ref] {
+dialog.confirm-dialog button[data-ref],
+dialog.save-alert-dialog button[data-ref] {
     width: 50%;
     font-size: 1.3em;
     padding-block: 18px;
@@ -1440,12 +1445,14 @@ button[data-ref='cancel']:hover {
     color: rgb(0, 0, 0);
 }
 
-dialog.tag-confirm-dialog button[data-ref='accept'] {
+dialog.confirm-dialog button[data-ref='accept'],
+dialog.save-alert-dialog button[data-ref='accept'] {
     background-color: var(--custom-primary);
     color: white;
 }
 
-dialog.tag-confirm-dialog button[data-ref='accept']::after {
+dialog.confirm-dialog button[data-ref='accept']::after,
+dialog.save-alert-dialog button[data-ref='accept']::after {
     content: 'Add +';
     text-transform: capitalize;
     position: absolute;
@@ -1460,7 +1467,8 @@ dialog.tag-confirm-dialog button[data-ref='accept']::after {
     transition: transform 0.35s ease-in-out;
 }
 
-dialog.tag-confirm-dialog button[data-ref='accept']:hover::after {
+dialog.confirm-dialog button[data-ref='accept']:hover::after,
+dialog.save-alert-dialog button[data-ref='accept']:hover::after {
     transform: translateX(0%) scaleX(1);
 }
 
@@ -1473,12 +1481,14 @@ span.tag-add {
     font-size: 0.7em;
 }
 
-dialog.tag-confirm-dialog form {
+dialog.confirm-dialog form,
+dialog.save-alert-dialog form {
     display: flex;
     flex-direction: column;
 }
 
-dialog.tag-confirm-dialog fieldset {
+dialog.confirm-dialog fieldset,
+dialog.save-alert-dialog fieldset {
     /* padding: 20px; */
     vertical-align: middle;
     display: flex;
@@ -1488,7 +1498,8 @@ dialog.tag-confirm-dialog fieldset {
     flex-wrap: wrap;
 }
 
-dialog.tag-confirm-dialog legend {
+dialog.confirm-dialog legend,
+dialog.save-alert-dialog legend {
     padding: 20px;
     text-align: center;
 }

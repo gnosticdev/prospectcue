@@ -5,7 +5,7 @@ export async function addContactSearchBox() {
     const parentSelector = '.hl_contact-details-left .contact-detail-nav';
     const parentNode = (await waitForElement({
         selector: parentSelector,
-        logMessage: 'waiting for searchBox parent node',
+        elementName: 'addContactSearchBox: waiting for parent node',
     })) as HTMLElement;
     const searchBox = document.createElement('input');
     searchBox.setAttribute('type', 'text');
@@ -24,7 +24,9 @@ export async function addContactSearchBox() {
 
         const contactDivs = (await waitForManyElements(
             CONTACT_DIVS_SELECTOR,
-            20
+            20,
+            undefined,
+            'addContactSearchBox'
         )) as NodeListOf<HTMLElement>;
         for (let div of contactDivs) {
             if (

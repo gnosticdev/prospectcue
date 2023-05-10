@@ -120,7 +120,7 @@ export default class Dialog {
         this.elements.accept.innerText = dialog.accept;
         this.elements.cancel.innerText = dialog.cancel;
         this.elements.cancel.hidden = dialog.cancel === '';
-        this.elements.message.innerText = dialog.message;
+        this.elements.message.innerHTML = dialog.message;
 
         /* If sounds exists, update `src` */
         this.elements.soundAccept.src = dialog.soundAccept || '';
