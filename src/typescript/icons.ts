@@ -5,7 +5,7 @@ export async function changeFontAwesomeIcons() {
         'i.fas.fa-pencil-alt',
         1,
         undefined,
-        'updatePhoneNumberIcon'
+        'pencil icons'
     )) as NodeListOf<HTMLElement>
     pencilIcons.forEach((icon) => (icon.className = 'icon icon-pencil --light'))
 
@@ -13,7 +13,7 @@ export async function changeFontAwesomeIcons() {
         'i.fas.fa-trash-alt',
         1,
         undefined,
-        'deletePhoneNumberIcon'
+        'trash icons'
     )) as NodeListOf<HTMLElement>
     trashIcons.forEach((icon) => (icon.className = 'icon icon-trash --light'))
 }

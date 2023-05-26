@@ -21,8 +21,8 @@ export function waitForElement(props: Props) {
                 return
             }
             // if element is not found, wait for it to be added to the DOM
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
+            const observer = new MutationObserver((record) => {
+                record.forEach((mutation) => {
                     const nodes = Array.from(mutation.addedNodes)
                     nodes.forEach((node) => {
                         if (node instanceof HTMLElement) {
@@ -97,12 +97,12 @@ export function waitForManyElements(
                 resolve(elements)
             }
 
-            const observer = new MutationObserver((mutations) => {
+            const observer = new MutationObserver((record) => {
                 colorConsole(
                     `starting ${elementName} mutation observer...`,
                     'yellow'
                 )
-                mutations.forEach((mutation) => {
+                record.forEach((mutation) => {
                     const elements = document.querySelectorAll(selectorAll)
                     if (elements.length >= numElements) {
                         colorConsole(

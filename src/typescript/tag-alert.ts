@@ -89,6 +89,7 @@ export async function checkNewTagAlert(newTagDiv?: HTMLDivElement) {
         colorConsole('new tag div not found, waiting for click', 'orange')
         const addNewTagSection = await waitForElement({
             selector: '.add-new',
+            elementName: 'add new tag section',
         })
 
         return attachTagAlert(addNewTagSection)
@@ -119,6 +120,7 @@ export async function checkNewTagAlert(newTagDiv?: HTMLDivElement) {
             )
             const addNewTagDiv = await waitForElement({
                 selector: '.add-new',
+                elementName: 'addNewTagDiv',
             })
             colorConsole(
                 `add new tag section loaded -> `,
