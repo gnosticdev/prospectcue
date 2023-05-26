@@ -168,4 +168,5 @@ export {
     processContactDivs,
     constants,
     addContactSearchBox,
+    updatePencilIcon,
 }
