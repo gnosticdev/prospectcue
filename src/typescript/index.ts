@@ -101,7 +101,7 @@ function handleWindowClicks(e: MouseEvent) {
     const CONTACTS_PATH = '/contacts/detail/'
     const CONVERSATIONS_PATH = '/conversations/conversations'
     const OPPORTUNITIES_PATH = '/opportunities/list'
-    const SETTINGS_PHONE_NUMBERS_PATH = '/settings/phone_number?tab=manage'
+    const SETTINGS_PHONE_NUMBERS_PATH = '/settings/phone_numbe'
 
     colorConsole(`click was on an anchor element: ${anchor?.href}`, 'yellow')
     // set the current url at the time of the click
@@ -151,7 +151,6 @@ function handleWindowClicks(e: MouseEvent) {
 
             // Phone Number Settings Page
         } else if (
-            currentPath.includes(SETTINGS_PHONE_NUMBERS_PATH) &&
             window.location.pathname.includes(SETTINGS_PHONE_NUMBERS_PATH)
         ) {
             colorConsole(
