@@ -3,7 +3,7 @@ import { waitForManyElements } from './wait-elements'
 export async function updatePhoneNumberIcon() {
     const phoneNumbers = (await waitForManyElements(
         'i.fas.fa-phone',
-        3,
+        1,
         undefined,
         'updatePhoneNumberIcon'
     )) as NodeListOf<HTMLElement>
