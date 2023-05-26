@@ -1,5 +1,13 @@
 import * as esbuild from 'esbuild'
 
+const timestamp = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+})
+
 /** @type {esbuild.BuildOptions} */
 const build = {
     entryPoints: [
@@ -22,6 +30,10 @@ const build = {
     minify: true,
     sourcemap: true,
     target: ['es6'],
+    banner: {
+        js: `// ${timestamp}}`,
+        css: `/* ${timestamp} */`,
+    },
     format: 'iife',
     outdir: 'docs',
     globalName: 'ProspectCue',
