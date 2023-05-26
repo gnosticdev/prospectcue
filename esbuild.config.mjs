@@ -31,7 +31,7 @@ const build = {
     sourcemap: true,
     target: ['es6'],
     banner: {
-        js: `// ${timestamp}}`,
+        js: `// ${timestamp}`,
         css: `/* ${timestamp} */`,
     },
     format: 'iife',
