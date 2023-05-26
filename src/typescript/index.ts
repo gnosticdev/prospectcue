@@ -41,7 +41,7 @@ async function startProspectCueCustomizations() {
     }
 
     // watch for clicks on the window
-    window.addEventListener('click', handleWindowClicks, {})
+    window.addEventListener('click', handleWindowClicks)
 }
 
 export async function runContactPageCustomizations() {
