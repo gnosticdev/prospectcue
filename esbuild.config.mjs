@@ -1,4 +1,4 @@
-import * as esbuild from 'esbuild';
+import * as esbuild from 'esbuild'
 
 /** @type {esbuild.BuildOptions} */
 const build = {
@@ -18,6 +18,7 @@ const build = {
         'CNAME',
     ],
     bundle: true,
+    logLevel: 'info',
     minify: true,
     sourcemap: true,
     target: ['es6'],
@@ -29,27 +30,28 @@ const build = {
         '.jpg': 'file',
         '': 'copy',
     },
-};
+}
 
 /** @type {esbuild.BuildOptions} */
 const copyBuild = {
     entryPoints: ['docs/index.js', 'docs/main.css'],
     bundle: false,
+    logLevel: 'info',
     outdir: './static.prospectcue.com',
     loader: {
         '.js': 'copy',
         '.css': 'copy',
     },
-};
+}
 
-await esbuild.build(build);
-await esbuild.build(copyBuild);
+await esbuild.build(build)
+await esbuild.build(copyBuild)
 
-const isWatch = process.argv.includes('--watch');
+const isWatch = process.argv.includes('--watch')
 
 if (isWatch) {
-    let ctx = await esbuild.context(build);
-    let ctx2 = await esbuild.context(copyBuild);
-    await ctx.watch();
-    await ctx2.watch();
+    let ctx = await esbuild.context(build)
+    let ctx2 = await esbuild.context(copyBuild)
+    await ctx.watch()
+    await ctx2.watch()
 }
