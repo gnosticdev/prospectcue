@@ -6,7 +6,7 @@ import * as wait from './wait-elements'
 import * as constants from './constants'
 import { addContactSearchBox } from './search-box'
 import { attachSaveAlert } from './save-alert'
-import { updatePhoneNumberIcon } from './phone-numbers'
+import { updatePencilIcon } from './phone-numbers'
 
 export const appended: ProspectCue = {
     addressDivs: {},
@@ -150,15 +150,9 @@ function handleWindowClicks(e: MouseEvent) {
             await checkNewTagAlert()
 
             // Phone Number Settings Page
-        } else if (
-            window.location.pathname.includes(SETTINGS_PHONE_NUMBERS_PATH)
-        ) {
-            colorConsole(
-                `click on phone number settings page, checking for add new tag`,
-                'yellow'
-            )
-            await updatePhoneNumberIcon()
         }
+        colorConsole(`checking for pencil icons`, 'yellow')
+        await updatePencilIcon()
     }, 500)
 }
 

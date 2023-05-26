@@ -1,6 +1,6 @@
 import { waitForManyElements } from './wait-elements'
 
-export async function updatePhoneNumberIcon() {
+export async function updatePencilIcon() {
     const phoneNumbers = (await waitForManyElements(
         'i.fas.fa-pencil-alt',
         1,
