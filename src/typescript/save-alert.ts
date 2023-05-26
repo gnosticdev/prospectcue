@@ -5,7 +5,7 @@ import { waitForElement } from './wait-elements';
 export async function attachSaveAlert() {
     const formFooter = await waitForElement({
         selector: '.form-footer.save',
-        elementName: 'waiting for form footer',
+        elementName: 'attachSaveAlert:',
     });
     if (formFooter.hasAttribute('listener')) return;
     formFooter.setAttribute('listener', 'saveAlert');
@@ -24,7 +24,7 @@ function getNumChanges() {
     const targetDiv = document.querySelector('.form-footer.save > div');
     const changesText = targetDiv?.textContent;
     const match = changesText?.match(/^\d+/);
-    return match ? Number(match[0]) : null;
+    return match ? +match[0] : null;
 }
 
 async function handleSaveAlert(e: MouseEvent) {

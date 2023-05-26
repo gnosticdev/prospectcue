@@ -21,10 +21,6 @@ export function waitForElement(props: Props) {
                 const nodes = Array.from(mutation.addedNodes);
                 nodes.forEach((node) => {
                     if (node instanceof HTMLElement) {
-                        // TEST
-                        if (selector.includes('form-footer')) {
-                            console.log('looking for form footer', node);
-                        }
                         const element = node.querySelector(selector);
                         if (node.matches(selector)) {
                             colorConsole(
@@ -126,6 +122,7 @@ export function waitForTextContent(selectorAll: string, textContent: string, ele
         }
 
         const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
             const elements = document.querySelectorAll(
                 selectorAll
             ) as NodeListOf<HTMLElement>;
@@ -141,6 +138,7 @@ export function waitForTextContent(selectorAll: string, textContent: string, ele
                     observer.disconnect();
                 }
             }
+        });
         });
         observer.observe(document.body, {
             childList: true,
