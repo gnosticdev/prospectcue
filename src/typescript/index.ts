@@ -41,7 +41,7 @@ async function startProspectCueCustomizations() {
     }
 
     // watch for clicks on the window
-    window.addEventListener('click', handleWindowClicks)
+    window.addEventListener('click', handleWindowClicks, {})
 }
 
 export async function runContactPageCustomizations() {
@@ -132,8 +132,6 @@ function handleWindowClicks(e: MouseEvent) {
                 'yellow'
             )
             await checkNewTagAlert()
-
-            // Phone Number Settings Page
         }
         colorConsole(`checking for pencil icons`, 'yellow')
         await changeFontAwesomeIcons()

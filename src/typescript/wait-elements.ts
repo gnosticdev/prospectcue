@@ -10,38 +10,56 @@ export function waitForElement(props: Props) {
 
     elementName &&
         colorConsole(`${elementName}...waiting for ${props.selector}`)
-    return new Promise((resolve: (value: HTMLElement) => void) => {
-        const element = document.querySelector(selector) as HTMLElement
-        if (element) {
-            resolve(element)
-            return
-        }
-        // if element is not found, wait for it to be added to the DOM
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                const nodes = Array.from(mutation.addedNodes)
-                nodes.forEach((node) => {
-                    if (node instanceof HTMLElement) {
-                        const element = node.querySelector(selector)
-                        if (node.matches(selector)) {
-                            colorConsole(
-                                `${elementName}...found -> ${selector} in`,
-                                'green',
-                                node
-                            )
-                            observer.disconnect()
-                            resolve(node)
+    return new Promise(
+        (
+            resolve: (value: HTMLElement) => void,
+            reject: (error: Error) => void
+        ) => {
+            const element = document.querySelector(selector) as HTMLElement
+            if (element) {
+                resolve(element)
+                return
+            }
+            // if element is not found, wait for it to be added to the DOM
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    const nodes = Array.from(mutation.addedNodes)
+                    nodes.forEach((node) => {
+                        if (node instanceof HTMLElement) {
+                            const element = node.querySelector(selector)
+                            if (node.matches(selector)) {
+                                colorConsole(
+                                    `${elementName}...found -> ${selector} in`,
+                                    'green',
+                                    node
+                                )
+                                observer.disconnect()
+                                resolve(node)
+                            }
                         }
-                    }
+                    })
                 })
-            })
-        })
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-        })
-    })
+                setTimeout(() => {
+                    colorConsole(
+                        `${elementName}...${selector} not found after 4 seconds...`,
+                        'orange'
+                    )
+                    observer.disconnect()
+                    reject(
+                        new Error(
+                            `${elementName} was not found after 4 seconds`
+                        )
+                    ) // Reject the promise with a new Error
+                }, 4000)
+            })
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            })
+        }
+    )
 }
 
 /**
@@ -64,41 +82,59 @@ export function waitForManyElements(
             textContent ? `with textContent ${textContent}` : ''
         }`
     )
-    return new Promise((resolve: (value: NodeList) => void) => {
-        const elements = document.querySelectorAll(selectorAll)
-        if (elements.length >= numElements) {
-            colorConsole(
-                `${elementName} already has at least ${numElements} nodes...`,
-                'green',
-                elements
-            )
-            resolve(elements)
-        }
+    return new Promise(
+        (
+            resolve: (value: NodeList) => void,
+            reject: (error: Error) => void
+        ) => {
+            const elements = document.querySelectorAll(selectorAll)
+            if (elements.length >= numElements) {
+                colorConsole(
+                    `${elementName} already has at least ${numElements} nodes...`,
+                    'green',
+                    elements
+                )
+                resolve(elements)
+            }
 
-        const pObserver = new MutationObserver((mutations) => {
-            colorConsole(
-                `starting ${elementName} mutation observer...`,
-                'yellow'
-            )
-            mutations.forEach((mutation) => {
-                const elements = document.querySelectorAll(selectorAll)
-                if (elements.length >= numElements) {
+            const observer = new MutationObserver((mutations) => {
+                colorConsole(
+                    `starting ${elementName} mutation observer...`,
+                    'yellow'
+                )
+                mutations.forEach((mutation) => {
+                    const elements = document.querySelectorAll(selectorAll)
+                    if (elements.length >= numElements) {
+                        colorConsole(
+                            `${elementName}: ${elementName} now has at least ${numElements} nodes...`,
+                            'green',
+                            elements
+                        )
+                        resolve(elements)
+                        observer.disconnect()
+                    }
+                })
+
+                setTimeout(() => {
                     colorConsole(
-                        `${elementName}: ${elementName} now has at least ${numElements} nodes...`,
-                        'green',
-                        elements
+                        `${elementName}: ${elementName} still does not have ${numElements} nodes after 4 seconds...`,
+                        'orange'
                     )
-                    resolve(elements)
-                    pObserver.disconnect()
-                }
+                    observer.disconnect()
+                    reject(
+                        new Error(
+                            `${elementName} did not get ${numElements} nodes after 4 seconds`
+                        )
+                    ) // Reject the promise with a new Error
+                }, 4000)
             })
-        })
 
-        pObserver.observe(document.body, {
-            childList: true,
-            subtree: true,
-        })
-    })
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            })
+        }
+    )
 }
 
 /**
