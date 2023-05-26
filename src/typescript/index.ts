@@ -6,7 +6,7 @@ import * as wait from './wait-elements'
 import * as constants from './constants'
 import { addContactSearchBox } from './search-box'
 import { attachSaveAlert } from './save-alert'
-import { updatePencilIcon } from './phone-numbers'
+import { changeFontAwesomeIcons } from './icons'
 
 export const appended: ProspectCue = {
     addressDivs: {},
@@ -19,6 +19,7 @@ export const appended: ProspectCue = {
 // Initialize the scripts on page load/reload
 startProspectCueCustomizations()
 
+// This only runs on page load/reload
 async function startProspectCueCustomizations() {
     colorConsole('Starting prospectcue customizations', 'green')
     if (window.location.pathname.includes('/contacts/detail/')) {
@@ -93,15 +94,9 @@ function handleWindowClicks(e: MouseEvent) {
     const target = e.target as HTMLElement
     const anchor = findAncestorWithHref(target)
 
-    if (anchor === null) {
-        colorConsole(`click was not on an anchor element`, 'yellow')
-        return
-    }
-
     const CONTACTS_PATH = '/contacts/detail/'
     const CONVERSATIONS_PATH = '/conversations/conversations'
     const OPPORTUNITIES_PATH = '/opportunities/list'
-    const SETTINGS_PHONE_NUMBERS_PATH = '/settings/phone_numbe'
 
     colorConsole(`click was on an anchor element: ${anchor?.href}`, 'yellow')
     // set the current url at the time of the click
@@ -119,17 +114,6 @@ function handleWindowClicks(e: MouseEvent) {
                 `click on contact page, checking for add new tag`,
                 'yellow'
             )
-            // Contact Details Page - click on a within the page.
-        } else if (
-            !currentPath.includes(CONTACTS_PATH) &&
-            newPath.includes(CONTACTS_PATH)
-        ) {
-            colorConsole(
-                `click on contact page, checking for add new tag`,
-                'yellow'
-            )
-            await runContactPageCustomizations()
-
             // Conversations Page
         } else if (window.location.pathname.includes(CONVERSATIONS_PATH)) {
             colorConsole(
@@ -152,7 +136,7 @@ function handleWindowClicks(e: MouseEvent) {
             // Phone Number Settings Page
         }
         colorConsole(`checking for pencil icons`, 'yellow')
-        await updatePencilIcon()
+        await changeFontAwesomeIcons()
     }, 500)
 }
 
@@ -168,5 +152,5 @@ export {
     processContactDivs,
     constants,
     addContactSearchBox,
-    updatePencilIcon,
+    changeFontAwesomeIcons as updatePencilIcon,
 }
