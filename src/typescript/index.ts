@@ -40,8 +40,7 @@ async function startProspectCueCustomizations() {
     }
 
     // watch for clicks on the window
-
-    window.addEventListener('click', handleWindowClicks, { once: true })
+    window.addEventListener('click', handleWindowClicks)
 }
 
 export async function runContactPageCustomizations() {
@@ -91,8 +90,8 @@ function findAncestorWithHref(
 }
 
 function handleWindowClicks(e: MouseEvent) {
-    const currentTarget = e.currentTarget as HTMLElement
-    const anchor = findAncestorWithHref(currentTarget)
+    const target = e.target as HTMLElement
+    const anchor = findAncestorWithHref(target)
 
     if (anchor === null) {
         colorConsole(`click was not on an anchor element`, 'yellow')
@@ -110,11 +109,7 @@ function handleWindowClicks(e: MouseEvent) {
     setTimeout(async () => {
         const newPath = window.location.pathname
         // dont run if link is an id selector on same page
-        if (
-            currentPath.includes(CONTACTS_PATH) &&
-            newPath.includes(CONTACTS_PATH) &&
-            window.location.hash
-        ) {
+        if (currentPath === newPath && window.location.hash) {
             return
         }
         // Contact Details Page
@@ -124,23 +119,37 @@ function handleWindowClicks(e: MouseEvent) {
                 `click on contact page, checking for add new tag`,
                 'yellow'
             )
+            // Contact Details Page - click on a within the page.
         } else if (
             !currentPath.includes(CONTACTS_PATH) &&
             newPath.includes(CONTACTS_PATH)
         ) {
-            // Contact Details Page - click on a within the page.
             colorConsole(
                 `click on contact page, checking for add new tag`,
                 'yellow'
             )
             await runContactPageCustomizations()
+
+            // Conversations Page
         } else if (window.location.pathname.includes(CONVERSATIONS_PATH)) {
+            colorConsole(
+                `click on conversations page, checking for add new tag`,
+                'yellow'
+            )
             await checkNewTagAlert()
+
+            // Opportunities Page
         } else if (
             currentPath.includes(OPPORTUNITIES_PATH) &&
             window.location.pathname.includes(OPPORTUNITIES_PATH)
         ) {
+            colorConsole(
+                `click on opportunities page, checking for add new tag`,
+                'yellow'
+            )
             await checkNewTagAlert()
+
+            // Phone Number Settings Page
         } else if (
             currentPath.includes(SETTINGS_PHONE_NUMBERS_PATH) &&
             window.location.pathname.includes(SETTINGS_PHONE_NUMBERS_PATH)
@@ -158,7 +167,7 @@ export {
     wait,
     addTagElements,
     appendTagLink,
-    checkNewTagAlert as checkAddNewTag,
+    checkNewTagAlert,
     colorConsole,
     startProspectCueCustomizations,
     getAddressDivs,
