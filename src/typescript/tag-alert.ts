@@ -86,7 +86,8 @@ export async function appendTagLink(tagsSection: HTMLDivElement) {
  */
 export async function checkNewTagAlert(newTagDiv?: HTMLDivElement) {
     if (!newTagDiv) {
-        colorConsole('new tag div not found, waiting for click', 'orange')
+        colorConsole('new tag div NOT found, waiting for click', 'orange')
+
         const addNewTagSection = await waitForElement({
             selector: '.add-new',
             elementName: 'add new tag section',

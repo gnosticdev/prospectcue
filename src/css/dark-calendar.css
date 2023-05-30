@@ -1,0 +1,115 @@
+.hl-app .white-bg {
+    background-color: #15152100;
+}
+/*color of dates*/
+.selectable .vdpCellContent {
+    color: #9d9da6;
+    background-color: #151521;
+    border-style: solid;
+    border-color: #565674;
+    border-width: 0px;
+}
+/* selected date circle */
+.vdpCell.selected .vdpCellContent {
+    background-color: purple;
+}
+/* dates when hovered on */
+.vdpCell.selectable:hover .vdpCellContent {
+}
+/* button */
+.hl-app .hl_button.--primary {
+    background-color: #151521;
+}
+/* button when hovered */
+.hl-app .hl_button.--primary:active,
+.hl-app .hl_button.--primary:focus,
+.hl-app .hl_button.--primary:hover {
+    background-color: #1e1e2d;
+}
+/* time boxes when not selected */
+.hl-app .hl_widget-step1 .hour-select {
+    background-color: #1e1e2d;
+}
+/* text in time boxes */
+.hl-app .hl_widget-step1 .hour-select label {
+    color: #9d9da6;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #565674;
+}
+/* calendar background */
+.hl-app .no-shadow {
+    background-color: #151521;
+}
+/* selected time */
+.hl-app .hl_widget-step1 .hour-select input:checked + label {
+    background-color: purple;
+}
+/* calendar header */
+header.vdpHeader {
+    background-color: #1e1e2d !important;
+}
+/* calendar body */
+.vdpInnerWrap {
+    background-color: #1e1e2d;
+}
+/* pick a date and time font color */
+.hl-app .hl_widget-step1 h3 {
+    color: #9d9da6;
+}
+/*font color of month and year*/
+.vdpPeriodControl > button {
+    color: #565674;
+}
+/*font color of days*/
+.vdpHeadCellContent {
+    color: #565674;
+}
+/*font color of "Available Starting times for"*/
+.hl-app .hl_widget-step1 .hl_widget--pick-hours h3 {
+    color: #9d9da6;
+}
+/*font color of Date*/
+.hl-app .hl_widget-step1 .hl_widget--pick-hours h3 strong {
+    color: #9d9da6;
+}
+/*font color of AM PM*/
+.hl-app .hl_widget-step1 .pick-hours--wrap h4 {
+    color: #565674;
+}
+/*drop down*/
+.hl-app .multi_select_calendar .multiselect__input {
+    background-color: #1e1e2d !important;
+    color: #9d9da6;
+}
+.multi_select_calendar .multiselect__single {
+    color: #9d9da6;
+    background-color: #1e1e2d;
+}
+/*font color of load more*/
+.hl-app .load-more {
+    color: #565674;
+}
+/*dates that cant be picked*/
+.disabled .vdpCellContent {
+    background: #1e1e2d !important;
+    color: #565674 !important;
+}
+/*select date button*/
+.hl-app .hl_button.--first-step {
+    background: #151521;
+    color: #9d9da6 !important;
+    border-color: #565674;
+}
+/* form back button color */
+svg {
+    fill: #9d9da6 !important;
+}
+/*form background*/
+.hl-app .form-builder--wrap {
+    background-color: #1e1e2d !important;
+}
+/*form label font color*/
+.hl-app .form-builder--item label {
+    color: #9d9da6;
+}
