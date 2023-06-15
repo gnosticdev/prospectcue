@@ -1,11 +1,11 @@
-import { appended } from './index';
+import { appended } from './index'
 
 /**
  * cycles through the labels on the page and finds the address fields
  */
 export function getAddressDivs(labels: NodeList) {
     // Find the Street Address label, then find the containing Div, then use its siblings to find the other address fields.
-    let addressDivChildren;
+    let addressDivChildren
     for (let label of labels) {
         if (
             label.textContent &&
@@ -14,10 +14,10 @@ export function getAddressDivs(labels: NodeList) {
             /** @type {HTMLElement} */
             addressDivChildren = (label as HTMLElement).closest(
                 '.pt-3 > div'
-            )?.children;
+            )?.children
             if (!addressDivChildren) {
-                colorConsole('could not find addressDivChildren', 'red');
-                return;
+                colorConsole('could not find addressDivChildren', 'red')
+                return
             }
 
             const addressDivs: AddressDivs = {
@@ -27,10 +27,10 @@ export function getAddressDivs(labels: NodeList) {
                 stateDiv: addressDivChildren[4] as HTMLElement,
                 zipDiv: addressDivChildren[5] as HTMLElement,
                 addressDivChildren: addressDivChildren,
-            };
+            }
 
-            appended.addressDivs = addressDivs;
-            return addressDivs;
+            appended.addressDivs = addressDivs
+            return addressDivs
         }
     }
 }
@@ -46,13 +46,13 @@ export function colorConsole(
         blue: '#88FFF7',
         yellow: '#FFF6BF',
         orange: '#f19684',
-    };
+    }
 
-    color ??= 'blue';
+    color ??= 'blue'
 
-    console.log(
+    console.trace(
         `%c 🪐 ${logString}`,
         `font-size: 13px; color: ${colorMap[color]} `,
         object
-    );
+    )
 }
