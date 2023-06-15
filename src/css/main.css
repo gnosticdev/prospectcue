@@ -44,9 +44,9 @@
 
 /* Login Changes New */
 
-body *,
+body,
 body .hl_login--body * {
-    font-family: var(--main-font) !important;
+    font-family: var(--main-font);
 }
 
 .sidebar-v2-agency #sidebar-v2 .default-bg-color,
