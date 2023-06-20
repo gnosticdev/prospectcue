@@ -6,7 +6,6 @@ import * as wait from './wait-elements'
 import * as constants from './constants'
 import { addContactSearchBox } from './search-box'
 import { attachSaveAlert } from './save-alert'
-import { changeFontAwesomeIcons } from './icons'
 
 export const appended: ProspectCue = {
     addressDivs: {},
@@ -133,8 +132,6 @@ function handleWindowClicks(e: MouseEvent) {
             )
             await checkNewTagAlert()
         }
-        colorConsole(`checking for pencil icons`, 'yellow')
-        await changeFontAwesomeIcons()
     }, 500)
 }
 
@@ -150,5 +147,4 @@ export {
     processContactDivs,
     constants,
     addContactSearchBox,
-    changeFontAwesomeIcons as updatePencilIcon,
 }
