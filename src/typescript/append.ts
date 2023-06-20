@@ -4,13 +4,8 @@ import { waitForElement, waitForManyElements } from './wait-elements'
 
 export async function addAddressButtons() {
     // Check if map buttons already present
-    const labels = await waitForManyElements(
-        '.hl_contact-details-left .form-group .label',
-        20,
-        undefined,
-        'waiting for address labels'
-    )
-    const addressDivs = getAddressDivs(labels)
+
+    const addressDivs = await getAddressDivs()
     if (!addressDivs) {
         colorConsole(
             'no address divs found, returning from startAddButtons',

@@ -1,38 +1,27 @@
 import { appended } from './index'
+import { waitForElement } from './wait-elements'
 
 /**
  * cycles through the labels on the page and finds the address fields
  */
-export function getAddressDivs(labels: NodeList) {
-    // Find the Street Address label, then find the containing Div, then use its siblings to find the other address fields.
-    let addressDivChildren
-    for (let label of labels) {
-        if (
-            label.textContent &&
-            label.textContent.trim() === 'Street Address'
-        ) {
-            /** @type {HTMLElement} */
-            addressDivChildren = (label as HTMLElement).closest(
-                '.pt-3 > div'
-            )?.children
-            if (!addressDivChildren) {
-                colorConsole('could not find addressDivChildren', 'red')
-                return
-            }
-
-            const addressDivs: AddressDivs = {
-                streetLabel: label as HTMLElement,
-                streetDiv: addressDivChildren[1] as HTMLElement,
-                cityDiv: addressDivChildren[2] as HTMLElement,
-                stateDiv: addressDivChildren[4] as HTMLElement,
-                zipDiv: addressDivChildren[5] as HTMLElement,
-                addressDivChildren: addressDivChildren,
-            }
-
-            appended.addressDivs = addressDivs
-            return addressDivs
-        }
+export async function getAddressDivs(): Promise<AddressDivs | null> {
+    let streetDiv = document.getElementById('contact.address1') as HTMLElement
+    let cityDiv = document.getElementById('contact.city') as HTMLElement
+    let stateDiv = document.getElementById('contact.state') as HTMLElement
+    let zipDiv = document.getElementById('contact.postal_code') as HTMLElement
+    if (!streetDiv || !cityDiv || !stateDiv || !zipDiv) {
+        await delay(3000)
     }
+    const streetLabel = streetDiv.previousElementSibling as HTMLElement
+    if (streetDiv && cityDiv && stateDiv && zipDiv) {
+        return { streetLabel, streetDiv, cityDiv, stateDiv, zipDiv }
+    } else {
+        return null
+    }
+}
+
+export const delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export function colorConsole(
