@@ -50,9 +50,19 @@ export function colorConsole(
 
     color ??= 'blue'
 
-    console.trace(
-        `%c 🪐 ${logString}`,
-        `font-size: 13px; color: ${colorMap[color]} `,
+    // Create a custom stack trace
+    const stackTrace = new Error().stack
+
+    // Split the stack trace into lines
+    const stackLines = stackTrace?.split('\n')
+
+    // Extract the first 5 stack frames (excluding the first line which is the error message)
+    const firstFiveStackFrames = stackLines?.slice(1, 6).join('\n')
+
+    // Log the custom stack trace
+    console.log(
+        `%c 🪐 ${logString}\n${firstFiveStackFrames}`,
+        `font-size: 13px; color: ${colorMap[color]}`,
         object
     )
 }
