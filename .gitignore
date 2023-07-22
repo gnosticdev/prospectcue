@@ -78,6 +78,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+*lock.yaml
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -177,5 +178,8 @@ out
 
 # Tests directory and all files in it
 tests
+
+# Cloudflare config
+wrangler.toml
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos
